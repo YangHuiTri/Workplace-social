@@ -41,5 +41,25 @@ Route::group(['prefix' => 'admin','middleware'=>'auth:admin'],function(){
 	Route::post('uploader/webuploader', 'Admin\UploaderController@webuploader');//异步上传
 	Route::get('member/getareabyid','Admin\MemberController@getAreaById');//ajax联动
 
+	//企业管理模块
+	Route::get('company/index', 'Admin\CompanyController@index');//企业列表
+	Route::get('company/del', 'Admin\CompanyController@del');//删除企业
+
 });
 
+
+
+
+//*****************************前台路由****************************************
+//前台路由部分
+//首页
+Route::get('/', 'Home\IndexController@index');
+
+Route::group(['prefix' => 'home'], function(){
+	//登录页面
+	Route::get('index/login', 'Home\IndexController@login');
+	//登录处理页面
+	Route::post('index/check', 'Home\IndexController@check');
+	//注册页面
+	Route::get('index/register', 'Home\IndexController@register');
+});

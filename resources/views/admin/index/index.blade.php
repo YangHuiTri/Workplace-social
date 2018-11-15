@@ -62,37 +62,40 @@
 			<dd>
 				<ul>
 					<li><a data-href="/admin/protype/index" data-title="专业分类" href="javascript:void(0)">专业分类</a></li>
-					<li><a data-href="/admin/profession/index" data-title="专业列表" href="javascript:void(0)">专业列表</a></li>
-			</ul>
-		</dd>
-	</dl>
+						<li><a data-href="/admin/profession/index" data-title="专业列表" href="javascript:void(0)">专业列表</a></li>
+				</ul>
+			</dd>
+		</dl>
+
 		<dl id="menu-picture">
 			<dt><i class="Hui-iconfont">&#xe626;</i> 课程管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="/admin/course/index" data-title="课程列表" href="javascript:void(0)">课程列表</a></li>
 					<li><a data-href="/admin/lesson/index" data-title="点播列表" href="javascript:void(0)">点播列表</a></li>
-			</ul>
-		</dd>
-	</dl>
-		<dl id="menu-product">
-			<dt><i class="Hui-iconfont">&#xe72d;</i> 试卷试题管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
-			<dd>
-				<ul>
-					<li><a data-href="/admin/paper/index" data-title="试卷管理" href="javascript:void(0)">试卷管理</a></li>
-					<li><a data-href="/admin/question/index" data-title="试题管理" href="javascript:void(0)">试题管理</a></li>
-			</ul>
-		</dd>
-	</dl>
+				</ul>
+			</dd>
+		</dl>
+
 		<dl id="menu-comments">
 			<dt><i class="Hui-iconfont">&#xe622;</i> 评论管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="http://h-ui.duoshuo.com/admin/" data-title="评论列表" href="javascript:;">评论列表</a></li>
 					<li><a data-href="feedback-list.html" data-title="意见反馈" href="javascript:void(0)">意见反馈</a></li>
-			</ul>
-		</dd>
-	</dl>
+				</ul>
+			</dd>
+		</dl>
+
+		<dl id="menu-product">
+			<dt><i class="Hui-iconfont">&#xe72d;</i> 企业管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="/admin/company/index" data-title="企业列表" href="javascript:void(0)">企业列表</a></li>
+				</ul>
+			</dd>	
+		</dl>
+
 		<dl id="menu-member">
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -104,17 +107,19 @@
 					<li><a data-href="member-record-browse.html" data-title="浏览记录" href="javascript:void(0)">浏览记录</a></li>
 					<li><a data-href="member-record-download.html" data-title="下载记录" href="javascript:void(0)">下载记录</a></li>
 					<li><a data-href="member-record-share.html" data-title="分享记录" href="javascript:void(0)">分享记录</a></li>
-			</ul>
-		</dd>
-	</dl>
+				</ul>
+			</dd>
+		</dl>
+
 		<dl id="menu-admin">
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="/admin/manager/index" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
-			</ul>
-		</dd>
-	</dl>
+				</ul>
+			</dd>
+		</dl>
+
 		<dl id="menu-tongji">
 			<dt><i class="Hui-iconfont">&#xe61a;</i> 系统统计<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -126,9 +131,10 @@
 					<li><a data-href="charts-5.html" data-title="饼状图" href="javascript:void(0)">饼状图</a></li>
 					<li><a data-href="charts-6.html" data-title="3D柱状图" href="javascript:void(0)">3D柱状图</a></li>
 					<li><a data-href="charts-7.html" data-title="3D饼状图" href="javascript:void(0)">3D饼状图</a></li>
-			</ul>
-		</dd>
-	</dl>
+				</ul>
+			</dd>
+		</dl>
+
 		<dl id="menu-system">
 			<dt><i class="Hui-iconfont">&#xe62e;</i> 系统管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
@@ -138,9 +144,9 @@
 					<li><a data-href="system-data.html" data-title="数据字典" href="javascript:void(0)">数据字典</a></li>
 					<li><a data-href="system-shielding.html" data-title="屏蔽词" href="javascript:void(0)">屏蔽词</a></li>
 					<li><a data-href="system-log.html" data-title="系统日志" href="javascript:void(0)">系统日志</a></li>
-			</ul>
-		</dd>
-	</dl>
+				</ul>
+			</dd>
+		</dl>
 </div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>

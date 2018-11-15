@@ -18,7 +18,7 @@ class CompanyTableSeeder extends Seeder
         for($i = 1; $i <= 100; $i++){
         	$data[] = [
         		'com_name' => $faker->company,
-        		'password' => bcrypt('password'),
+        		'password' => bcrypt('123456'),
         		'mobile' => $faker->phoneNumber,
         		'email' => $faker->email,
         		'created_at' => date('Y-m-d H:i:s'),

@@ -46,6 +46,14 @@ return [
             'driver' => 'session',
             'provider' => 'admin',
         ],
+        'company' => [
+            'driver' => 'session',
+            'provider' => 'company',
+        ],
+        'member' => [
+            'driver' => 'session',
+            'provider' => 'member',
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -80,6 +88,14 @@ return [
         'admin' => [
             'driver' => 'eloquent',
             'model' => App\Admin\Manager::class,
+        ],
+        'company' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin\Company::class,
+        ],
+        'member' => [
+            'driver' => 'eloquent',
+            'model' => App\Admin\Member::class,
         ],
 
         // 'users' => [
