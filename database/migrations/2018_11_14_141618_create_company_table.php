@@ -23,6 +23,7 @@ class CreateCompanyTable extends Migration
             $table -> integer('emp_count');//员工数
             $table -> text('introduction');//公司简介
             $table -> timestamps();
+            $table -> rememberToken();
         });
     }
 

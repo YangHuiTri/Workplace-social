@@ -44,6 +44,7 @@ jQuery(function() {
         }
     });
 
+
     // 当有文件添加进来的时候
     uploader.on('fileQueued', function(file) {
         var $li = $(

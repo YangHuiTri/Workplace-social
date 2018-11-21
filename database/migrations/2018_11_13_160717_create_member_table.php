@@ -18,13 +18,13 @@ class CreateMemberTable extends Migration
             $table -> increments('id'); 
             $table -> string('username',20) -> notNull();
             $table -> string('password') -> notNull();
-            $table -> enum('gender',[1,2,3]) -> nutNull() -> default('1');
+            $table -> enum('gender',[1,2,3]) -> nutNull() -> default('1');//1男2女3保密
             $table -> string('mobile',11);
             $table -> string('email',40);
             $table -> string('avatar');
             $table -> timestamps();
             $table -> rememberToken();
-            $table -> enum('status',[1,2]) -> notNull() -> default('2');
+            $table -> enum('status',[1,2]) -> notNull() -> default('2');//1禁用2正常
         });
     }
 

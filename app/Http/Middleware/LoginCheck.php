@@ -16,10 +16,12 @@ class LoginCheck
     public function handle($request, Closure $next)
     {
         //判断后台是否登录
-        if(session('loginInfo')){
+        if(session('loginType')){
             return $next($request);
         }else{
-            return redirect('/home/index/login');
+            return redirect('/home/login/index')->withErrors([
+                'loginError'    =>  '您还未登录，请登录！'
+            ]);
         }
     }
 }

@@ -17,14 +17,14 @@ class UploaderController extends Controller
     		$filename = sha1(time() . $request -> file('file') -> getClientOriginalName()) . '.' .  $request -> file('file') -> getClientOriginalExtension();
     		//文件保存/移动
     		Storage::disk('public') -> put($filename, file_get_contents($request -> file('file') -> path()));
-
     		//返回数据
-    		$result = [
-    			'errCode'	=>	'0',
-    			'errMsg'	=>	'',
-    			'succMsg'	=>	'文件上传成功',
-    			'path'		=>	'/storage/' . $filename,
-    		];
+                $result = [
+                    'errCode'   =>  '0',
+                    'errMsg'    =>  '',
+                    'succMsg'   =>  '文件上传成功',
+                    'path'      =>  '/storage/' . $filename,
+                ];
+    		
     	}else{
     		//没有文件上传或者出错
     		$result = [
