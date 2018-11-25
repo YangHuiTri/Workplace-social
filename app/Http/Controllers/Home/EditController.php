@@ -15,7 +15,7 @@ class EditController extends Controller
 {
     //编辑信息
     public function index(Request $request){
-    	//接收id
+    	//接收用户id
     	$id = $request->id;
     	//需要编辑的类型（企业company/用户member）
     	$type = $request->type;
@@ -38,6 +38,7 @@ class EditController extends Controller
     			//查询头像信息（修改之前存在头像但修改时没有上传新头像还是要显示旧头像）
     			$data = DB::table('member')->where('id','=',$id)->get();
     			$avatar = $data['0']->avatar;//原头像
+
     			//原地址信息
     			// if(Input::get('country_id') == '0'){
     			// 	$country_id = $data['0']->country_id;
@@ -51,12 +52,17 @@ class EditController extends Controller
 	    		// 	$county_id = Input::get('country_id');
     			// }
     			
-    // 			//学历
-    // 			$education = $data['0']->education;
+     			//学历
+     			//$education = $data['0']->education;
 				// //毕业院校
-    // 			$school_id = $data['0']->school_id;
-    // 			//就业公司
-    // 			$com_id = $data['0']->com_id;
+     			//$school_id = $data['0']->school_id;
+     			//就业公司
+    			//$com_id = $data['0']->com_id;
+
+                # 替换空格和换行
+                $pattern = array('/ /','/　/','/\r\n/','/\n/');
+                $replace = array('&nbsp;','&nbsp;','<br/>','<br/>');
+                $introduction = preg_replace($pattern, $replace, Input::get('introduction'));
     			
 	    		$result = Member::where('id','=',$id)->update([
     				'username'		=>		Input::get('username'),
@@ -72,9 +78,24 @@ class EditController extends Controller
     				'education'		=>		Input::get('education'),
     				'school_id'		=>		Input::get('school_id'),
     				'com_id'		=>		Input::get('com_id'),
-    				'introduction'	=>		Input::get('introduction'),
+    				'introduction'	=>		$introduction,
     				'status'		=>		'2',
 	    		]);
+
+                //更新动态中的图片（此时修改个人资料，头像被改后动态的头像不会更新，除非重新发新动态，所以这里要更新一下动态里面作者的头像）
+                $author_avatar = Member::where('id','=',$id)->value('avatar');
+                $author_name = Member::where('id','=',$id)->value('username');
+                DB::table('article')->where('author_id','=',$id)->update([
+                    'author_avatar' => $author_avatar,
+                    'author_name'   => $author_name
+                ]);
+                //同样评论表中也要做如上处理
+                DB::table('comment')->where('author_id','=',$id)->update([
+                    'author_avatar' => $author_avatar,
+                    'author_name'   => $author_name
+                ]);
+
+
 	    		//返回输出
 	    		return $result ? $id : '0';
     		}elseif($type == 'company'){
@@ -90,23 +111,45 @@ class EditController extends Controller
     			//查询头像信息（修改之前存在头像但修改时没有上传新头像还是要显示旧头像）
     			$data = DB::table('company')->where('id','=',$id)->get();
     			$avatar = $data['0']->avatar;//原头像
+                // dd(Input::get('county_id'));
     			//原地址信息
-    			$country_id = $data['0']->country_id;
-    			$province_id = $data['0']->province_id;
-    			$city_id = $data['0']->city_id;
-    			$county_id = $data['0']->county_id;
+    			// $country_id = $data['0']->country_id;
+    			// $province_id = $data['0']->province_id;
+    			// $city_id = $data['0']->city_id;
+    			// $county_id = $data['0']->county_id;
+
+                # 替换空格和换行
+                $pattern = array('/ /','/　/','/\r\n/','/\n/');
+                $replace = array('&nbsp;','&nbsp;','<br/>','<br/>');
+                $introduction = preg_replace($pattern, $replace, Input::get('introduction'));
+
     			$result = Company::where('id','=',$id)->update([
     				'com_name'		=>		Input::get('com_name'),
     				'mobile'		=>		Input::get('mobile'),
     				'avatar'		=>		Input::get('avatar')?Input::get('avatar'):$avatar,
-    				'country_id'	=>		Input::get('country_id')?Input::get('country_id'):$country_id,
-    				'province_id'	=>		Input::get('province_id')?Input::get('province_id'):$province_id,
-    				'city_id'		=>		Input::get('city_id')?Input::get('city_id'):$city_id,
-    				'county_id'		=>		Input::get('county_id')?Input::get('county_id'):$county_id,
+    				'country_id'	=>		Input::get('country_id'),
+    				'province_id'	=>		Input::get('province_id'),
+    				'city_id'		=>		Input::get('city_id'),
+    				'county_id'		=>		Input::get('county_id'),
     				'updated_at'	=>		date('Y-m-d H:i:s'),
     				'emp_count'		=>		Input::get('emp_count'),
-    				'introduction'	=>		Input::get('introduction')
+    				'introduction'	=>		$introduction
     			]);
+
+                //更新动态中的图片（此时修改个人资料，头像被改后动态的头像不会更新，除非重新发新动态，所以这里要更新一下动态里面作者的头像）
+                $author_avatar = Company::where('id','=',$id)->value('avatar');
+                $author_name = Company::where('id','=',$id)->value('com_name');
+                DB::table('article')->where('author_id','=',$id)->update([
+                    'author_avatar' => $author_avatar,
+                    'author_name'   => $author_name
+                ]);
+                //同样评论表中也要做如上处理
+                DB::table('comment')->where('author_id','=',$id)->update([
+                    'author_avatar' => $author_avatar,
+                    'author_name'   => $author_name
+                ]);
+
+
     			//返回输出
     			return $result ? $id : '0';
     		}

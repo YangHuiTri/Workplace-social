@@ -59,6 +59,7 @@
 							</div>
 							<div class="form-group">
 								<input type="submit" class="btn btn-success" value="登录">
+								<a href="/home/register/index"><input type="button" class="btn btn-primary" value="注册"></a>
 								<input type="reset" class="btn btn-danger" value="重置">
 							</div>
 						</form>

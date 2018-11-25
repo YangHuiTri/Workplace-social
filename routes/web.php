@@ -55,6 +55,8 @@ Route::group(['prefix' => 'admin','middleware'=>'auth:admin'],function(){
 //前台路由部分
 //首页
 Route::get('/', 'Home\IndexController@index')->middleware('LoginCheck');
+
+
 //不需要权限部分
 Route::group(['prefix' => 'home'], function(){
 	//登录页面
@@ -83,5 +85,15 @@ Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 	//动态管理部分
 	//添加动态
 	Route::any('article/add', 'Home\ArticleController@add');
+	//动态详情
+	Route::get('article/index/{id}', 'Home\ArticleController@index');
+	//点赞
+	Route::get('article/dianzan', 'Home\ArticleController@dianzan');
+	//评论
+	Route::post('article/addComment', 'Home\ArticleController@addComment');
+	//发布招聘信息
+	Route::any('article/addRecruit', 'Home\ArticleController@addRecruit');
+	//招聘信息详情
+	Route::get('article/recruit/{id}', 'Home\ArticleController@recruit');
 
 });

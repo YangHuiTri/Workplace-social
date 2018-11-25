@@ -11,6 +11,19 @@
 		<link rel="stylesheet" href="/home/css/bootstrap.min.css">
 		<script src="/home/js/jquery.min.js"></script>
 		<script src="/home/js/bootstrap.min.js"></script>
+		<style>
+			.album-content{
+				/*word-wrap: break-word;
+				word-break: normal;*//*超出范围自动换行*/
+
+
+				overflow:hidden; 
+				text-overflow:ellipsis;
+				display:-webkit-box; 
+				-webkit-box-orient:vertical;
+				-webkit-line-clamp:3; 
+			}
+		</style>
 	</head>
 
 	<body class="home blog custom-background round-avatars">
@@ -40,7 +53,7 @@
 			<div class="site-branding text-center">
 				<a href="">
 					<figure>
-						<img class="custom-logo avatar" src="
+						<img style="width: 90px;height: 90px;" class="custom-logo avatar" src="
 						@if($data['type'] == 'company')
 							{{$res['0']->avatar}}
 						@elseif($data['type'] == 'member')
@@ -79,7 +92,7 @@
 				</h3>
 			</div>
 			
-			<div style="margin-top: 20px">
+			<div style="margin-top: 32px">
 			<table style="height: 110px;font-size: 15px" border="0" cellpadding="0" cellspacing="0">
 				@if($data['type'] == 'company')
 					<tr align="center">
@@ -122,7 +135,7 @@
 								其他
 							@endif
 						</td>
-						<td>毕业院校：<span class="glyphicon glyphicon-home"></span>&nbsp;<a style="color: white;text-decoration: none;" href="/home/homepage/index/company/{{Auth::guard('member')->user()->company->id}}">{{Auth::guard('member')->user()->company->com_name}}</a>&nbsp;
+						<td>毕业院校：<span class="glyphicon glyphicon-home"></span>&nbsp;<a style="color: white;text-decoration: none;" href="/home/homepage/index/company/{{$data['school_id']}}">{{$data['school']}}</a>&nbsp;
 							<button type="button" disabled style="height: 20px;line-height:5px;width: 70px;padding-left: 5px" class="btn btn-warning">✔已认证</button>
 						</td>
 						<td>工作经历：
@@ -158,10 +171,10 @@
 										<!-- <a href="" style="text-decoration: none" class="status_btn">公司简介</a> -->
 										@if($data['type'] == 'company')
 											<span class="status_btn">公司简介</span>
-											<p class="section_p">{{$res['0']->introduction}}</p>
+											<p class="section_p">{!!$res['0']->introduction!!}</p>
 										@elseif($data['type'] == 'member')
 											<span class="status_btn">个人简介</span>
-											<p class="section_p">{{$res['0']->introduction}}</p>
+											<p class="section_p">{!!$res['0']->introduction!!}</p>
 										@endif
 									</div>
 								</div>
@@ -170,6 +183,8 @@
 						<h1 style="margin-left: 170px;color: #0066CC">动态</h1>
 						<hr style="height:1px;border:none;border-top:1px dashed #0066CC;" /><br>
 
+						
+						
 						<div class="post post-layout-list" data-aos="fade-up">
 							<div class="postnormal review ">
 								<div class="post-container review-item">
@@ -204,84 +219,42 @@
 								</div>
 							</div>
 						</div>
+						
 
-						<div class="post post-layout-list" data-aos="fade-up">
-							<div class="status_list_item icon_kyubo">
-								<div class="status_user" style="background-image: url(/home/statics/images/b0ce3f3cde0c084b6d42321b2dcbc407.jpeg);">
-									<div class="status_section">
-										<a href="detail.html" class="status_btn">状态</a>
-										<p class="section_p">因为我这后半年飘忽不定的更新节奏，感觉真的对不住用户。最近才松下来能处理反馈的bug，顺便加快新主题 Dcras 的制作，农历年后或许能上线，准确时间，不敢说-- 为了感谢大家对 Yarn 的支持，Dcras 会以 获兑现码半价的承诺 给 Yarn ... </p>
-									</div>
-								</div>
-							</div>
-						</div>
-
+						
+						@foreach($data2 as $val)
 						<div class="post post-layout-list js-gallery" data-aos="fade-up">
 							<div class="post-album">
 								<div class="row content">
-									<div class="bg" style="background-image: url(/home/statics/images/IMG_0150.jpg);"></div>
+									<div class="bg" style="background-image: url(/home/statics/images/IMG_0150.jpg);">
+									</div>
 									<div class="contentext flex-xs-middle">
-										<div class="album-title">
-											<a href="detail.html">重构图像样式测试</a>
+										<div class="album-content">
+											<a style="text-decoration: none;color: white;" href="/home/article/index/{{$val->id}}">{!!$val->content!!}</a>
 										</div>
-										<h5 class="review-item-creator"><b>发布日期：</b>2017-11-13</h5>
-										<div class="album-content">如眼所见是一个图像样式，必须写五十左右的文字作为这个文本框的空白填充，不写也是可以的，强迫症不能容忍空白。</div>
+										<h5 class="review-item-creator"><b>发布日期：</b>{{$val->created_at}}
+										</h5>
 									</div>
 									<div class="album-thumb-width flex-xs-middle">
 										<div class="row album-thumb no-gutter">
-											<div class="col-xs-4"><img class="thumb" src="/home/statics/images/IMG_0150-250x250.jpg" /></div>
-											<div class="col-xs-4"><img class="thumb" src="/home/statics/images/IMG_0149-250x250.jpg" /></div>
-											<div class="col-xs-4"><img class="thumb" src="/home/statics/images/IMG_0146-250x250.jpg" /></div>
-											<div class="col-xs-4"><img class="thumb" src="/home/statics/images/IMG_0147-250x250.jpg" /></div>
-											<div class="col-xs-4"><img class="thumb" src="/home/statics/images/IMG_0148-250x250.jpg" /></div>
-											<div class="col-xs-4">
-												<a href="">5 pics</a>
-											</div>
+											<div class="col-xs-12"><img class="thumb" style="max-width: 285px;max-height: 165px;" src="{{$val->img}}"/></div>
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+						@endforeach
 
-						<div class="post post-layout-list" data-aos="fade-up">
-							<div class="postnormal review ">
-								<div class="post-container review-item">
-									<div class="row review-item-wrapper">
-										<div class="col-sm-3">
-											<a rel="nofollow" href="detail.html">
-												<div class="review-item-img" style="background-image: url(/home/statics/images/47fb3c_9afed6c259f94589881bd55376206366mv2_d_3840_5784_s_4_2-800x450.jpg);"></div>
-											</a>
-										</div>
-										<div class="col-sm-9 flex-xs-middle">
-											<div class="review-item-title">
-												<a href="detail.html" rel="bookmark">给大家介绍一下</a>
-											</div>
-											<div class="review-item-creator"><b>发布日期：</b>2017-10-02</div>
-											<span class="review-item-info"><b>总浏览量：</b>1600 reads</span>
-										</div>
-									</div>
-									<div class="review-bg-wrapper">
-										<div class="bg-blur" style="background-image: url(/home/statics/images/47fb3c_9afed6c259f94589881bd55376206366mv2_d_3840_5784_s_4_2-800x450.jpg);"></div>
-									</div>
-								</div>
-								<div class="post-container">
-									<div class="entry-content">现在的明星的影响力足以影响国内娱乐圈的"半壁江山"，发条微博，新浪都恐慌好几天，来来来，蹭个热点给大家介绍一下我的女朋友。</div>
-									<div class="post-footer">
-										<a class="gaz-btn primary" href="detail.html">READ MORE</a>
-										<span class="total-comments-on-post pull-right"><a href="">30 Comments</a></span>
-									</div>
-								</div>
-							</div>
-						</div>
+
 
 					</div>
 					<!-- post-formats end Infinite Scroll star -->
 					<!-- post-formats -->
-					<div class="pagination js-pagination">
+					<!-- <div class="pagination js-pagination">
 						<div class="js-next pagination__load">
 							<a href=""><i class="iconfont">&#xe605;</i></a>
 						</div>
-					</div>
+					</div> -->
 					<!-- -pagination  -->
 			</div>
 		</div>

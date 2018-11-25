@@ -15,8 +15,8 @@ class Member extends Model implements \Illuminate\Contracts\Auth\Authenticatable
     use Authenticatable;
 
     //关联模型，关联company表获取学校名，一对一
-    public function company(){
-    	return $this->hasOne('App\Admin\Company','id','school_id');
-    }
+    // public function company(){
+    // 	return $this->hasOne('App\Admin\Company','id','school_id');
+    // }
 
 }

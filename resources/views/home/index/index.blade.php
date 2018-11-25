@@ -30,14 +30,22 @@
 			margin-bottom: 10px;
 		}
 		.content-text{
-			color: #676767;
+			color: #404040;
 			line-height: 25px;
+			word-spacing:2px;/*词间距*/
 			font-size: 15px;
 			margin-top: 25px;
 			margin-left: -10px;
+			/*最多显示三行，超过的用...表示*/
+			overflow:hidden; 
+			text-overflow:ellipsis;
+			display:-webkit-box; 
+			-webkit-box-orient:vertical;
+			-webkit-line-clamp:3; 
 		}
 		.img{
-			margin: 15px 30px 15px;
+			margin: 15px 0px 15px;
+			max-width: 490px;
 		}
 		#avatar{ 
 			margin:10px auto;
@@ -52,16 +60,32 @@
 		#result{
             width: 200px;
             height:200px;
-            border:1px solid #eee;
+            /*border:1px solid #eee;*/
         }
         #result img{
             height: 200px;
         }
+
+        .ui_button {
+	        display: inline-block;
+	        line-height: 45px;
+	        padding: 0 70px;
+	        color: #FFFFFF;
+	        font-family: "微软雅黑";
+	        font-weight: 700;
+	        cursor: pointer;
+	     }
+	     .ui_button_primary {
+	        background-color: #428BCA;
+	     }
+	     label.ui_button:hover {
+	        background-color: #2E6A9D;
+	     }
  	</style>
 </head>
 <body style="background-color: #F5F5F5;">
 <!-- 导航条 -->
-<nav class="navbar navbar-default" style="background-color: #283E4A;">
+<nav class="navbar navbar-default navbar-fixed-top" style="background-color: #283E4A;">
 	<div class="container-fluid">
 	    <div class="navbar-header">
 		    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -150,18 +174,25 @@
 
 
 
-<div class="container">
+<div class="container" style="padding-top: 70px;">
 
-	<div style="border: 2px solid #A5A5A5;background-color: #FFFFFF; float: left;width: 220px;margin-top: 5px;">
+	<div style="border: 2px solid #A5A5A5;position: fixed; background-color: #FFFFFF; float: left;width: 220px;margin-top: 5px;">
 		<div style="height: 170px;border-bottom: 1px solid #D9D9D9;">
-			<div style="height: 55px;background-color: #29313E;"></div>
-			<img style="border-radius: 50%;margin-left: 75px;margin-top: -35px;margin-bottom: 15px; border:2px solid white;height: 70px;" width="70px" src="/home/images/01.png">
-			<center><font size="3px" style="font-weight: bold;line-height: 30px;">阿里杨</font></center>
-			<center><font color="#666666">学生-南昌大学</font></center>
+			@if(Session::get('loginType') == 'company')
+				<div style="height: 55px;background-color: #29313E;"></div>
+				<img style="border-radius: 50%;margin-left: 75px;margin-top: -35px;margin-bottom: 15px; border:2px solid white;height: 70px;" width="70px" src="{{Auth::guard('company')->user()->avatar}}">
+				<center><font size="3px" style="font-weight: bold;line-height: 30px;">{{Auth::guard('company')->user()->com_name}}</font></center>
+				<center><font color="#666666">企业</font></center>
+			@elseif(Session::get('loginType') == 'member')
+				<div style="height: 55px;background-color: #29313E;"></div>
+				<img style="border-radius: 50%;margin-left: 75px;margin-top: -35px;margin-bottom: 15px; border:2px solid white;height: 70px;" width="70px" src="{{Auth::guard('member')->user()->avatar}}">
+				<center><font size="3px" style="font-weight: bold;line-height: 30px;">{{Auth::guard('member')->user()->username}}</font></center>
+				<center><font color="#666666">学生-{{Auth::guard('member')->user()->company->com_name}}</font></center>
+			@endif
 		</div>
 		
 		<div style="height: 70px;border-bottom: 1px solid #D9D9D9;padding-top: 5px;">
-			<center><font color="#0073B1" size="5px">9</font></center>
+			<center><font color="#0073B1" size="5px">{{$tot}}</font></center>
 			<center><font color="#666666">动态</font></center>
 		</div>
 
@@ -172,7 +203,7 @@
 	</div>
 
 
-	<div style="border: 1px solid #CFCFCF;background-color: #FFFFFF;float: right;width: 310px;margin-top: 5px;">
+	<div style="border: 1px solid #CFCFCF;position: fixed;left: 925px; background-color: #FFFFFF;float: right;width: 310px;margin-top: 5px;">
 		<div style="height: 280px;border-bottom: 1px solid #D9D9D9;"></div>
 		<div style="height: 155px;border-bottom: 1px solid #D9D9D9;">
 			<div style="margin: 20px;line-height: 30px;color: #4F6878">&nbsp;&nbsp;&nbsp;&nbsp;关于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;帮助中心&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;隐私政策和条款﹀<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;广告发布&nbsp;&nbsp;&nbsp;&nbsp;商业服务﹀&nbsp;&nbsp;&nbsp;&nbsp;更多
@@ -195,11 +226,17 @@
 		<div class="out" style="border: 1px solid #CFCFCF;position: relative;max-width: 550px;margin: 5px auto 10px;">
 			<a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
 				<div style="height: 70px;position: relative;max-width: 550px;margin: 0 auto 0;background-color: #FFFFFF;">
-					<b><span class="glyphicon glyphicon-edit" style="color: #696C6F;margin: 25px;">发动态</span></b>
+					<b><span class="glyphicon glyphicon-edit" style="color: #696C6F;margin: 25px;font-size: 17px;"><font size="4px" style="font-weight: bold;">发动态</font></span></b>
 				</div>
 			</a>
 			<div style="height: 40px;position: relative;max-width: 550px;margin: 0 auto 0;background-color: #F3F6F8;padding: 10px 15px;">
-				<span style="color: #696C6F;font-size: 15px;">在这里发动态</span>
+				@if(Session::get('loginType') == 'company')
+					<a href="/home/article/addRecruit" target="_blank">
+						<span style="font-size: 15px;">发布招聘信息</span>
+					</a>
+				@elseif(Session::get('loginType') == 'member')
+					<span style="color: #696C6F;font-size: 15px;">在这里发动态</span>
+				@endif
 			</div>
 		</div>
 		<!-- 发动态模态框-开始 -->
@@ -219,12 +256,13 @@
 					        </div> -->
 					        <div class="form-group">
 					            <label for="message-text" class="control-label">内容:</label>
-					            <textarea name="content" class="form-control" id="content"></textarea>
+					            <textarea style="height: 150px;width: 500px;" name="content" class="form-control" id="content" wrap="physical"></textarea>
 					        </div>
 
 					        <div class="form-group">
-	    						<input id="pic" type="file" name="picture" accept="image/*" onchange="selectFile()"/>
-	    						<div id="result"></div>
+					        	<label class="ui_button ui_button_primary" for="pic">选择图片</label>
+	    						<input id="pic" type="file" name="picture" accept="image/*" onchange="selectFile()" style="position:absolute;clip:rect(0 0 0 0);"/>
+	    						<!-- <div id="result"></div> -->
     						</div>
 				        
 						    <div class="modal-footer">
@@ -238,131 +276,122 @@
 		</div>
 		<!-- 模态框-结束 -->
 		<div style="width: 550px;border: 1px solid #D0D0D0;margin-left: 340px;margin-top: 15px;margin-bottom: 15px;"></div>
+		
 		<!-- 动态 -->
-		<div class="post-album">
+<!-- 		<div class="post-album">
 			<div class="content">
 				<div class="content-info row">
-					<div id="avatar" class="col-lg-2" style="margin-right: -5px;margin-left: -10px;"><img width="50px" src="/home/images/logo.png">
+					<div id="avatar" class="col-lg-2" style="margin-right: -5px;">
+						<img width="50px" style="height: 50px;" src="/home/images/logo.png">
 					</div>
 					<div class="col-lg-10" style="height: 20px;margin-left:-15px;padding-top: 5px;">
-						<b style="font-size: 20px">username</b>
+						<b style="font-size: 20px">Username</b>
 						<div class="row">
-							<div class="col-lg-6" style="height: 20px;padding-top: 10px;">
-								<font color="#676767">发布日期：2017-11-13</font>
+							<div class="col-lg-12" style="height: 20px;padding-top: 10px;">
+								<font color="#676767">2018-11-22 10:20:35</font>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="content-text">如眼所见是一个图像样式，必须写五十左右的文字作为这个文本框的空白填充，不写也是可以的，强迫症不能容忍空白。如眼所见是一个图像样式，必须写五十左右的文字作为这个文本框的空白填充，不写也是可以的，强迫症不能容忍空白。
-				</div>
+				<div class="content-text"><a style="text-decoration: none;color: #676767;" href="/home/article/index/33" target="_blank">相隔上一次的更新我掰手指数一数，下意识的双腿一软，给各位小哥哥小姐姐们跪下了。自从有了对象后，周末几乎落下了主题的进度（邪魅的笑）。一边开发新的主题，一边收集您们给我反馈回来的"臭虫"，还有新的主题后台看见了一些大神在</a></div>
 			</div>
-			
 			<div style="background-color: #F3F6F8;width: 550px;margin-left: -15px;">
-				<div class="img"><img height="280px" src="/home/images/bg.jpg" />
+				<div class="img"><a href="/home/article/index/33" target="_blank"><img height="320px" style="max-width: 550px;" src="/home/images/bg.jpg" /></a>
 				</div>
 			</div>
-			<div style="height: 25px;margin-left: 15px;">
-				<font color="#666666">赞 (3435)&nbsp;▪&nbsp;评论 (298)</font>
+			<div style="height: 25px;margin-left: 15px;" class="sanzi">
+				<font color="#666666">赞 (<span id="zan_count">3435</span>)&nbsp;▪&nbsp;评论 (298)</font>
 			</div>
 			<div style="width: 520px;border: 1px solid #E6E9EC;"></div>
 			<div style="height: 40px;">
-				<span style="height: 30px;width: 30px;margin-left: 20px;padding-top: 10px;" class="glyphicon glyphicon-thumbs-up"></span>
+				<a id="zan" style="text-decoration: none;color: #333333;">
+					<span style="height: 30px;width: 30px;margin-left: 20px;padding-top: 10px;" class="glyphicon glyphicon-heart-empty"></span>
+				</a>
 				<span style="height: 30px;width: 30px;margin-left: 10px;padding-top: 10px;margin-right: 15px;" class="glyphicon glyphicon-pencil"></span>
 			</div>
-		</div>	
-
-
-		<div class="post-album">
-			<div class="content">
-				<div class="content-info row">
-					<div id="avatar" class="col-lg-2" style="margin-right: -5px;"><img width="50px" src="/home/images/logo.png"></div>
-					<div class="col-lg-10" style="height: 20px;margin-left:-15px;padding-top: 5px;">
-						<b style="font-size: 20px">username</b>
-						<div class="row">
-							<div class="col-lg-6" style="height: 20px;padding-top: 10px;">
-								<font color="#676767">发布日期：2017-11-13</font>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="content-text">如眼所见是一个图像样式，必须写五十左右的文字作为这个文本框的空白填充，不写也是可以的，强迫症不能容忍空白。如眼所见是一个图像样式，必须写五十左右的文字作为这个文本框的空白填充，不写也是可以的，强迫症不能容忍空白。
-				</div>
-			</div>
-			<div style="background-color: #F3F6F8;width: 550px;margin-left: -15px;">
-				<div class="img"><img height="280px" src="/home/images/bg.jpg" />
-				</div>
-			</div>
-			<div style="height: 25px;margin-left: 15px;">
-				<font color="#666666">赞 (3435)&nbsp;▪&nbsp;评论 (298)</font>
-			</div>
-			<div style="width: 520px;border: 1px solid #E6E9EC;"></div>
-			<div style="height: 40px;">
-				<span style="height: 30px;width: 30px;margin-left: 20px;padding-top: 10px;" class="glyphicon glyphicon-thumbs-up"></span>
-				<span style="height: 30px;width: 30px;margin-left: 10px;padding-top: 10px;margin-right: 15px;" class="glyphicon glyphicon-pencil"></span>
-			</div>
-		</div>
-
-
-		<div class="post-album">
-			<div class="content">
-				<div class="content-info row">
-					<div id="avatar" class="col-lg-2" style="margin-right: -5px;"><img width="50px" src="/home/images/logo.png"></div>
-					<div class="col-lg-10" style="height: 20px;margin-left:-15px;padding-top: 5px;">
-						<b style="font-size: 20px">username</b>
-						<div class="row">
-							<div class="col-lg-6" style="height: 20px;padding-top: 10px;">
-								<font color="#676767">发布日期：2017-11-13</font>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="content-text">如眼所见是一个图像样式，必须写五十左右的文字作为这个文本框的空白填充，不写也是可以的，强迫症不能容忍空白。如眼所见是一个图像样式，必须写五十左右的文字作为这个文本框的空白填充，不写也是可以的，强迫症不能容忍空白。
-				</div>
-			</div>
-			<div style="background-color: #F3F6F8;width: 550px;margin-left: -15px;">
-				<div class="img"><img height="280px" src="/home/images/bg.jpg" />
-				</div>
-			</div>
-			<div style="height: 25px;margin-left: 15px;">
-				<font color="#666666">赞 (3435)&nbsp;▪&nbsp;评论 (298)</font>
-			</div>
-			<div style="width: 520px;border: 1px solid #E6E9EC;"></div>
-			<div style="height: 40px;">
-				<span style="height: 30px;width: 30px;margin-left: 20px;padding-top: 10px;" class="glyphicon glyphicon-thumbs-up"></span>
-				<span style="height: 30px;width: 30px;margin-left: 10px;padding-top: 10px;margin-right: 15px;" class="glyphicon glyphicon-pencil"></span>
-			</div>
-		</div>
-
+		</div> -->
 
 		@foreach($data as $value)
-		<div class="post-album">
-			<div class="content">
-				<div class="content-info row">
-					<div id="avatar" class="col-lg-2" style="margin-right: -5px;"><img width="50px" src="/home/images/logo.png"></div>
-					<div class="col-lg-10" style="height: 20px;margin-left:-15px;padding-top: 5px;">
-						<b style="font-size: 20px">username</b>
-						<div class="row">
-							<div class="col-lg-6" style="height: 20px;padding-top: 10px;">
-								<font color="#676767">发布日期：2017-11-13</font>
+		@if($value->article_type == 'recruit')
+		<!-- 招聘动态 -->
+			<div class="post-album" style="background-image: url('/home/images/recruit.png');">
+				<div class="content">
+					<div class="content-info row">
+						<div id="avatar" class="col-lg-2" style="margin-right: -5px;">
+							<a href="/home/homepage/index/{{$value->author_type}}/{{$value->author_id}}">
+								<img width="50px" style="height: 50px;" src="{{$value->author_avatar}}">
+							</a>
+						</div>
+						<div class="col-lg-10" style="height: 20px;margin-left:-15px;padding-top: 5px;">
+							<b style="font-size: 20px">
+								<a href="/home/homepage/index/{{$value->author_type}}/{{$value->author_id}}" style="text-decoration: none;color: #3671A2;">{{$value->author_name}}
+								</a>
+							</b>
+							<div class="row">
+								<div class="col-lg-12" style="height: 20px;padding-top: 10px;">
+									<font color="#676767">{{$value->created_at}}</font>
+								</div>
 							</div>
 						</div>
 					</div>
+					<div class="content-text">
+						<a style="text-decoration: none;color: #676767;" href="/home/article/recruit/{{$value->id}}" target="_blank">
+							{!!$value->content!!}
+						</a>
+					</div>
 				</div>
-				<div class="content-text">{{$value->content}}</div>
 			</div>
-			<div style="background-color: #F3F6F8;width: 550px;margin-left: -15px;">
-				<div class="img"><img height="280px" src="{{$value->img}}" />
+		@else
+		<!-- 普通动态 -->
+			<div class="post-album">
+				<div class="content">
+					<div class="content-info row">
+						<div id="avatar" class="col-lg-2" style="margin-right: -5px;">
+							<a href="/home/homepage/index/{{$value->author_type}}/{{$value->author_id}}">
+								<img width="50px" style="height: 50px;" src="{{$value->author_avatar}}">
+							</a>
+						</div>
+						<div class="col-lg-10" style="height: 20px;margin-left:-15px;padding-top: 5px;">
+							<b style="font-size: 20px">
+								<a href="/home/homepage/index/{{$value->author_type}}/{{$value->author_id}}" style="text-decoration: none;color: #191919;">{{$value->author_name}}
+								</a>
+							</b>
+							<div class="row">
+								<div class="col-lg-12" style="height: 20px;padding-top: 10px;">
+									<font color="#676767">{{$value->created_at}}</font>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="content-text">
+						<a style="text-decoration: none;color: #676767;" href="/home/article/index/{{$value->id}}" target="_blank">
+							{!!$value->content!!}
+						</a>
+					</div>
+				</div>
+				@if(!empty($value->img))
+				<div style="background-color: #F3F6F8;width: 550px;margin-left: -15px;">
+					<div class="img">
+						<a href="/home/article/index/{{$value->id}}" target="_blank">
+							<img height="320px" style="max-width: 550px;" src="{{$value->img}}" />
+						</a>
+					</div>
+				</div>
+				@endif
+				<div style="height: 25px;margin-left: 15px;">
+					<font color="#666666">赞 (<span class="{{$value->id}}">{{$value->zan_count}}</span>)&nbsp;▪&nbsp;评论 ({{$value->com_count}})</font>
+				</div>
+				<div style="width: 520px;border: 1px solid #E6E9EC;"></div>
+				<div style="height: 40px;">
+					<a id="{{$value->id}}" class="zan" style="text-decoration: none;cursor: pointer; color: #333333;">
+						<span style="height: 30px;width: 30px;margin-left: 20px;padding-top: 10px;" class="<?php $zan_array=explode(',', $value->zan_people);if(in_array($zan_people, $zan_array)){echo 'glyphicon glyphicon-heart';}else{echo 'glyphicon glyphicon-heart-empty';} ?>"></span>
+					</a>
+					<a href="/home/article/index/{{$value->id}}" target="_blank" style="text-decoration: none;color: #333333;">
+						<span style="height: 30px;width: 30px;margin-left: 10px;padding-top: 10px;margin-right: 15px;" class="glyphicon glyphicon-pencil"></span>
+					</a>
 				</div>
 			</div>
-			<div style="height: 25px;margin-left: 15px;">
-				<font color="#666666">赞 (3435)&nbsp;▪&nbsp;评论 (298)</font>
-			</div>
-			<div style="width: 520px;border: 1px solid #E6E9EC;"></div>
-			<div style="height: 40px;">
-				<span style="height: 30px;width: 30px;margin-left: 20px;padding-top: 10px;" class="glyphicon glyphicon-thumbs-up"></span>
-				<span style="height: 30px;width: 30px;margin-left: 10px;padding-top: 10px;margin-right: 15px;" class="glyphicon glyphicon-pencil"></span>
-			</div>
-		</div>
+		@endif
 		@endforeach	
 
 
@@ -374,16 +403,16 @@
 </div>
 
 
-<div id="result">结果：</div>
-<br>
-<br>
-<br>
 </body>
 <script>
 //发动态时显示缩略图
 var form = new FormData();//通过HTML表单创建FormData对象
 var url = '127.0.0.1:8080/'
 function selectFile(){
+	//点击上传文件按钮时先清除显示缩略图的div，防止累加
+	$('#result').remove();
+	//用于在上传文件按钮下显示缩略图的div
+	$("#pic").after('<div id="result"></div>');
     var files = document.getElementById('pic').files;
     console.log(files[0]);
     if(files.length == 0){
@@ -410,48 +439,60 @@ function selectFile(){
 
 
 
-// ajax发动态
-$(function(){
 
+$(function(){
+	//点赞.取消赞
+	$('.zan').click(function(){
+		var id = $(this).attr('id');
+		var zan_count = Number($('.'+id).text());
+		console.log($('#'+id).find('span').attr('class'));
+		if($('#'+id).find('span').attr('class') == 'glyphicon glyphicon-heart-empty'){
+			//点赞
+			$.get('/home/article/dianzan',{'id':id,'type':'add'},function(data){
+				if(data == '1'){
+					$('#'+id).find('span').attr('class','glyphicon glyphicon-heart');
+					$('.'+id).text(++zan_count);//点赞数加1
+				}
+			});
+			
+		}else{
+			//取消点赞
+			$.get('/home/article/dianzan',{'id':id,'type':'less'},function(data){
+				$('#'+id).find('span').attr('class','glyphicon glyphicon-heart-empty');
+				$('.'+id).text(--zan_count);//点赞数减1
+			});	
+		}
+
+	});
+
+
+
+	// ajax发动态
 	$('#addArticle').click(function(){
-		// var content = $('#content').val();
-		// var pic = $('#pic').val();
+		//利用formdata将表单数据传输到指定路径
 		var formData = new FormData(document.getElementById("dongtai"));
-		// formData.append('content',content);
-		// formData.append('pic',pic);
 		$.ajax({
-             type: "POST",
-             url: "/home/article/add",  //同目录下的php文件
-           
+            type: "POST",
+            url: "/home/article/add",  //同目录下的php文件
             data:formData,
             dataType:"json", //声明成功使用json数据类型回调
  
             //如果传递的是FormData数据类型，那么下来的三个参数是必须的，否则会报错
-             cache:false,  //默认是true，但是一般不做缓存
-             processData:false, //用于对data参数进行序列化处理，这里必须false；如果是true，就会将FormData转换为String类型
-             contentType:false,  //一些文件上传http协议的关系，自行百度，如果上传的有文件，那么只能设置为false
-             
-             success: function(msg){  //请求成功后的回调函数
- 
-                $("#result").append("你的名字是"+msg.name+"，性别："+msg.sex+"，年龄："+msg.age+"，上传的文件名："+msg.file);
- 
+            cache:false,  //默认是true，但是一般不做缓存
+            processData:false, //用于对data参数进行序列化处理，这里必须false；如果是true，就将FormData转换为String类型
+            contentType:false,  //一些文件上传http协议的关系，自行百度，如果上传的有文件，那么只能设置为false
+            success: function(data){  //请求成功后的回调函数
+            	if(data){
+            		alert('发送成功');
+            		parent.window.location = parent.window.location;
+            	}else{
+            		alert('发送失败');
+            	}
             }
         });
-
-
-
-
-		// $.post('/home/article/add',$("form").serialize(),function(data){
-		// 	if(data == '1'){
-		// 		alert('发送成功');
-		// 		// 刷新
-	 //            parent.window.location = parent.window.location;
-		// 	}else{
-		// 		alert('失败');
-		// 	}
-			
-		// });
 	});
+
 });
+
 </script>
 </html>
