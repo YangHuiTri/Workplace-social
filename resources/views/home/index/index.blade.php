@@ -37,7 +37,7 @@
 			margin-top: 25px;
 			margin-left: -10px;
 			/*最多显示三行，超过的用...表示*/
-			overflow:hidden; 
+			overflow:hidden;
 			text-overflow:ellipsis;
 			display:-webkit-box; 
 			-webkit-box-orient:vertical;
@@ -100,9 +100,9 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		    <ul class="nav navbar-nav">
 		        <li class="active"><a href="#" class="glyphicon glyphicon-home">主页 <span class="sr-only">(current)</span></a></li>
-		        <li><a href="#">职位推荐</a></li>
+		        <li><a href="/home/recommend/index" target="_blank" style="color: white;">职位推荐</a></li>
 		        <li class="dropdown">
-		        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+		        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: white;">Dropdown <span class="caret"></span></a>
 		          	<ul class="dropdown-menu">
 			            <li><a href="#">Action</a></li>
 			            <li><a href="#">Another action</a></li>
@@ -121,12 +121,21 @@
 		        <button type="submit" class="btn btn-default">Submit</button>
 		    </form>
 		    <ul class="nav navbar-nav navbar-right">
-		      	@if(Session::get('loginType') != 'company' && Session::get('loginType') != 'member')
+		    	<li role="presentation">
+	    			@if(Session::get('loginType')=='company')
+		    			<a href="/home/message/index/company/{{Auth::guard('company')->user()->id}}" target="_blank"  style="color: white;">Messages <span class="badge">{{Auth::guard('company')->user()->message_count}}</span>
+		    			</a>
+		    		@elseif(Session::get('loginType') == 'member')
+		    			<a href="/home/message/index/member/{{Auth::guard('member')->user()->id}}" target="_blank"  style="color: white;">Messages <span class="badge">{{Auth::guard('member')->user()->message_count}}</span>
+		    			</a>
+		    		@endif
+		    	</li>
+		      	<!-- @if(Session::get('loginType') != 'company' && Session::get('loginType') != 'member')
 		        	<li><a href="/home/register/index">注册</a></li>
-		        @endif
+		        @endif -->
 		        <li class="dropdown">
 		        	@if(Session::get('loginType')=='company')
-			        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: white;">
 			          		<span class="glyphicon glyphicon-home">
 			          			@if(Auth::guard('company')->user()->com_name)
 			          				{{Auth::guard('company')->user()->com_name}}
@@ -138,13 +147,13 @@
 			          	<ul class="dropdown-menu">
 				            <li><a target="_blank" href="/home/homepage/index/{{Session::get('loginType')}}/{{Auth::guard('company')->user()->id}}">主页</a></li>
 				            <li><a href="#">Another action</a></li>
-				            <li><a href="#">Something else here</a></li>
+				            <li><a href="/home/setting/index" target="_blank">设置</a></li>
 				            <li role="separator" class="divider"></li>
 				            <li><a href="/home/login/logout">退出登录</a></li>
 			          	</ul>
 
 	          		@elseif(Session::get('loginType') == 'member')
-		          		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+		          		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: white;">
 			          		<span class="glyphicon glyphicon-user">
 			          			@if(Auth::guard('member')->user()->username)
 			          				{{Auth::guard('member')->user()->username}}
@@ -156,12 +165,10 @@
 			          	<ul class="dropdown-menu">
 				            <li><a target="_blank" href="/home/homepage/index/{{Session::get('loginType')}}/{{Auth::guard('member')->user()->id}}">主页</a></li>
 				            <li><a href="#">Another action</a></li>
-				            <li><a href="#">Something else here</a></li>
+				            <li><a href="/home/setting/index" target="_blank">设置</a></li>
 				            <li role="separator" class="divider"></li>
 				            <li><a href="/home/login/logout">退出登录</a></li>
 			          	</ul>
-	          		@else
-	          			<a href="/home/login/index" >登录</a>	
           			@endif
 		        </li>
 		    </ul>
@@ -314,7 +321,7 @@
 		@foreach($data as $value)
 		@if($value->article_type == 'recruit')
 		<!-- 招聘动态 -->
-			<div class="post-album" style="background-image: url('/home/images/recruit.png');">
+			<div class="post-album" style="background-image: url('/home/images/recruit1.png');">
 				<div class="content">
 					<div class="content-info row">
 						<div id="avatar" class="col-lg-2" style="margin-right: -5px;">

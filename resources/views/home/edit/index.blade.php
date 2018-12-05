@@ -49,6 +49,19 @@
 		</div>
 
 		@if($type == 'member')
+
+			<div class="row cl">
+				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>年龄：</label>
+				<div class="formControls col-xs-8 col-sm-9">
+					<span class="select-box" style="width:110px;">
+					<select class="select" name="age" size="1">
+						@for($i = 18; $i <= 60; $i++)
+							<option value="{{$i}}">{{$i}}</option>
+						@endfor
+					</select>
+				</div>
+			</div>
+
 			<div class="row cl">
 	            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
 	            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
@@ -322,6 +335,9 @@ $(function(){
 				required:true,
 				minlength:2,
 				maxlength:20
+			},
+			age:{
+				required:true,
 			},
 			com_name:{
 				required:true,

@@ -56,7 +56,6 @@ Route::group(['prefix' => 'admin','middleware'=>'auth:admin'],function(){
 //首页
 Route::get('/', 'Home\IndexController@index')->middleware('LoginCheck');
 
-
 //不需要权限部分
 Route::group(['prefix' => 'home'], function(){
 	//登录页面
@@ -75,6 +74,8 @@ Route::group(['prefix' => 'home'], function(){
 Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 	//个人主页
 	Route::get('homepage/index/{type}/{id}', 'Home\HomepageController@index');
+	//个人履历
+	Route::get('homepage/resume', 'Home\HomepageController@resume');
 
 	//个人主页动态搜索
 	Route::get('search/index', 'Home\SearchController@index');
@@ -91,9 +92,28 @@ Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 	Route::get('article/dianzan', 'Home\ArticleController@dianzan');
 	//评论
 	Route::post('article/addComment', 'Home\ArticleController@addComment');
+	//回复
+	Route::post('article/addReply', 'Home\ArticleController@addReply');
 	//发布招聘信息
 	Route::any('article/addRecruit', 'Home\ArticleController@addRecruit');
 	//招聘信息详情
 	Route::get('article/recruit/{id}', 'Home\ArticleController@recruit');
+
+	//个人信息
+	Route::get('message/index/{type}/{id}', 'Home\MessageController@index');
+	//学校认证
+	Route::get('message/renzheng', 'Home\MessageController@renzheng');
+	//一键已读点赞和评论消息
+	Route::get('message/chakan', 'Home\MessageController@chakan');
+
+	//个人设置
+	Route::get('setting/index', 'Home\SettingController@index');
+	//求职偏好设置
+	Route::post('setting/expect', 'Home\SettingController@expect');
+	//打开/关闭是否被推荐
+	Route::get('setting/tuijian', 'Home\SettingController@tuijian');
+
+	//职位推荐
+	Route::get('recommend/index', 'Home\RecommendController@index');
 
 });

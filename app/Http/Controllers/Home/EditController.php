@@ -27,6 +27,7 @@ class EditController extends Controller
 	            //自动验证数据各字段
 	            $this->validate($request,[
 	            	'username'	=>		'required|min:2|max:20',
+                    'age'       =>      'required',
 	            	'gender'	=>		'required',
 	                'mobile'    =>      'regex:/^1[34578][0-9]{9}$/',
 	                'country_id'=>		'required',
@@ -66,6 +67,7 @@ class EditController extends Controller
     			
 	    		$result = Member::where('id','=',$id)->update([
     				'username'		=>		Input::get('username'),
+                    'age'           =>      Input::get('age'),
     				'gender'		=>		Input::get('gender'),
     				'mobile'		=>		Input::get('mobile'),
     				'avatar'		=>		Input::get('avatar')?Input::get('avatar'):$avatar,
@@ -77,10 +79,16 @@ class EditController extends Controller
     				'updated_at'	=>		date('Y-m-d H:i:s'),
     				'education'		=>		Input::get('education'),
     				'school_id'		=>		Input::get('school_id'),
+                    'school_validate'=>     '1',
     				'com_id'		=>		Input::get('com_id'),
     				'introduction'	=>		$introduction,
     				'status'		=>		'2',
 	    		]);
+
+                $school_id = Input::get('school_id');
+                $validate = DB::table('company')->where('id','=',$school_id)->value('need_validate');
+                $need_validate = $id.','.$validate;
+                DB::table('company')->where('id','=',$school_id)->update(['need_validate'=>$need_validate]);
 
                 //更新动态中的图片（此时修改个人资料，头像被改后动态的头像不会更新，除非重新发新动态，所以这里要更新一下动态里面作者的头像）
                 $author_avatar = Member::where('id','=',$id)->value('avatar');
@@ -94,6 +102,14 @@ class EditController extends Controller
                     'author_avatar' => $author_avatar,
                     'author_name'   => $author_name
                 ]);
+
+                //一开始选择学校后没有经过认证，自动给学校发信息请求认证，所以学校的message_count字段需要加1,（本科以上才需要选大学）
+                $education = Input::get('education');
+                if($education >= 3){
+                    $count = DB::table('company')->where('id','=',$school_id)->value('message_count');
+                    $message_count = $count + 1;
+                    DB::table('company')->where('id','=',$school_id)->update(['message_count'=>$message_count]);
+                }
 
 
 	    		//返回输出
