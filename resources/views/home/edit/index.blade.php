@@ -182,34 +182,28 @@
 			</div>
 
 			<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>专业：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="" placeholder="{{Auth::guard('member')->user()->profession}}" id="profession" name="profession" style="width: 300px;">
+			</div>
+		</div>
+
+			<div class="row cl">
 				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>就业公司：</label>
 				<div class="formControls col-xs-8 col-sm-9">
 					<span class="select-box" style="width:230px;">
-					<select class="select" name="com_id" size="1">
-						<option value="null">请选择</option>
-						@foreach($data2 as $val)
-							<option value="{{$val->id}}">{{$val->com_name}}</option>
-						@endforeach
-						<option value="0">其他</option>
-					</select>
-				</span>
+						<select class="select" name="com_id" size="1">
+							<option value="null">请选择</option>
+							@foreach($data2 as $val)
+								<option value="{{$val->id}}">{{$val->com_name}}</option>
+							@endforeach
+							<option value="0">其他</option>
+						</select>
+					</span>
 				</div>			
 			</div>
 		@endif		
 
-<!-- 		<div class="row cl">
-			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>账号状态：</label>
-			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
-				<div class="radio-box">
-					<input name="status" type="radio" id="status-1" value="1">
-					<label for="status-1">禁用</label>
-				</div>
-				<div class="radio-box">
-					<input type="radio" id="status-2" name="status" value="2" checked>
-					<label for="status-2">启用</label>
-				</div>
-			</div>
-		</div> -->
 
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>简介：</label>
@@ -302,8 +296,9 @@ $(function(){
     		},'json');
     	});	
 
-		//jQuery控制“控制器”和“方法名”表单项的动态显示和隐藏
+		//jQuery控制表单项的动态显示和隐藏
 		$('select[name=school_id]').parents('.row').hide();
+		$('input[name=profession]').parents('.row').hide();
     	//选择学历
     	$('select[name=education]').change(function(){
     		//获取当前学历id
@@ -311,11 +306,14 @@ $(function(){
     		if(id >= 3){
     			//显示选择毕业院校
 				$('select[name=school_id]').parents('.row').show(300);
+				$('input[name=profession]').parents('.row').show(300);
     		}else{
     			//隐藏
 		 		//重置表单项里的值
     			$('select[name=school_id]').val('');
     			$('select[name=school_id]').parents('.row').hide(300);
+    			$('input[name=profession]').val('');
+    			$('input[name=profession]').parents('.row').hide(300);
     		}
     	});
 

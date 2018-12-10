@@ -75,7 +75,9 @@ Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 	//个人主页
 	Route::get('homepage/index/{type}/{id}', 'Home\HomepageController@index');
 	//个人履历
-	Route::get('homepage/resume', 'Home\HomepageController@resume');
+	Route::get('homepage/resume/{id}', 'Home\HomepageController@resume');
+	//添加工作经验
+	Route::post('homepage/addResume', 'Home\HomepageController@addResume');
 
 	//个人主页动态搜索
 	Route::get('search/index', 'Home\SearchController@index');

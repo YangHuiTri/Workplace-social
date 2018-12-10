@@ -79,6 +79,7 @@ class EditController extends Controller
     				'updated_at'	=>		date('Y-m-d H:i:s'),
     				'education'		=>		Input::get('education'),
     				'school_id'		=>		Input::get('school_id'),
+                    'profession'    =>      Input::get('profession'),
                     'school_validate'=>     '1',
     				'com_id'		=>		Input::get('com_id'),
     				'introduction'	=>		$introduction,

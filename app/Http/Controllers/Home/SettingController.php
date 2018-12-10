@@ -51,7 +51,8 @@ class SettingController extends Controller
                 'city_id'       =>  $city_id,
                 'category_id'   =>  $category_id,
                 'recruit_type'  =>  $recruit_type,
-                'status'        =>  $status
+                'status'        =>  $status,
+                'updated_at'    =>  date('Y-m-d H:i:s')
             ]);
         }else{
             //数据入库
@@ -61,7 +62,8 @@ class SettingController extends Controller
                 'category_id'   =>  $category_id,
                 'recruit_type'  =>  $recruit_type,
                 'status'        =>  $status,
-                'user_id'       =>  $user_id
+                'user_id'       =>  $user_id,
+                'created_at'    =>  date('Y-m-d H:i:s')
             ]);
         }
         //返回输出

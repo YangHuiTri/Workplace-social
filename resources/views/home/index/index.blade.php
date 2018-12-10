@@ -100,7 +100,9 @@
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		    <ul class="nav navbar-nav">
 		        <li class="active"><a href="#" class="glyphicon glyphicon-home">主页 <span class="sr-only">(current)</span></a></li>
-		        <li><a href="/home/recommend/index" target="_blank" style="color: white;">职位推荐</a></li>
+		        @if(Session::get('loginType') == 'member')
+		        	<li><a href="/home/recommend/index" target="_blank" style="color: white;">职位推荐</a></li>
+		        @endif
 		        <li class="dropdown">
 		        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: white;">Dropdown <span class="caret"></span></a>
 		          	<ul class="dropdown-menu">
@@ -325,13 +327,13 @@
 				<div class="content">
 					<div class="content-info row">
 						<div id="avatar" class="col-lg-2" style="margin-right: -5px;">
-							<a href="/home/homepage/index/{{$value->author_type}}/{{$value->author_id}}">
+							<a href="/home/homepage/index/{{$value->author_type}}/{{$value->author_id}}" target="_blank">
 								<img width="50px" style="height: 50px;" src="{{$value->author_avatar}}">
 							</a>
 						</div>
 						<div class="col-lg-10" style="height: 20px;margin-left:-15px;padding-top: 5px;">
 							<b style="font-size: 20px">
-								<a href="/home/homepage/index/{{$value->author_type}}/{{$value->author_id}}" style="text-decoration: none;color: #3671A2;">{{$value->author_name}}
+								<a href="/home/homepage/index/{{$value->author_type}}/{{$value->author_id}}" style="text-decoration: none;color: #3671A2;" target="_blank">{{$value->author_name}}
 								</a>
 							</b>
 							<div class="row">
@@ -354,13 +356,13 @@
 				<div class="content">
 					<div class="content-info row">
 						<div id="avatar" class="col-lg-2" style="margin-right: -5px;">
-							<a href="/home/homepage/index/{{$value->author_type}}/{{$value->author_id}}">
+							<a href="/home/homepage/index/{{$value->author_type}}/{{$value->author_id}}" target="_blank">
 								<img width="50px" style="height: 50px;" src="{{$value->author_avatar}}">
 							</a>
 						</div>
 						<div class="col-lg-10" style="height: 20px;margin-left:-15px;padding-top: 5px;">
 							<b style="font-size: 20px">
-								<a href="/home/homepage/index/{{$value->author_type}}/{{$value->author_id}}" style="text-decoration: none;color: #191919;">{{$value->author_name}}
+								<a href="/home/homepage/index/{{$value->author_type}}/{{$value->author_id}}" style="text-decoration: none;color: #191919;" target="_blank">{{$value->author_name}}
 								</a>
 							</b>
 							<div class="row">

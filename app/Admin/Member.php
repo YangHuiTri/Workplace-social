@@ -10,7 +10,7 @@ class Member extends Model implements \Illuminate\Contracts\Auth\Authenticatable
     //定义当前模型需要关联的数据表
     protected $table = 'member';
     //允许插入的字段
-    protected $fillable = ['username','age','password','gender','mobile','email','avatar','country_id','province_id','city_id','county_id','status'];
+    protected $fillable = ['username','age','password','gender','mobile','email','avatar','country_id','province_id','city_id','county_id','status','com_id','education','school_id','is_recommend','profession','school_validate','introduction','message_count'];
 
     use Authenticatable;
 

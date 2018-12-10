@@ -336,6 +336,10 @@ class ArticleController extends Controller
     		$education = $request->education;
     		//所需工作经验
     		$work_experience = $request->work_experience;
+            //工作省份
+            $province_id = $request->province_id;
+            //工作城市
+            $city_id = $request->city_id;
     		//职能描述
     		//替换空格和换行
 			$pattern = array('/ /','/　/','/\r\n/','/\n/');
@@ -362,6 +366,8 @@ class ArticleController extends Controller
     			'category_id'	=>	$category_id,
     			'education'		=>	$education,
     			'work_experience'	=>	$work_experience,
+                'province_id'   =>  $province_id,
+                'city_id'       =>  $city_id,
     			'created_at'	=>	date('Y-m-d H:i:s')
     		]);
     		//返回输出
@@ -369,8 +375,10 @@ class ArticleController extends Controller
     	}
     	//查询数据
     	$category = DB::table('category')->get();
+        //查询数据（省份的数据）
+        $province = DB::table('area')->where('pid','1')->get();
     	//展示视图
-    	return view('home.article.addrecruit', compact('category'));
+    	return view('home.article.addrecruit', compact('category','province'));
     }
 
     //招聘动态详情
@@ -401,6 +409,9 @@ class ArticleController extends Controller
     	//职能类别
     	$category_id = $data['0']->category_id;
     	$category_name = DB::table('category')->where('id','=',$category_id)->value('category_name');
+        //工作地点
+        $work_province = DB::table('area')->where('id','=',$data['0']->province_id)->value('area');
+        $work_city = DB::table('area')->where('id','=',$data['0']->city_id)->value('area');
 
     	$data3 = [
     		'introduction'	=>	$introduction,
@@ -409,11 +420,28 @@ class ArticleController extends Controller
     		'country'	=>	$country,
 			'province'	=>	$province,
 			'city'		=>	$city,
-			'county'	=>	$county
+			'county'	=>	$county,
+            'work_province'=>$work_province,
+            'work_city' =>  $work_city
     	];
+
+        //查询符合该职位的用户(根据职能类别推荐)
+        //职位性质
+        $recruit_type = $data['0']->recruit_type;
+        //工作省份
+        $province_id = $data['0']->province_id;
+        //符合要求的用户
+        $users = DB::table('expectation')->where('category_id','=',$category_id)->where('status','<','3')->get();
+        $length = count($users);
+        //查询符合要求的用户的信息
+        for ($i=0; $i < $length; $i++) { 
+            $data4[$i] = DB::table('member')->where('id','=',$users[$i]->user_id)->get();
+            $data4[$i]['0']->school = DB::table('company')->where('id','=',$data4[$i]['0']->school_id)->value('com_name');
+        }
+        // dd($data4);
     	
     	//展示视图
-    	return view('home.article.recruit', compact('data', 'data3'));
+    	return view('home.article.recruit', compact('data', 'data3', 'data4'));
     }
 
 

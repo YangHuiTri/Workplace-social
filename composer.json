@@ -10,7 +10,8 @@
         "caouecs/laravel-lang": "~3.0",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
-        "mews/captcha": "^2.2"
+        "mews/captcha": "^2.2",
+        "mikehaertl/phpwkhtmltopdf": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

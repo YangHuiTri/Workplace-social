@@ -81,9 +81,40 @@
 		<div class="row cl">
 			<label for="work_experience" class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工作经验：</label>
 			<div class="formControls col-xs-8 col-sm-9" style="width: 140px;">
-				<input type="text" id="work_experience" name="work_experience" class="input-text" placeholder="年">
+				<!-- <input type="text" id="work_experience" name="work_experience" class="input-text" placeholder="年"> -->
+				<span class="select-box" id="work_experience" style="width:110px;">
+						<select class="select" name="work_experience" size="1">
+							<option value="null">请选择</option>
+							<option value="0">无</option>
+							<option value="1">1年</option>
+							<option value="2">2年</option>
+							<option value="3">3年</option>
+							<option value="4">4年</option>
+							<option value="5">5年</option>
+							<option value="6">5年以上</option>
+						</select>
+					</span>
 			</div>
 		</div>
+
+		<div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>工作城市：</label>
+            <div class="formControls col-xs-8 col-sm-9"> 
+            	<span class="select-box" style="width:110px;">
+				<select class="select" name="province_id" size="1">
+					<option value="0">省份/州</option>
+					@foreach($province as $val)
+					<option value="{{$val -> id}}">{{$val -> area}}</option>
+					@endforeach
+				</select>
+				</span>
+				<span class="select-box" style="width:110px;">
+				<select class="select" name="city_id" size="1">
+					<option value="0">城市</option>
+				</select>
+				</span>  
+			</div>
+        </div>
 
 		<div class="row cl">
 			<label for="content" class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>职位描述：</label>
@@ -114,6 +145,23 @@
 <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 $(function(){
+	//在选择省份/州之后列出城市的数据
+	$('select[name=province_id]').change(function(){
+		//获取当前省份/州id
+		var id = $(this).val();
+		$.get('/home/edit/getareabyid',{id: id},function(data){
+			//jQuery的循环操作
+			var str = '';
+			$.each(data,function(index,el){
+				str += "<option value='" + el.id + "'>" + el.area + "</option>";
+			});
+			//在追加之前先清除之前的三级之后的数据
+			$('select[name=city_id]').find('option:gt(0)').remove();
+			$('select[name=county_id]').find('option:gt(0)').remove();
+			//将数据放到对应的option之后
+			$('select[name=city_id]').append(str);
+		},'json');
+	});
 
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',

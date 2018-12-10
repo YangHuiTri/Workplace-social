@@ -16,12 +16,13 @@ class CreateResumeTable extends Migration
         //创建表
         Schema::create('resume',function(Blueprint $table){
             $table -> increments('id');//id
-            $table -> string('city');//期望诚实
-            $table -> integer('category_id');//职能类别
-            $table -> integer('recruit_type');//职能性质，全职/实习/兼职
-            $table -> integer('status');//目前状态，1找工作，2准备换工作，3已经找到工作
-            $table -> integer('is_recommend')->default(2);//是否被推荐，1否2是
-            $table -> integer('user_id');
+            $table -> string('start_time');//开始时间
+            $table -> string('end_time');//结束时间
+            $table -> string('name');//名称
+            $table -> string('duty');//职责
+            $table -> string('content');//描述
+            $table -> string('type');//种类
+            $table -> integer('user_id');//所属用户
             $table -> timestamps();
         });
     }

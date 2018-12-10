@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>{{$data[0]->recruit_title}}-{{$data['0']->author_name}}</title>
 	<link rel="stylesheet" href="/home/css/bootstrap.min.css">
 	<script src="/home/js/jquery.min.js"></script>
 	<script src="/home/js/bootstrap.min.js"></script>
@@ -32,9 +32,22 @@
 			-webkit-box-orient:vertical;
 			-webkit-line-clamp:3; */
 		}
+		.thumbnail{
+			height: 260px;
+		}
+
+	    .thumbnail:hover{
+	        -webkit-box-shadow: #ccc 0px 3px 3px;
+	        -moz-box-shadow: #ccc 0px 3px 3px;
+	        box-shadow: #ccc 0px 3px 3px;  
+	    }
+
+	    .caption{
+	    	word-wrap: break-word;word-break: break-all;overflow: hidden;
+	    }
 	</style>
 </head>
-<body style="background-color: #CACACA">
+<body style="background-color: #EDEDED">
 	<div class="container" style="margin-bottom: 20px;">
 		
 		<div class="post-album" style="height: 190px;">
@@ -65,31 +78,47 @@
 
 		<div class="post-album">
 			<div class="content">
-				<div class="row" style="height: 60px;">
-					<div class="col-lg-6 row">
-						<span class="col-lg-12" style="font-size: 15px;font-weight: bold;height: 30px;">职位性质</span>
-						<span class="col-lg-12">
-							@if($data['0']->category_id == 1)
-								全职
-							@elseif($data['0']->category_id == 2)
-								实习
-							@else
-								兼职
-							@endif
-						</span>
+				
+
+				<div class="row" style="height: 40px;">
+					<div class="col-lg-2" style="height: 30px;">
+						<span style="font-size: 15px;font-weight: bold;">职位性质：</span>
 					</div>
-					<div class="col-lg-6 row">
-						<span class="col-lg-12" style="font-size: 15px;font-weight: bold;height: 30px;">职能类别</span>
-						<span class="col-lg-12">{{$data3['category_name']}}</span>
+					<div class="col-lg-10" style="margin-left: -50px;">
+						@if($data['0']->category_id == 1)
+							全职
+						@elseif($data['0']->category_id == 2)
+							实习
+						@else
+							兼职
+						@endif
 					</div>
 				</div>
 
-				<div class="row" style="height: 60px;">
+				<div class="row" style="height: 40px;">
+					<div class="col-lg-2" style="height: 30px;">
+						<span style="font-size: 15px;font-weight: bold;">职能类别：</span>
+					</div>
+					<div class="col-lg-10" style="margin-left: -50px;">
+						{{$data3['category_name']}}
+					</div>
+				</div>
+
+				<div class="row" style="height: 40px;">
+					<div class="col-lg-2" style="height: 30px;">
+						<span style="font-size: 15px;font-weight: bold;">工作城市：</span>
+					</div>
+					<div class="col-lg-10" style="margin-left: -50px;">
+						{{$data3['work_province']}}{{$data3['work_city']}}
+					</div>
+				</div>
+
+				<div class="row" style="height: 40px;">
 					<div class="col-lg-12" style="height: 30px;">
 						<span style="font-size: 15px;font-weight: bold;">资历要求</span>
 					</div>
 					<div class="col-lg-12">
-						<span class="col-lg-6">
+						<span class="col-lg-3">
 							学历：
 							@if($data['0']->education == 0)
 								其他
@@ -107,7 +136,7 @@
 								无
 							@endif
 						</span>
-						<span class="col-lg-6">
+						<span class="col-lg-3">
 							工作经验：
 							@if($data['0']->work_experience == 0)
 								无
@@ -117,6 +146,7 @@
 						</span>
 					</div>
 				</div>
+
 				<br>
 				<div style="width: 760px;border: 1px solid gray;margin-left: -20px;"></div>
 				<font style="font-size: 20px;">职位描述</font>
@@ -132,6 +162,66 @@
 				<div class="content-text">{!!$data3['introduction']!!}</div>
 			</div>
 		</div>
+
+
+		<div style="background-color: white;margin: 20px auto 0;border-radius: 6px;">
+			<span style="font-size: 23px;margin: 10px;position: absolute;">为您推荐：</span><br><br><br>
+			<div class="row" style="margin: 0px 5px;">
+				@foreach($data4 as $val)
+				    <div class="col-sm-4 col-md-3" style="text-align: center;">
+				        <div class="thumbnail">
+				        	<div class="caption" style="height: 160px;">
+				        		<img src="{{$val['0']->avatar}}" style="width: 100px;height: 100px;border-radius: 50%;">
+				        		<h4><b>{{$val['0']->username}}</b></h4>
+				        	</div>
+				        	<span style="color: #616263;" class="glyphicon glyphicon-home">{{$val['0']->school}}</span><br><br>
+				        	<a href="/home/homepage/resume/{{$val['0']->id}}" class="btn btn-default" style="border:1px solid #0073B1; color: #0073B1">点击查看</a>
+				        </div>
+				    </div>
+			    @endforeach
+
+			    <div class="col-sm-4 col-md-3" style="text-align: center;">
+			        <div class="thumbnail">
+			        	<div class="caption" style="height: 160px;">
+			        		<img src="/home/images/logo.png" style="width: 100px;height: 100px;border-radius: 50%;">
+			        		<h4><b>野人杨</b></h4>
+			        	</div>
+			        	<span style="color: #616263;" class="glyphicon glyphicon-home">华东交通大学</span><br><br>
+			        	<button class="btn btn-default" style="border:1px solid #0073B1; color: #0073B1">点击查看</button>
+			        </div>
+			    </div>
+
+			    <div class="col-sm-4 col-md-3" style="text-align: center;">
+			        <div class="thumbnail">
+			        	<div class="caption" style="height: 160px;">
+			        		<img src="/home/images/logo.png" style="width: 100px;height: 100px;border-radius: 50%;">
+			        		<h4><b>野人杨</b></h4>
+			        	</div>
+			        	<span style="color: #616263;" class="glyphicon glyphicon-home">华东交通大学</span><br><br>
+			        	<button class="btn btn-default" style="border:1px solid #0073B1; color: #0073B1">点击查看</button>
+			        </div>
+			    </div>
+
+			    <div class="col-sm-4 col-md-3" style="text-align: center;">
+			        <div class="thumbnail">
+			        	<div class="caption" style="height: 160px;">
+			        		<img src="/home/images/logo.png" style="width: 100px;height: 100px;border-radius: 50%;">
+			        		<h4><b>野人杨</b></h4>
+			        	</div>
+			        	<span style="color: #616263;" class="glyphicon glyphicon-home">华东交通大学</span><br><br>
+			        	<button class="btn btn-default" style="border:1px solid #0073B1; color: #0073B1">点击查看</button>
+			        </div>
+			    </div>
+
+
+
+
+
+
+			</div>
+		</div>
+
+
 
 		<div style="margin-top: 20px;"><center>Copyright © 2010 - 2018 Workplace-social. All Rights Reserved.</center></div>
 

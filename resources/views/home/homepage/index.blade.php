@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>主页</title>
+<title>主页 -@if($data['type'] == 'company') {{$res['0']->com_name}} @else {{$res['0']->username}} @endif</title>
 <meta name="description" content="" />
 <meta name="keywords" content="" />
 <link rel="stylesheet" type="text/css" href="/home/statics/css/index.css" media="all" />
@@ -49,17 +49,17 @@
 <header id="masthead" class="overlay animated from-bottom" itemprop="brand">
 	<!-- 头像 -->
 	<div class="site-branding text-center">
-		<a href="/home/homepage/resume" target="_blank" title="查看简历">
+		@if(!isset($res['0']->com_name))
+			<a href="/home/homepage/resume/{{$res['0']->id}}" target="_blank" title="查看简历">
+				<figure>
+					<img style="width: 90px;height: 90px;" class="custom-logo avatar" src="{{$res['0']->avatar}}" />
+				</figure>
+			</a>
+		@else
 			<figure>
-				<img style="width: 90px;height: 90px;" class="custom-logo avatar" src="
-				@if($data['type'] == 'company')
-					{{$res['0']->avatar}}
-				@elseif($data['type'] == 'member')
-					{{$res['0']->avatar}}
-				@endif
-					" />
+				<img style="width: 90px;height: 90px;" class="custom-logo avatar" src="{{$res['0']->avatar}}"/>
 			</figure>
-		</a>
+		@endif
 		<h3 class="blog-description"><p>
 			@if($data['type'] == 'company')
 				@if($res['0']->com_name)
