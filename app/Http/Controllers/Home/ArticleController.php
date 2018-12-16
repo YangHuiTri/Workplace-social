@@ -86,12 +86,13 @@ class ArticleController extends Controller
     	//查询文章数据
     	$data = Article::where('id','=',$id)->get();
     	//查询评论数据
-    	$data2 = Comment::where('article_id', '=', $id)->where('pid','=','0')->orderBy('created_at','desc')->get();
+    	$data2 = Comment::where('article_id', '=', $id)->where('pid','=','0')->orderBy('created_at','asc')->get();
         // dd($data2);
+        //查询回复数据
         $length = count($data2);
         for ($i=0; $i < $length; $i++) { 
             $pid = $data2[$i]->id;
-            $data3[$pid] = Comment::where('article_id', '=', $id)->where('pid','=',$pid)->orderBy('created_at','desc')->get();
+            $data3[$pid] = Comment::where('article_id', '=', $id)->where('pid','=',$pid)->orderBy('created_at','asc')->get();
         }
         // dd($data3);
     	//点赞的人
@@ -175,7 +176,12 @@ class ArticleController extends Controller
                     }
                 }
             }
-            $message_zan = implode(',', $zanArr).',';
+            if(count($zanArr) > 0){
+                $message_zan = implode(',', $zanArr).',';
+            }else{
+                $message_zan = '';
+            }
+            
     		//更新数据库
     		$result = Article::where('id','=',$id)->update([
     			'zan_count'	=>	$zan_count,
@@ -439,9 +445,63 @@ class ArticleController extends Controller
             $data4[$i]['0']->school = DB::table('company')->where('id','=',$data4[$i]['0']->school_id)->value('com_name');
         }
         // dd($data4);
-    	
     	//展示视图
     	return view('home.article.recruit', compact('data', 'data3', 'data4'));
+    }
+
+    //申请、取消申请职位
+    public function shenqing(Request $request){
+        //文章id
+        $id = $request->id;
+        //公司id
+        $com_id = $request->com_id;
+        //操作种类
+        $type = $request->type;
+        //用户id
+        $user_id = Auth::guard('member')->user()->id;
+        //查询申请用户id集合
+        $people = DB::table('article')->where('id','=',$id)->value('recruit_people');
+        //判断
+        if($type == 'add'){
+            //申请职位
+            $recruit_people = $user_id.'@'.date('Y-m-d H:i:s').','.$people;
+            //将用户信息添加到该招聘信息数据库中
+            $result = DB::table('article')->where('id','=',$id)->update(['recruit_people'=>$recruit_people]);
+            //公司信息数
+            $count = DB::table('company')->where('id','=',$com_id)->value('message_count');
+            // dd($count);
+            //未读信息数加1
+            $message_count = $count + 1;
+            DB::table('company')->where('id','=',$com_id)->update(['message_count'=>$message_count]);
+            //返回输出
+            return $result ? '1' : '0';
+
+        }elseif($type == 'less'){
+            //取消申请职位
+            $peopleArr = explode(',', rtrim($people,','));     
+            for($i = 0; $i < count($peopleArr); $i++){
+                if(strpos($peopleArr[$i], $user_id.'@') === 0){
+                    unset($peopleArr[$i]);
+                }
+            }
+            //这一步是防止该字段为空还保留了一个逗号在那里
+            if(count($peopleArr) > 0){
+                $recruit_people = implode(',', $peopleArr).',';
+            }else{
+                $recruit_people = '';
+            }
+            
+            //将用户信息从该招聘信息数据库中删除
+            $result = DB::table('article')->where('id','=',$id)->update(['recruit_people'=>$recruit_people]);
+            //公司信息数
+            $count = DB::table('company')->where('id','=',$com_id)->value('message_count');
+            //未读信息数减1
+            $message_count = $count - 1;
+            DB::table('company')->where('id','=',$com_id)->update(['message_count'=>$message_count]);
+            //返回输出
+            return $result ? '1' : '0';
+
+        }
     }
 
 

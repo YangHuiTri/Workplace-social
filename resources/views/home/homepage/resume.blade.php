@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>个人履历 - {{$res['0']->username}}</title>
+
+<!-- 导入jsPDF -->
+<script src="/home/js/html2canvas.js"></script>
+<script src="/home/js/jsPdf.debug.js"></script>
+
 <link rel="stylesheet" href="/home/css/bootstrap.min.css">
 <script src="/home/js/jquery.min.js"></script>
 <script src="/home/js/bootstrap.min.js"></script>
@@ -34,7 +39,8 @@
 @endif
 
 <body style="background-color: #F5F5F5;">
-	<div class="container" style="background-color: white;width: 850px;">
+	<div style="padding-left: 880px;padding-top: 50px;position: absolute;"><button class="btn btn-primary" id="download">下载简历</button></div>
+	<div class="container" style="background-color: white;width: 850px;margin-top: 20px;" id="pdf">
 
 		<div class="page-header">
 		  <h1>Personal Resume <small>Take a minute to look</small></h1>
@@ -380,7 +386,6 @@
 					@endif
 				</div>
 			</div>
-
 		</div>
 		
 
@@ -388,6 +393,29 @@
 </body>
 <script>
 $(function(){
+	//下载简历
+	$('#download').click(function(){
+		//下载前将新增按钮和下载按钮隐藏
+		$('.add-project').hide();
+		$('#download').hide();
+		if(confirm("您确认下载该PDF文件吗?")){
+	        var pdf = new jsPDF('p','pt','a4');
+	    	// 设置打印比例 越大打印越小
+	        pdf.internal.scaleFactor = 2;
+	        var options = {
+	            pagesplit: true, //设置是否自动分页
+	            "background": '#FFFFFF'   //如果导出的pdf为黑色背景，需要将导出的html模块内容背景 设置成白色。
+	        };
+	        var printHtml = $('#pdf').innerHtml;   // 页面某一个div里面的内容，通过id获取div内容
+	        pdf.addHTML(printHtml,15, 15, options,function() {
+	            pdf.save("简历_{{$res['0']->username}}.pdf");
+	        });
+	    }
+	    //下载完将新增按钮和下载按钮恢复显示
+	    $('.add-project').show();
+	    $('#download').show();
+	});
+
 	// ajax添加工作经验
 	$('.baocun').click(function(){
 		var id = $(this).attr('id');

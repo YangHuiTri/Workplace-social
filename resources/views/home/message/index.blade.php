@@ -44,7 +44,23 @@
 				    <button id="{{$val['0']->id}}" style="float: right;margin-top: -5px;" class="btn btn-primary validate">认证</button>
 				</div>
 			@endforeach
-			<div style="width: 1140px; border:1px solid gray;margin: 50px 0;"></div>
+			<div style="width: 1140px; border:1px solid gray;margin: 40px 0;"></div>
+		@endif
+
+		
+		@if($type == 'company' && !empty($arr6['0']['0']))
+		<div id="message2">
+			<font style="font-size: 25px;color: #428BCA;margin-bottom: 20px;">申请信息</font><button id="qingchu" class="btn btn-primary" style="float: right;">全部清除</button><br>
+			@foreach($arr6 as $val)
+			<div class="alert alert-info" role="alert">
+				<strong>• New Message</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+			    <a href="/home/homepage/index/member/{{$val['0']}}" class="alert-link">{{$val['2']}}</a>&nbsp;&nbsp;申请&nbsp;&nbsp;<a href="/home/article/recruit/{{$val['4']}}" class="alert-link">{{$val['3']}}</a>&nbsp;&nbsp;一职&nbsp;&nbsp;&nbsp;&nbsp;
+			    {{$val['1']}}
+			    <a href="/home/homepage/resume/{{$val['0']}}" style="float: right;margin-right: 10px;color: #245269;">查看履历</a>
+			</div>
+			@endforeach
+			<div style="width: 1140px; border:1px solid gray;margin: 40px 0;"></div>
+		</div>
 		@endif
 		
 	
@@ -76,12 +92,12 @@
 					    <a href="/home/homepage/index/{{$val['0']}}/{{$val['1']}}" class="alert-link">{{$val['2']}}</a>
 					    评论了你的动态&nbsp;&nbsp;
 					    <div class="com">
-					    	<a href="/home/article/index/{{$val['2']}}" style="color:#38393D;text-decoration:none;">{!!$val['4']!!}</a>&nbsp;&nbsp;：
+					    	<a href="/home/article/index/{{$val['3']}}" style="color:#38393D;text-decoration:none;">{!!$val['4']!!}</a>&nbsp;&nbsp;：
 					    </div>
 					    <div class="com" style="margin-top: 10px;color: #181915;"><strong>{!!$val['5']!!}</strong></div>&nbsp;&nbsp;&nbsp;&nbsp;
 					    <div>{{$val['6']}}</div>
 					    <div>
-					    	<a href="/home/article/index/{{$val['2']}}" class="alert-link" style="float: right;margin-top: -50px;">查看详情</a>
+					    	<a href="/home/article/index/{{$val['3']}}" class="alert-link" style="float: right;margin-top: -50px;">查看详情</a>
 					    </div>
 					</div>
 				@endforeach
@@ -89,12 +105,16 @@
 		</div>
 
 
+
+
 	</div>
 </body>
 <script>
 $(function(){
+	var recruit_cont = {{$recruit_cont}};
+	//清除点赞和评论信息
 	$('#chakan').click(function(){
-		$.get('/home/message/chakan',function(data){
+		$.get('/home/message/chakan',{'cont':recruit_cont},function(data){
 			if(data == '1'){
 				$('#message').hide(400);
 			}else{
@@ -103,6 +123,20 @@ $(function(){
 		});
 		
 	});
+
+	//清除申请信息
+	$('#qingchu').click(function(){
+		$.get('/home/message/qingchu',{'cont':recruit_cont},function(data){
+			if(data == '1'){
+				$('#message2').hide(400);
+			}else{
+				layer.alert('这没有消息你点啥！！！');
+			}
+		});
+		
+	});
+
+	//认证
 	$('.validate').click(function(){
 		var user_id = $(this).attr('id');
 		var com_id = {{$id}};

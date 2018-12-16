@@ -65,9 +65,13 @@
 							<div class="col-lg-12" style="padding-top: 10px;">
 								<font color="#676767">发布日期：{{$data['0']->created_at}}</font>
 							</div>
-							<div class="col-lg-12" style="padding-top: 20px;">
-								<button id="shenqing" class="btn btn-primary">立即申请</button>
-							</div>
+							@if(Session::get('loginType') == 'member')
+								<div class="col-lg-12" style="padding-top: 20px;">
+									<button id="shoucang" class="btn btn-default" style="border:1px solid #0073B1;color: #0073B1;height: 40px;min-width: 65px;font-size: 18px;">收藏</button>&nbsp;&nbsp;
+
+									<button id="shenqing" class="btn btn-primary" style="height: 40px;min-width: 80px;font-size: 18px;"><?php $peopleArr=str_replace(',', '@', $data['0']->recruit_people); $people=explode('@', $peopleArr); if(in_array(Auth::guard('member')->user()->id, $people)){echo "取消申请";}else echo"申请";?></button>
+								</div>
+							@endif
 							
 						</div>
 					</div>
@@ -163,63 +167,29 @@
 			</div>
 		</div>
 
+		@if(Session::get('loginType') == 'company')
+			@if(Auth::guard('company')->user()->id == $data['0']->author_id)
+			<div style="background-color: white;margin: 20px auto 0;border-radius: 6px;">
+				<span style="font-size: 23px;margin: 10px;position: absolute;">为您推荐：</span><br><br><br>
+				<div class="row" style="margin: 0px 5px;">
 
-		<div style="background-color: white;margin: 20px auto 0;border-radius: 6px;">
-			<span style="font-size: 23px;margin: 10px;position: absolute;">为您推荐：</span><br><br><br>
-			<div class="row" style="margin: 0px 5px;">
-				@foreach($data4 as $val)
-				    <div class="col-sm-4 col-md-3" style="text-align: center;">
-				        <div class="thumbnail">
-				        	<div class="caption" style="height: 160px;">
-				        		<img src="{{$val['0']->avatar}}" style="width: 100px;height: 100px;border-radius: 50%;">
-				        		<h4><b>{{$val['0']->username}}</b></h4>
-				        	</div>
-				        	<span style="color: #616263;" class="glyphicon glyphicon-home">{{$val['0']->school}}</span><br><br>
-				        	<a href="/home/homepage/resume/{{$val['0']->id}}" class="btn btn-default" style="border:1px solid #0073B1; color: #0073B1">点击查看</a>
-				        </div>
-				    </div>
-			    @endforeach
+					@foreach($data4 as $val)
+					    <div class="col-sm-4 col-md-3" style="text-align: center;">
+					        <div class="thumbnail">
+					        	<div class="caption" style="height: 160px;">
+					        		<img src="{{$val['0']->avatar}}" style="width: 100px;height: 100px;border-radius: 50%;">
+					        		<h4><b>{{$val['0']->username}}</b></h4>
+					        	</div>
+					        	<span style="color: #616263;" class="glyphicon glyphicon-home">{{$val['0']->school}}</span><br><br>
+					        	<a href="/home/homepage/resume/{{$val['0']->id}}" class="btn btn-default" style="border:1px solid #0073B1; color: #0073B1">点击查看</a>
+					        </div>
+					    </div>
+				    @endforeach
 
-			    <div class="col-sm-4 col-md-3" style="text-align: center;">
-			        <div class="thumbnail">
-			        	<div class="caption" style="height: 160px;">
-			        		<img src="/home/images/logo.png" style="width: 100px;height: 100px;border-radius: 50%;">
-			        		<h4><b>野人杨</b></h4>
-			        	</div>
-			        	<span style="color: #616263;" class="glyphicon glyphicon-home">华东交通大学</span><br><br>
-			        	<button class="btn btn-default" style="border:1px solid #0073B1; color: #0073B1">点击查看</button>
-			        </div>
-			    </div>
-
-			    <div class="col-sm-4 col-md-3" style="text-align: center;">
-			        <div class="thumbnail">
-			        	<div class="caption" style="height: 160px;">
-			        		<img src="/home/images/logo.png" style="width: 100px;height: 100px;border-radius: 50%;">
-			        		<h4><b>野人杨</b></h4>
-			        	</div>
-			        	<span style="color: #616263;" class="glyphicon glyphicon-home">华东交通大学</span><br><br>
-			        	<button class="btn btn-default" style="border:1px solid #0073B1; color: #0073B1">点击查看</button>
-			        </div>
-			    </div>
-
-			    <div class="col-sm-4 col-md-3" style="text-align: center;">
-			        <div class="thumbnail">
-			        	<div class="caption" style="height: 160px;">
-			        		<img src="/home/images/logo.png" style="width: 100px;height: 100px;border-radius: 50%;">
-			        		<h4><b>野人杨</b></h4>
-			        	</div>
-			        	<span style="color: #616263;" class="glyphicon glyphicon-home">华东交通大学</span><br><br>
-			        	<button class="btn btn-default" style="border:1px solid #0073B1; color: #0073B1">点击查看</button>
-			        </div>
-			    </div>
-
-
-
-
-
-
+				</div>
 			</div>
-		</div>
+			@endif
+		@endif
 
 
 
@@ -230,10 +200,36 @@
 </body>
 <script>
 $(function(){
+	//申请、取消申请职位
 	$('#shenqing').click(function(){
-		$('#shenqing').attr('class','btn btn-success');
-		$('#shenqing').text('已申请');
+		if($('#shenqing').text() == '申请'){
+			$.get('/home/article/shenqing',{'id':'{{$data['0']->id}}','com_id':'{{$data['0']->author_id}}','type':'add'},function(data){
+				if(data == '1'){
+					$('#shenqing').text('取消申请');
+				}
+			});
+		}else{
+			$.get('/home/article/shenqing',{'id':'{{$data['0']->id}}','com_id':'{{$data['0']->author_id}}','type':'less'},function(data){
+				if(data == '1'){
+					$('#shenqing').text('申请');
+				}	
+			});
+		}
+
 	});
+
+	//收藏、取消收藏
+	$('#shoucang').click(function(){
+		if($(this).text() == '收藏'){
+			$(this).text('取消收藏');
+		}else{
+			$(this).text('收藏');
+		}
+		
+	});
+
+
+
 });	
 </script>
 </html>

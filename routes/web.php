@@ -72,6 +72,8 @@ Route::group(['prefix' => 'home'], function(){
 });
 //需要权限部分
 Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
+	//首页搜索
+	Route::post('index/search', 'Home\IndexController@search');
 	//个人主页
 	Route::get('homepage/index/{type}/{id}', 'Home\HomepageController@index');
 	//个人履历
@@ -100,6 +102,8 @@ Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 	Route::any('article/addRecruit', 'Home\ArticleController@addRecruit');
 	//招聘信息详情
 	Route::get('article/recruit/{id}', 'Home\ArticleController@recruit');
+	//申请职位
+	Route::get('article/shenqing', 'Home\ArticleController@shenqing');
 
 	//个人信息
 	Route::get('message/index/{type}/{id}', 'Home\MessageController@index');
@@ -107,6 +111,8 @@ Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 	Route::get('message/renzheng', 'Home\MessageController@renzheng');
 	//一键已读点赞和评论消息
 	Route::get('message/chakan', 'Home\MessageController@chakan');
+	//一键清除申请消息
+	Route::get('message/qingchu', 'Home\MessageController@qingchu');
 
 	//个人设置
 	Route::get('setting/index', 'Home\SettingController@index');
@@ -117,5 +123,7 @@ Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 
 	//职位推荐
 	Route::get('recommend/index', 'Home\RecommendController@index');
+
+	
 
 });

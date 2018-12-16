@@ -93,8 +93,36 @@ class MessageController extends Controller
     		// dd($message_com);
     		// dd($arr4);
 
+            //（三）处理公司的职位申请信息
+            //先查询该用户所有招聘动态
+            $data3 = DB::table('article')->where('author_id','=',$id)->where('article_type','=','recruit')->get();
+            // dd($data3);
+            $arr6 = Array(Array());
+            $k=0;
+            for($i = 0; $i < count($data3); $i++){
+                if(!empty($data3[$i]->recruit_people)){
+                    //招聘职位
+                    $recruit_title = $data3[$i]->recruit_title;//即arr6[]['2']
+                    //招聘信息id
+                    $recruit_id = $data3[$i]->id;//即arr6[]['3']
+                    $arr5 = explode(',', rtrim($data3[$i]->recruit_people,','));
+                    // dd($arr5);
+                    for($j = 0; $j < count($arr5); $j++){
+                        $arr6[$k] = explode('@', $arr5[$j]);
+                        $username = DB::table('member')->where('id','=',$arr6[$k]['0'])->value('username');
+                        // dd($arr6);
+                        array_push($arr6[$k], $username);
+                        array_push($arr6[$k], $recruit_title);
+                        array_push($arr6[$k], $recruit_id);
+                        $k++;
+                    }  
+                }  
+            }
+            $recruit_cont = count($arr6);
+            // dd($recruit_cont);
+            // dd($arr6);
     		//展示视图
-    		return view('home.message.index',compact('data','type','id','arr2','arr4'));
+    		return view('home.message.index',compact('data','type','id','arr2','arr4','arr6','recruit_cont'));
     	}elseif($type == 'member'){
     		//处理用户的动态消息
     		//点赞部分
@@ -205,6 +233,7 @@ class MessageController extends Controller
 
     //清除点赞和评论消息
     public function chakan(Request $request){
+        $cont = $request->recruit_cont;
     	//用户/公司id
     	if(Session::get('loginType') == 'company'){
     		$id = Auth::guard('company')->user()->id;
@@ -219,14 +248,14 @@ class MessageController extends Controller
     			]);
     		}
     		//更新用户的信息数message_count字段（思路：只留下需要认证信息的个数）
-    		//1、先查询该公司company表中的need_validate字段
+    		//先查询该公司company表中的need_validate字段
     		$need_validate = DB::table('company')->where('id','=',$id)->value('need_validate');
     		if(!empty($need_validate)){
     			$validate = explode(',', rtrim($need_validate,','));
-    			$message_count = count($validate);
+    			$message_count = count($validate)+$cont;
     			$result = DB::table('company')->where('id','=',$id)->update(['message_count'=>$message_count]);
     		}else{
-    			$result = DB::table('company')->where('id','=',$id)->update(['message_count'=>'0']);
+    			$result = DB::table('company')->where('id','=',$id)->update(['message_count'=>$cont]);
     		}
     		//返回输出
     		return $result ? '1' : '0';
@@ -248,9 +277,22 @@ class MessageController extends Controller
     		return $result ? '1' : '0';
 
     	}
-    	
+    }
 
-
+    //清除申请信息
+    public function qingchu(Request $request){
+        //公司id
+        $id = Auth::guard('company')->user()->id;
+        //需要清除的数量
+        $cont = $request->cont;
+        //清除招聘动态中的申请人信息
+        $result = DB::table('article')->where('author_id','=',$id)->where('article_type','=','recruit')->update(['recruit_people'=>'']);
+        //公司信息未读数减$cont
+        $count = DB::table('company')->where('id','=',$id)->value('message_count');
+        $message_count = $count - $cont;
+        DB::table('company')->where('id','=',$id)->update(['message_count'=>$message_count]);
+        //返回输出
+        return $result ? '1' : '0';
 
 
     }

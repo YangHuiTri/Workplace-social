@@ -41,7 +41,21 @@
 			text-overflow:ellipsis;
 			display:-webkit-box; 
 			-webkit-box-orient:vertical;
-			-webkit-line-clamp:3; 
+			-webkit-line-clamp:4; 
+		}
+		.content-text2{
+			color: #404040;
+			line-height: 25px;
+			word-spacing:2px;/*词间距*/
+			font-size: 15px;
+			margin-top: 25px;
+			margin-left: -10px;
+			/*最多显示三行，超过的用...表示*/
+			overflow:hidden;
+			text-overflow:ellipsis;
+			display:-webkit-box; 
+			-webkit-box-orient:vertical;
+			-webkit-line-clamp:15; 
 		}
 		.img{
 			margin: 15px 0px 15px;
@@ -116,10 +130,11 @@
 		          	</ul>
 		        </li>
 		    </ul>
-		    <form class="navbar-form navbar-left">
+		    <form class="navbar-form navbar-left" action="/home/index/search" method="post">
 		        <div class="form-group">
-	          		<input type="text" class="form-control" placeholder="Search">
+	          		<input type="text" name="search_text" class="form-control" placeholder="Search">
 		        </div>
+		        {{csrf_field()}}
 		        <button type="submit" class="btn btn-default">Submit</button>
 		    </form>
 		    <ul class="nav navbar-nav navbar-right">
@@ -251,7 +266,7 @@
 		<!-- 发动态模态框-开始 -->
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
 		  	<div class="modal-dialog" role="document">
-		    	<div class="modal-content">
+		    	<div class="modal-content" style="width: 535px;">
 			      	<div class="modal-header">
 			       		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			        	<h4 class="modal-title" id="exampleModalLabel">New message</h4>
@@ -323,7 +338,7 @@
 		@foreach($data as $value)
 		@if($value->article_type == 'recruit')
 		<!-- 招聘动态 -->
-			<div class="post-album" style="background-image: url('/home/images/recruit1.png');">
+			<div class="post-album" style="background-image: url('/home/images/recruit.png');background-repeat: no-repeat;">
 				<div class="content">
 					<div class="content-info row">
 						<div id="avatar" class="col-lg-2" style="margin-right: -5px;">
@@ -343,8 +358,9 @@
 							</div>
 						</div>
 					</div>
-					<div class="content-text">
+					<div class="content-text2">
 						<a style="text-decoration: none;color: #676767;" href="/home/article/recruit/{{$value->id}}" target="_blank">
+							<b>{{$value->recruit_title}}</b><br>
 							{!!$value->content!!}
 						</a>
 					</div>
