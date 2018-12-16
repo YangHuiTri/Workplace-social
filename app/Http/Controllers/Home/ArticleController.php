@@ -53,6 +53,7 @@ class ArticleController extends Controller
 					'author_name'=>	$author_name,
 					'author_avatar'	=>	$author_avatar,
 					'author_type'	=>	$author_type,
+                    'article_type'  =>  'article',
 					'created_at'=>	date('Y-m-d H:i:s')
 				]);
 				//返回输出
@@ -71,6 +72,7 @@ class ArticleController extends Controller
 					'author_name'=>	$author_name,
 					'author_avatar'	=>	$author_avatar,
                     'author_type'   =>  $author_type,
+                    'article_type'  =>  'article',
 					'created_at'=>	date('Y-m-d H:i:s')
 				]);
 				//返回输出
@@ -445,8 +447,22 @@ class ArticleController extends Controller
             $data4[$i]['0']->school = DB::table('company')->where('id','=',$data4[$i]['0']->school_id)->value('com_name');
         }
         // dd($data4);
+
+        //查询当前登录用户的收藏信息
+        if(Session::get('loginType') == 'member'){
+            //用户id
+            $uid = Auth::guard('member')->user()->id;
+            //收藏的文章id集合
+            $collection_id = DB::table('member')->where('id','=',$uid)->value('collection_id');
+            //将id集合拆分成数组
+            $collectionArr = explode(',', rtrim($collection_id,','));
+            //申请的职位id集合
+            $application_id = DB::table('member')->where('id','=',$uid)->value('application_id');
+            //将id结合拆分成数组
+            $applicationArr = explode(',', rtrim($collection_id,','));
+        }
     	//展示视图
-    	return view('home.article.recruit', compact('data', 'data3', 'data4'));
+    	return view('home.article.recruit', compact('data', 'data3', 'data4','collectionArr','applicationArr'));
     }
 
     //申请、取消申请职位
@@ -473,6 +489,12 @@ class ArticleController extends Controller
             //未读信息数加1
             $message_count = $count + 1;
             DB::table('company')->where('id','=',$com_id)->update(['message_count'=>$message_count]);
+
+            //更新用户的申请职位字段（将该文章id添加到集合中）
+            $application = DB::table('member')->where('id','=',$user_id)->value('application_id');
+            $application_id = $id.','.$application;
+            DB::table('member')->where('id','=',$user_id)->update(['application_id'=>$application_id]);
+
             //返回输出
             return $result ? '1' : '0';
 
@@ -498,12 +520,52 @@ class ArticleController extends Controller
             //未读信息数减1
             $message_count = $count - 1;
             DB::table('company')->where('id','=',$com_id)->update(['message_count'=>$message_count]);
+
+            //更新用户的申请职位字段(将该文章id从集合中删除)
+            $application = DB::table('member')->where('id','=',$user_id)->value('application_id');
+            $applicationArr = explode(',', rtrim($application,','));
+            for($i = 0; $i < count($applicationArr); $i++){
+                if($applicationArr[$i] == $id){
+                    unset($applicationArr[$i]);
+                }
+            }
+            //更新字段
+            if(count($applicationArr) > 0){
+                $application_id = implode(',', $applicationArr).',';
+            }else{
+                $application_id = '';
+            }
+            //更新数据库
+            DB::table('member')->where('id','=',$user_id)->update(['application_id'=>$application_id]);
+            
             //返回输出
             return $result ? '1' : '0';
-
         }
     }
 
+    //申请记录
+    public function record(){
+        //查询数据
+        $user_id = Auth::guard('member')->user()->id;
+        //申请过的职位id集合
+        $application_id = DB::table('member')->where('id','=',$user_id)->value('application_id');
+        $applicationArr = explode(',', rtrim($application_id,','));
+        $length = count($applicationArr);
+        // dd($applicationArr);
+        if($length > 0 && !empty($applicationArr['0'])){
+            for($i = 0; $i < $length; $i++){
+                $data[$i] = DB::table('article')->where('id','=',$applicationArr[$i])->get();
+                //查询该职位的工作省市
+                $data[$i]['0']->province = DB::table('area')->where('id','=',$data[$i]['0']->province_id)->value('area');
+                $data[$i]['0']->city = DB::table('area')->where('id','=',$data[$i]['0']->city_id)->value('area');
+            }
+        }else{
+            $data = 'nothing';
+        }
+        // dd($data);
+        //展示视图
+        return view('home.article.record', compact('data'));
+    }
 
 
 

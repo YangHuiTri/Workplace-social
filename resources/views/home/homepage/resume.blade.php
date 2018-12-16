@@ -39,7 +39,7 @@
 @endif
 
 <body style="background-color: #F5F5F5;">
-	<div style="padding-left: 880px;padding-top: 50px;position: absolute;"><button class="btn btn-primary" id="download">下载简历</button></div>
+	<div style="padding-left: 880px;padding-top: 50px;position: absolute;"><button class="btn btn-primary" id="download"><span class="glyphicon glyphicon-download-alt">下载简历</span></button></div>
 	<div class="container" style="background-color: white;width: 850px;margin-top: 20px;" id="pdf">
 
 		<div class="page-header">
@@ -51,6 +51,7 @@
 		<div class="basic" style="border-bottom: 1px solid black;min-height: 100px;">
 			<span class="headers">个人信息</span>
 			<div class="row">
+				<span class="col-lg-10">
 				<span class="col-lg-4">姓名：{{$res['0']->username}}</span>
 				<span class="col-lg-4">性别：
 					@if($res['0']->gender == '1')
@@ -82,6 +83,11 @@
 						其他
 					@endif
 				</span>
+				</span>
+				<span class="col-lg-2" style="margin-left: -20px;">
+					<img src="{{$res['0']->avatar}}" style="max-width: 100px;max-height: 110px;min-width: 80px;">
+				</span>
+				
 			</div>
 		</div>
 
@@ -115,7 +121,7 @@
 		    	<div class="modal-content">
 			      	<div class="modal-header">
 			       		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        	<h4 class="modal-title" id="exampleModalLabel">New message</h4>
+			        	<h4 class="modal-title" id="exampleModalLabel">教育背景</h4>
 			      	</div>
 			      	<div class="modal-body">
 			        	<form action="" method="post" id="education">
@@ -168,7 +174,7 @@
 		    	<div class="modal-content">
 			      	<div class="modal-header">
 			       		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        	<h4 class="modal-title" id="exampleModalLabel">New message</h4>
+			        	<h4 class="modal-title" id="exampleModalLabel">工作经验</h4>
 			      	</div>
 			      	<div class="modal-body">
 			        	<form action="" method="post" id="work">
@@ -239,7 +245,7 @@
 		    	<div class="modal-content">
 			      	<div class="modal-header">
 			       		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        	<h4 class="modal-title" id="exampleModalLabel">New message</h4>
+			        	<h4 class="modal-title" id="exampleModalLabel">项目经验</h4>
 			      	</div>
 			      	<div class="modal-body">
 			        	<form action="" method="post" id="project">
@@ -309,7 +315,7 @@
 		    	<div class="modal-content">
 			      	<div class="modal-header">
 			       		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        	<h4 class="modal-title" id="exampleModalLabel">New message</h4>
+			        	<h4 class="modal-title" id="exampleModalLabel">专业技能</h4>
 			      	</div>
 			      	<div class="modal-body">
 			        	<form action="" method="post" id="skill">
@@ -356,7 +362,7 @@
 		    	<div class="modal-content">
 			      	<div class="modal-header">
 			       		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        	<h4 class="modal-title" id="exampleModalLabel">New message</h4>
+			        	<h4 class="modal-title" id="exampleModalLabel">证书</h4>
 			      	</div>
 			      	<div class="modal-body">
 			        	<form action="" method="post" id="certificate">

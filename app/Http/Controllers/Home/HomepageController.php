@@ -48,7 +48,7 @@ class HomepageController extends Controller
     		];
 
             //个人动态数据
-            $data2 = DB::table('article')->where('author_id','=',$login_id)->orderBy('created_at','desc')->get();
+            $data2 = DB::table('article')->where('author_id','=',$id)->orderBy('created_at','desc')->get();
     		//展示视图
     		return view('home.homepage.index', compact('data','res','data2'));
 
@@ -89,7 +89,7 @@ class HomepageController extends Controller
     		];
 
             //个人动态数据
-            $data2 = DB::table('article')->where('author_id','=',$login_id)->orderBy('created_at','desc')->get();
+            $data2 = DB::table('article')->where('author_id','=',$id)->orderBy('created_at','desc')->get();
     		//展示视图
     		return view('home.homepage.index', compact('data','res','data2'));
     	}

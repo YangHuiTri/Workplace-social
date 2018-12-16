@@ -1,101 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<link rel="stylesheet" href="/home/css/bootstrap.min.css">
-	<script src="/home/js/jquery.min.js"></script>
-	<script src="/home/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="/admin/lib/layer/2.4/layer.js"></script>
-	<title>Workplace-social</title>
- 	<style type="text/css">
-		.post {
-			position: relative;
-			margin-left: -90px;
-		}
-		.post-album {
-			max-width: 550px;
-			padding: 0 1.3rem 0;
-			border-radius: 6px;
-			overflow: hidden;
-			margin: 10px auto 0;
-			border: 1px solid #C2C2C2;
-			background-color: #FFFFFF;
-			box-shadow: 0 1px 3px rgba(249, 249, 249, 0.08), 0 0 0 1px rgba(26, 53, 71, .04), 0 1px 1px rgba(26, 53, 71, .06);
-		}
-		.content{
-			margin: 15px;
-		}
-		.content-info{
-			height: 50px;
-			margin-bottom: 10px;
-		}
-		.content-text{
-			color: #404040;
-			line-height: 25px;
-			word-spacing:2px;/*词间距*/
-			font-size: 15px;
-			margin-top: 25px;
-			margin-left: -10px;
-			/*最多显示三行，超过的用...表示*/
-			overflow:hidden;
-			text-overflow:ellipsis;
-			display:-webkit-box; 
-			-webkit-box-orient:vertical;
-			-webkit-line-clamp:4; 
-		}
-		.content-text2{
-			color: #404040;
-			line-height: 25px;
-			word-spacing:2px;/*词间距*/
-			font-size: 15px;
-			margin-top: 25px;
-			margin-left: -10px;
-			/*最多显示三行，超过的用...表示*/
-			overflow:hidden;
-			text-overflow:ellipsis;
-			display:-webkit-box; 
-			-webkit-box-orient:vertical;
-			-webkit-line-clamp:15; 
-		}
-		.img{
-			margin: 15px 0px 15px;
-			max-width: 490px;
-		}
-		#avatar{ 
-			margin:10px auto;
-		} 
-		#avatar img{ 
-			border-radius:50%;
-		}
-		.out{
-			box-shadow:0px 0px  10px 1px #aaa;
-		}
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/home/css/bootstrap.min.css">
+<script src="/home/js/jquery.min.js"></script>
+<script src="/home/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/admin/lib/layer/2.4/layer.js"></script>
+<title>Workplace-social</title>
+<style type="text/css">
+	.post {
+		position: relative;
+		margin-left: -90px;
+	}
+	.post-album {
+		max-width: 550px;
+		padding: 0 1.3rem 0;
+		border-radius: 6px;
+		overflow: hidden;
+		margin: 10px auto 0;
+		border: 1px solid #C2C2C2;
+		background-color: #FFFFFF;
+		box-shadow: 0 1px 3px rgba(249, 249, 249, 0.08), 0 0 0 1px rgba(26, 53, 71, .04), 0 1px 1px rgba(26, 53, 71, .06);
+	}
+	.content{
+		margin: 15px;
+	}
+	.content-info{
+		height: 50px;
+		margin-bottom: 10px;
+	}
+	.content-text{
+		color: #404040;
+		line-height: 25px;
+		word-spacing:2px;/*词间距*/
+		font-size: 15px;
+		margin-top: 25px;
+		margin-left: -10px;
+		/*最多显示三行，超过的用...表示*/
+		overflow:hidden;
+		text-overflow:ellipsis;
+		display:-webkit-box; 
+		-webkit-box-orient:vertical;
+		-webkit-line-clamp:4; 
+	}
+	.content-text2{
+		color: #404040;
+		line-height: 25px;
+		word-spacing:2px;/*词间距*/
+		font-size: 15px;
+		margin-top: 25px;
+		margin-left: -10px;
+		/*最多显示三行，超过的用...表示*/
+		overflow:hidden;
+		text-overflow:ellipsis;
+		display:-webkit-box; 
+		-webkit-box-orient:vertical;
+		-webkit-line-clamp:15; 
+	}
+	.img{
+		margin: 15px 0px 15px;
+		max-width: 490px;
+	}
+	#avatar{ 
+		margin:10px auto;
+	} 
+	#avatar img{ 
+		border-radius:50%;
+	}
+	.out{
+		box-shadow:0px 0px  10px 1px #aaa;
+	}
 
-		#result{
-            width: 200px;
-            height:200px;
-            /*border:1px solid #eee;*/
-        }
-        #result img{
-            height: 200px;
-        }
+	#result{
+        width: 200px;
+        height:200px;
+        /*border:1px solid #eee;*/
+    }
+    #result img{
+        height: 200px;
+    }
 
-        .ui_button {
-	        display: inline-block;
-	        line-height: 45px;
-	        padding: 0 70px;
-	        color: #FFFFFF;
-	        font-family: "微软雅黑";
-	        font-weight: 700;
-	        cursor: pointer;
-	     }
-	     .ui_button_primary {
-	        background-color: #428BCA;
-	     }
-	     label.ui_button:hover {
-	        background-color: #2E6A9D;
-	     }
- 	</style>
+    .ui_button {
+        display: inline-block;
+        line-height: 45px;
+        padding: 0 70px;
+        color: #FFFFFF;
+        font-family: "微软雅黑";
+        font-weight: 700;
+        cursor: pointer;
+     }
+     .ui_button_primary {
+        background-color: #428BCA;
+     }
+     label.ui_button:hover {
+        background-color: #2E6A9D;
+     }
+</style>
 </head>
 <body style="background-color: #F5F5F5;">
 <!-- 导航条 -->
@@ -115,9 +115,18 @@
 		    <ul class="nav navbar-nav">
 		        <li class="active"><a href="#" class="glyphicon glyphicon-home">主页 <span class="sr-only">(current)</span></a></li>
 		        @if(Session::get('loginType') == 'member')
-		        	<li><a href="/home/recommend/index" target="_blank" style="color: white;">职位推荐</a></li>
+		        	<li>
+		        		<a href="/home/recommend/index" target="_blank" style="color: white;">职位推荐</a>
+		        	</li>
+		        	<li>
+		        		<a href="/home/collection/index" target="_blank" style="color: white;">收藏</a>
+		        	</li>
+		        @else
+		        	@for($i = 0; $i < 18; $i++)
+		        		&nbsp;
+	        		@endfor
 		        @endif
-		        <li class="dropdown">
+		        <!-- <li class="dropdown">
 		        	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="color: white;">Dropdown <span class="caret"></span></a>
 		          	<ul class="dropdown-menu">
 			            <li><a href="#">Action</a></li>
@@ -128,7 +137,7 @@
 			            <li role="separator" class="divider"></li>
 			            <li><a href="#">One more separated link</a></li>
 		          	</ul>
-		        </li>
+		        </li> -->
 		    </ul>
 		    <form class="navbar-form navbar-left" action="/home/index/search" method="post">
 		        <div class="form-group">
@@ -162,11 +171,10 @@
 			          			</span>
 			          	<span class="caret"></span></a>
 			          	<ul class="dropdown-menu">
-				            <li><a target="_blank" href="/home/homepage/index/{{Session::get('loginType')}}/{{Auth::guard('company')->user()->id}}">主页</a></li>
-				            <li><a href="#">Another action</a></li>
-				            <li><a href="/home/setting/index" target="_blank">设置</a></li>
+				            <li><a target="_blank" href="/home/homepage/index/{{Session::get('loginType')}}/{{Auth::guard('company')->user()->id}}"><span class="glyphicon glyphicon-home"> 主页</span></a></li>
+				            <li><a href="/home/setting/index" target="_blank"><span class="glyphicon glyphicon-cog"> 设置</span></a></li>
 				            <li role="separator" class="divider"></li>
-				            <li><a href="/home/login/logout">退出登录</a></li>
+				            <li><a href="/home/login/logout"><span class="glyphicon glyphicon-off"> 退出登录</span></a></li>
 			          	</ul>
 
 	          		@elseif(Session::get('loginType') == 'member')
@@ -180,11 +188,13 @@
 	          				</span>
 			          	<span class="caret"></span></a>
 			          	<ul class="dropdown-menu">
-				            <li><a target="_blank" href="/home/homepage/index/{{Session::get('loginType')}}/{{Auth::guard('member')->user()->id}}">主页</a></li>
-				            <li><a href="#">Another action</a></li>
-				            <li><a href="/home/setting/index" target="_blank">设置</a></li>
+				            <li><a target="_blank" href="/home/homepage/index/{{Session::get('loginType')}}/{{Auth::guard('member')->user()->id}}"><span class="glyphicon glyphicon-home"> 主页</span></a></li>
+				            <li>
+				            	<a href="/home/article/record" target="_blank"><span class="glyphicon glyphicon-time"> 申请记录</span></a>
+				            </li>
+				            <li><a href="/home/setting/index" target="_blank"><span class="glyphicon glyphicon-cog"> 设置</span></a></li>
 				            <li role="separator" class="divider"></li>
-				            <li><a href="/home/login/logout">退出登录</a></li>
+				            <li><a href="/home/login/logout"><span class="glyphicon glyphicon-off"> 退出登录</span></a></li>
 			          	</ul>
           			@endif
 		        </li>
@@ -211,7 +221,11 @@
 				<div style="height: 55px;background-color: #29313E;"></div>
 				<img style="border-radius: 50%;margin-left: 75px;margin-top: -35px;margin-bottom: 15px; border:2px solid white;height: 70px;" width="70px" src="{{Auth::guard('member')->user()->avatar}}">
 				<center><font size="3px" style="font-weight: bold;line-height: 30px;">{{Auth::guard('member')->user()->username}}</font></center>
-				<center><font color="#666666">学生-{{Auth::guard('member')->user()->company->com_name}}</font></center>
+				@if(!empty(Auth::guard('member')->user()->company->com_name))
+					<center><font color="#666666">{{Auth::guard('member')->user()->company->com_name}}</font></center>
+				@else
+					<center><font color="#666666">用户</font></center>
+				@endif
 			@endif
 		</div>
 		
@@ -280,7 +294,7 @@
 					        </div> -->
 					        <div class="form-group">
 					            <label for="message-text" class="control-label">内容:</label>
-					            <textarea style="height: 150px;width: 500px;" name="content" class="form-control" id="content" wrap="physical"></textarea>
+					            <textarea style="height: 200px;width: 500px;" name="content" class="form-control" id="content" wrap="physical"></textarea>
 					        </div>
 
 					        <div class="form-group">
@@ -291,7 +305,7 @@
 				        
 						    <div class="modal-footer">
 						        <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
-						        <button type="button" class="btn btn-primary" id="addArticle">发送</button>
+						        <button type="button" class="btn btn-primary" id="addArticle" style="width: 100px;height: 40px;">发&nbsp;&nbsp;&nbsp;送</button>
 						    </div>
 				      	</form>
 		      		</div>

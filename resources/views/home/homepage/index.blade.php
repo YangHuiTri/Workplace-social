@@ -33,10 +33,12 @@
 			<div id="search-container" class="ajax_search">
 				<form method="get" id="searchform" action="">
 					<div class="filter_container">
-						<input type="text" value="" autocomplete="off" placeholder="Type then select or enter" name="s" id="search-input" />
+						<input type="text" value="" autocomplete="off" placeholder="请输入要查询的内容" name="search_text" id="search-input" />
 						<ul id="search_filtered" class="search_filtered"></ul>
 					</div>
-					<input type="submit" name="submit" id="searchsubmit" class="searchsubmit" value="" />
+					<input type="hidden" name="user_id" value="{{$res['0']->id}}">
+					<input type="hidden" name="user_type" value="{{$data['type']}}">
+					<input type="submit" id="searchsubmit" class="searchsubmit"/>
 				</form>
 			</div>
 		</div>
@@ -114,10 +116,11 @@
 						保密
 					@endif
 				</td>
+				<td width="341px">年龄：{{$res['0']->age}}</td>
 				<td width="341px">邮箱：{{$res['0']->email}}</td>
-				<td width="341px">联系电话：{{$res['0']->mobile}}</td>
 			</tr>
 			<tr align="center">
+				<td>联系电话：{{$res['0']->mobile}}</td>
 				<td>学历：
 					@if($res['0']->education == '1')
 						高中
@@ -138,14 +141,6 @@
 						<button type="button" disabled style="height: 20px;line-height:5px;width: 60px;padding-left: 5px" class="btn btn-default">未认证</button>
 					@elseif($res['0']->school_validate == '2')
 						<button type="button" disabled style="height: 20px;line-height:5px;width: 70px;padding-left: 5px" class="btn btn-warning">✔已认证</button>
-					@endif
-				</td>
-				<td>工作经历：
-					@if($data['company_name'])
-					<span class="glyphicon glyphicon-briefcase"></span>
-						<a style="color: white;text-decoration: none;" href="/home/homepage/index/company/{{$data['com_id']}}">{{$data['company_name']}}</a>
-					@else
-						无
 					@endif
 				</td>
 				<td>地址：{{$data['country']}}-{{$data['province']}}-{{$data['city']}}-{{$data['county']}}
@@ -184,43 +179,6 @@
 				</div>
 				<h1 style="margin-left: 170px;color: #0066CC">动态</h1>
 				<hr style="height:1px;border:none;border-top:1px dashed #0066CC;" /><br>
-
-				
-				
-				<div class="post post-layout-list" data-aos="fade-up">
-					<div class="postnormal review ">
-						<div class="post-container review-item">
-							<div class="row review-item-wrapper">
-								<div class="col-sm-3">
-									<a rel="nofollow" href="detail.html">
-										<div class="review-item-img" style="background-image: url(/home/statics/images/diego-ph-249471-2-800x1000.jpg);">
-											
-										</div>
-									</a>
-								</div>
-								<div class="col-sm-9 flex-xs-middle">
-									<div class="review-item-title">
-										<a href="detail.html" rel="bookmark">我才不会写年终总结之瞎说篇</a>
-									</div>
-									<div class="review-item-creator"><b>发布日期：</b>2017-12-30</div>
-									<span class="review-item-info"><b>总浏览量：</b>1203 reads</span>
-								</div>
-							</div>
-							<div class="review-bg-wrapper">
-								<div class="bg-blur" style="background-image: url(/home/statics/images/diego-ph-249471-2-800x1000.jpg);">
-									
-								</div>
-							</div>
-						</div>
-						<div class="post-container">
-							<div class="entry-content">确实讨厌去写所谓的年终总结，在公司已经被动的想领导上交一个总结，自己就懒得去总结，不然，我觉得脑子里应该会编写出八九不离十的内容，所以正经八儿的事情略了，瞎说一下。 年初的人事调动是个人最不能接受的事情，但不接受也得接受，老板一句“这是命令...</div>
-							<div class="post-footer">
-								<a class="gaz-btn primary" href="">READ MORE</a>
-								<span class="total-comments-on-post pull-right"><a href="">31 Comments</a></span>
-							</div>
-						</div>
-					</div>
-				</div>
 				
 
 				

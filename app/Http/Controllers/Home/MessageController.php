@@ -192,9 +192,9 @@ class MessageController extends Controller
     		}
     		// dd($message_com);
     		// dd($arr4);
-
+            $recruit_cont = 0;
 			//展示视图
-    		return view('home.message.index', compact('type','id','arr2','arr4'));
+    		return view('home.message.index', compact('type','id','arr2','arr4','recruit_cont'));
     	}
 
     	

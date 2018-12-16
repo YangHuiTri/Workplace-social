@@ -104,6 +104,8 @@ Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 	Route::get('article/recruit/{id}', 'Home\ArticleController@recruit');
 	//申请职位
 	Route::get('article/shenqing', 'Home\ArticleController@shenqing');
+	//申请记录
+	Route::get('article/record', 'Home\ArticleController@record');
 
 	//个人信息
 	Route::get('message/index/{type}/{id}', 'Home\MessageController@index');
@@ -123,6 +125,14 @@ Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 
 	//职位推荐
 	Route::get('recommend/index', 'Home\RecommendController@index');
+
+	//收藏
+	//首页
+	Route::get('collection/index', 'Home\CollectionController@index');
+	//添加收藏
+	Route::get('collection/add', 'Home\CollectionController@add');
+	//取消收藏
+	Route::get('collection/less', 'Home\CollectionController@less');
 
 	
 

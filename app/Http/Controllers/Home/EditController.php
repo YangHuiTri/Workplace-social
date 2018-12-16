@@ -60,6 +60,32 @@ class EditController extends Controller
      			//就业公司
     			//$com_id = $data['0']->com_id;
 
+                //如果之前的学校还没有认证的话，先把原来需要验证的用户信息从学校中删除
+                if($data['0']->school_validate == '1'){
+                    //原学校id
+                    $old_school_id = $data['0']->school_id;
+                    //原学校需要验证的id集合
+                    $old_school = DB::table('company')->where('id','=',$old_school_id)->value('need_validate');
+                    $old_schoolArr = explode(',', rtrim($old_school,','));
+                    //在id集合中删除当前用户
+                    for($i = 0;$i < count($old_schoolArr); $i++){
+                        if($old_schoolArr[$i] == $id){
+                            unset($old_schoolArr[$i]);
+                        }
+                    }
+                    if(count($old_schoolArr) > 0){
+                        $need_validate = implode(',', $old_schoolArr).',';
+                    }else{
+                        $need_validate = '';
+                    }
+                    //更新该学校需要验证的用户id集合
+                    DB::table('company')->where('id','=',$old_school_id)->update(['need_validate'=>$need_validate]);
+                    //将原来的学校未读信息数减1
+                    $count = DB::table('company')->where('id','=',$old_school_id)->value('message_count');
+                    $message_count = $count - 1;
+                    DB::table('company')->where('id','=',$old_school_id)->update(['message_count'=>$message_count]);
+                }
+
                 # 替换空格和换行
                 $pattern = array('/ /','/　/','/\r\n/','/\n/');
                 $replace = array('&nbsp;','&nbsp;','<br/>','<br/>');
@@ -85,7 +111,7 @@ class EditController extends Controller
     				'introduction'	=>		$introduction,
     				'status'		=>		'2',
 	    		]);
-
+                //将新修改的学校id加入学校的需要验证的id的集合
                 $school_id = Input::get('school_id');
                 $validate = DB::table('company')->where('id','=',$school_id)->value('need_validate');
                 $need_validate = $id.','.$validate;

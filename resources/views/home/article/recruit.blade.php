@@ -67,9 +67,9 @@
 							</div>
 							@if(Session::get('loginType') == 'member')
 								<div class="col-lg-12" style="padding-top: 20px;">
-									<button id="shoucang" class="btn btn-default" style="border:1px solid #0073B1;color: #0073B1;height: 40px;min-width: 65px;font-size: 18px;">收藏</button>&nbsp;&nbsp;
+									<button id="shoucang" class="btn btn-default" style="border:1px solid #0073B1;color: #0073B1;height: 40px;min-width: 65px;font-size: 18px;"><?php if(in_array($data['0']->id, $collectionArr)){echo "取消收藏";}else{echo "收藏";}?></button>&nbsp;&nbsp;
 
-									<button id="shenqing" class="btn btn-primary" style="height: 40px;min-width: 80px;font-size: 18px;"><?php $peopleArr=str_replace(',', '@', $data['0']->recruit_people); $people=explode('@', $peopleArr); if(in_array(Auth::guard('member')->user()->id, $people)){echo "取消申请";}else echo"申请";?></button>
+									<button id="shenqing" class="btn btn-primary" style="height: 40px;min-width: 80px;font-size: 18px;"><?php if(in_array($data['0']->id, $applicationArr)){echo "取消申请";}else{echo "申请";}?></button>
 								</div>
 							@endif
 							
@@ -220,10 +220,18 @@ $(function(){
 
 	//收藏、取消收藏
 	$('#shoucang').click(function(){
-		if($(this).text() == '收藏'){
-			$(this).text('取消收藏');
+		if($('#shoucang').text() == '收藏'){
+			$.get('/home/collection/add',{'id':'{{$data['0']->id}}'},function(data){
+				if(data == '1'){
+					$('#shoucang').text('取消收藏');
+				}
+			});
 		}else{
-			$(this).text('收藏');
+			$.get('/home/collection/less',{'id':'{{$data['0']->id}}'},function(data){
+				if(data == '1'){
+					$('#shoucang').text('收藏');
+				}
+			});
 		}
 		
 	});
