@@ -42,7 +42,8 @@ class RegisterController extends Controller
                 'email' =>  $email,
                 'password'  =>  $password,
                 'mobile'    =>  $mobile,
-                'avatar'    =>  '/statics/avatar.jpg'
+                'avatar'    =>  '/statics/avatar.jpg',
+                'introduction'=>'暂无简介'
             ];
             //数据入库
             $result = Company::create($data);
@@ -76,7 +77,8 @@ class RegisterController extends Controller
                 'email' =>  $email,
                 'password'  =>  $password,
                 'mobile'    =>  $mobile,
-                'avatar'    =>  '/statics/avatar.jpg'
+                'avatar'    =>  '/statics/avatar.jpg',
+                'introduction'=>'暂无简介'
             ];
             //数据入库
             $result = Member::create($data);

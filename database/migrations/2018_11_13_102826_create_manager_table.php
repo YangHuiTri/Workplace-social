@@ -22,7 +22,6 @@ class CreateManagerTable extends Migration
             $table -> enum('gender',[1,2,3]) -> notNull() -> default('1');//性别，1=男，2=女，3=保密
             $table -> string('mobile',11);//手机号，varchar(11)
             $table -> string('email',50);//邮箱
-            $table -> tinyInteger('role_id');//角色表中的id
             $table -> timestamps();
             $table -> rememberToken();
             $table -> enum('status',[1,2]) -> notNull() -> default('2');//状态，1=禁用，2=正常

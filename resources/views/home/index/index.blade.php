@@ -431,7 +431,7 @@
 				</div>
 			</div>
 		@endif
-		@endforeach	
+		@endforeach
 
 
 
@@ -444,6 +444,14 @@
 
 </body>
 <script>
+$(window).scroll(function(){
+　　var scrollTop = $(this).scrollTop();
+　　var scrollHeight = $(document).height();
+　　var windowHeight = $(this).height();
+　　if(scrollTop + windowHeight == scrollHeight){
+　　　　alert("you are in the bottom");
+　　}
+});
 //发动态时显示缩略图
 var form = new FormData();//通过HTML表单创建FormData对象
 var url = '127.0.0.1:8080/'

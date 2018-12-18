@@ -136,11 +136,14 @@
 						其他
 					@endif
 				</td>
-				<td>毕业院校：<span class="glyphicon glyphicon-home"></span>&nbsp;<a style="color: white;text-decoration: none;" href="/home/homepage/index/company/{{$data['school_id']}}">{{$data['school']}}</a>&nbsp;
-					@if($res['0']->school_validate == '1')
-						<button type="button" disabled style="height: 20px;line-height:5px;width: 60px;padding-left: 5px" class="btn btn-default">未认证</button>
-					@elseif($res['0']->school_validate == '2')
-						<button type="button" disabled style="height: 20px;line-height:5px;width: 70px;padding-left: 5px" class="btn btn-warning">✔已认证</button>
+				<td>毕业院校：
+					@if(isset($data['school']))
+						<span class="glyphicon glyphicon-home"></span>&nbsp;<a style="color: white;text-decoration: none;" href="/home/homepage/index/company/{{$data['school_id']}}">{{$data['school']}}</a>&nbsp;
+						@if($res['0']->school_validate == '1')
+							<button type="button" disabled style="height: 20px;line-height:5px;width: 60px;padding-left: 5px" class="btn btn-default">未认证</button>
+						@elseif($res['0']->school_validate == '2')
+							<button type="button" disabled style="height: 20px;line-height:5px;width: 70px;padding-left: 5px" class="btn btn-warning">✔已认证</button>
+						@endif
 					@endif
 				</td>
 				<td>地址：{{$data['country']}}-{{$data['province']}}-{{$data['city']}}-{{$data['county']}}

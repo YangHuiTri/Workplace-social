@@ -63,21 +63,10 @@
 				<td>{{$val->email}}</td>
 
 				<td>{{$val->created_at}}</td>
-				<td class="td-status">
-					@if($val->status == '1')
-						<span class="label label-danger radius">已停用</span>
-					@else
-						<span class="label label-success radius">已启用</span>
-					@endif
-				</td>
+				<td class="td-status"><span class="label label-danger radius">已删除</span></td>
 				<td class="td-manage">
-					@if($val->status == '2')
-						<a style="text-decoration:none" onClick="member_stop(this,'<?php echo $val->id; ?>')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> 
-					@else
-						<a style="text-decoration:none" onClick="member_start(this,'<?php echo $val->id; ?>')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe615;</i></a>
-					@endif
-					
-					<a title="删除" href="javascript:;" onclick="member_del(this,'<?php echo $val->id; ?>')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					<a style="text-decoration:none" href="javascript:;" onClick="revoke(this,'<?php echo $val->id; ?>')" title="还原"><i class="Hui-iconfont">&#xe66b;</i></a> 
+					<a title="彻底删除" href="javascript:;" onclick="removed(this,'<?php echo $val->id; ?>')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
 				</td>
 			</tr>
 			@endforeach
@@ -107,69 +96,33 @@ $(function(){
 	});
 	
 });
-/*用户-添加*/
-function member_add(title,url,w,h){
-	layer_show(title,url,w,h);
-}
-/*用户-查看*/
-function member_show(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-/*用户-停用*/
-function member_stop(obj,id){
-	layer.confirm('确认要停用吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			url: '/admin/member/stop',
-			data:{'id':id,'_token':'{{csrf_token()}}'},
-			dataType: 'json',
-			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-danger radius">已停用</span>');
-				$(obj).remove();
-				layer.msg('已停用!',{icon: 5,time:1000});
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});		
-	});
-}
 
-/*用户-启用*/
-function member_start(obj,id){
-	layer.confirm('确认要启用吗？',function(index){
+/*用户-还原*/
+function revoke(obj,id){
+	layer.confirm('确认要还原吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '/admin/member/start',
+			url: '/admin/member/revoke',
 			data:{'id':id,'_token':'{{csrf_token()}}'},
 			dataType: 'json',
 			success: function(data){
-				$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
-				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
-				$(obj).remove();
-				layer.msg('已启用!',{icon: 6,time:1000});
+				$(obj).parents("tr").remove();
+				layer.msg('已还原!',{icon: 6,time:1000});
 			},
 			error:function(data) {
 				console.log(data.msg);
 			},
 		});
+		// $(obj).remove();
+		// layer.msg('已还原!',{icon: 6,time:1000});
 	});
 }
-/*用户-编辑*/
-function member_edit(title,url,id,w,h){
-	layer_show(title,url,w,h);
-}
-/*密码-修改*/
-function change_password(title,url,id,w,h){
-	layer_show(title,url,w,h);	
-}
 /*用户-删除*/
-function member_del(obj,id){
-	layer.confirm('确认要删除吗？',function(index){
+function removed(obj,id){
+	layer.confirm('确认要彻底删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '/admin/member/del',
+			url: '/admin/member/removed',
 			data:{'id':id,'_token':'{{csrf_token()}}'},
 			dataType: 'json',
 			success: function(data){

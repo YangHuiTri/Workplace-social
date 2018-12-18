@@ -34,7 +34,7 @@ class PublicController extends Controller
     	}else{
     		//跳到登录页
     		return redirect('/admin/public/login')->withErrors([
-    			'loginError'	=>	'用户名或密码错误'
+    			'loginError'	=>	'用户名或密码错误或账号状态非法'
     		]);
     	}
     }

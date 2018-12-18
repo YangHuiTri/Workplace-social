@@ -39,6 +39,12 @@ Route::group(['prefix' => 'admin','middleware'=>'auth:admin'],function(){
 	//会员管理模块
 	Route::get('member/index', 'Admin\MemberController@index');//会员列表
 	Route::any('member/add', 'Admin\MemberController@add');//添加会员
+	Route::post('member/stop', 'Admin\MemberController@stop');//停用会员
+	Route::post('member/start', 'Admin\MemberController@start');//启用会员
+	Route::post('member/del', 'Admin\MemberController@del');//删除会员
+	Route::get('member/deleted', 'Admin\MemberController@deleted');//已删除的会员
+	Route::post('member/revoke', 'Admin\MemberController@revoke');//撤销删除
+	Route::post('member/removed', 'Admin\MemberController@removed');//彻底删除用户
 	
 	Route::get('member/getareabyid','Admin\MemberController@getAreaById');//ajax联动
 

@@ -36,9 +36,23 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<input type="text" class="input-text" value="" placeholder="" id="username" name="username">
+				<input type="text" class="input-text" id="username" name="username">
 			</div>
 		</div>
+
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>年龄：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box" style="width:110px;">
+					<select class="select" name="age" size="1">
+						@for($i = 18; $i <= 60; $i++)
+							<option value="{{$i}}">{{$i}}</option>
+						@endfor
+					</select>
+				</span>
+			</div>
+		</div>
+
 		<div class="row cl">
                 <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>性别：</label>
                 <div class="formControls col-xs-8 col-sm-9 skin-minimal">
