@@ -31,7 +31,7 @@ class RegisterController extends Controller
                 'email'     =>      'email|unique:company,email',
                 'password'  =>      'required|min:6|max:20|confirmed',
                 'captcha'   =>      'captcha',
-                'mobile'    =>      'regex:/^1[34578][0-9]{9}$/',
+                'mobile'    =>      'regex:/^1[34578][0-9]{9}$/|unique:company,mobile',
             ]);
             //接收表单传过来的数据
             $email = request('email');
@@ -43,7 +43,11 @@ class RegisterController extends Controller
                 'password'  =>  $password,
                 'mobile'    =>  $mobile,
                 'avatar'    =>  '/statics/avatar.jpg',
-                'introduction'=>'暂无简介'
+                'introduction'=>'暂无简介',
+                'emp_count'     =>      '0',
+                'message_count' =>      '0',
+                'status'        =>      '2',
+                'created_at'    =>      date('Y-m-d H:i:s')
             ];
             //数据入库
             $result = Company::create($data);
@@ -66,7 +70,7 @@ class RegisterController extends Controller
                 'email'     =>      'email|unique:member,email',
                 'password'  =>      'required|min:6|max:20|confirmed',
                 'captcha'   =>      'captcha',
-                'mobile'    =>      'regex:/^1[34578][0-9]{9}$/',
+                'mobile'    =>      'regex:/^1[34578][0-9]{9}$/|unique:company,mobile',
             ]); 
             //接收表单传过来的数据
             $email = request('email');
@@ -78,7 +82,11 @@ class RegisterController extends Controller
                 'password'  =>  $password,
                 'mobile'    =>  $mobile,
                 'avatar'    =>  '/statics/avatar.jpg',
-                'introduction'=>'暂无简介'
+                'introduction'=>'暂无简介',
+                'message_count' =>      '0',
+                'status'        =>      '2',
+                'is_recommend'  =>      '2',
+                'created_at'    =>      date('Y-m-d H:i:s')
             ];
             //数据入库
             $result = Member::create($data);

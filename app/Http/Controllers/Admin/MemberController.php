@@ -22,10 +22,16 @@ class MemberController extends Controller
     }
 
     //添加会员
-    public function add(){
+    public function add(Request $request){
     	//判断请求类型
     	if(Input::method() == 'POST'){
     		//实现数据的保存
+            //自动验证数据各字段
+            $this->validate($request,[
+                'username'  =>      'required|min:2|max:20',
+                'email'     =>      'email|unique:member,email',
+                'mobile'    =>      'regex:/^1[34578][0-9]{9}$/|unique:company,mobile',
+            ]);
     		//自动验证
     		$result = Member::insert([
     				'username'		=>		Input::get('username'),
@@ -39,6 +45,7 @@ class MemberController extends Controller
     				'province_id'	=>		Input::get('province_id'),
     				'city_id'		=>		Input::get('city_id'),
     				'county_id'		=>		Input::get('county_id'),
+                    'message_count' =>      '0',
     				'status'		=>		Input::get('status'),
                     'is_recommend'  =>      '2',
     				'created_at'	=>		date('Y-m-d H:i:s')

@@ -58,21 +58,20 @@
 <aside class="Hui-aside">
 	<div class="menu_dropdown bk_2">
 		<dl id="menu-article">
-			<dt><i class="Hui-iconfont">&#xe616;</i> 专业管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe681;</i> 职能类别管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/admin/protype/index" data-title="专业分类" href="javascript:void(0)">专业分类</a></li>
-						<li><a data-href="/admin/profession/index" data-title="专业列表" href="javascript:void(0)">专业列表</a></li>
+					<li><a data-href="/admin/category/index" data-title="职能类别列表" href="javascript:void(0)">职能类别列表</a></li>
 				</ul>
 			</dd>
 		</dl>
 
 		<dl id="menu-picture">
-			<dt><i class="Hui-iconfont">&#xe626;</i> 课程管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe616;</i> 动态管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="/admin/course/index" data-title="课程列表" href="javascript:void(0)">课程列表</a></li>
-					<li><a data-href="/admin/lesson/index" data-title="点播列表" href="javascript:void(0)">点播列表</a></li>
+					<li><a data-href="/admin/article/index" data-title="普通动态列表" href="javascript:void(0)">普通动态列表</a></li>
+					<li><a data-href="/admin/article/recruit" data-title="招聘动态列表" href="javascript:void(0)">招聘动态列表</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -88,7 +87,7 @@
 		</dl>
 
 		<dl id="menu-product">
-			<dt><i class="Hui-iconfont">&#xe72d;</i> 企业管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe643;</i> 企业管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="/admin/company/index" data-title="企业列表" href="javascript:void(0)">企业列表</a></li>

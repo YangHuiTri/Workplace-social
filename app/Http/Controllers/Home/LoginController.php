@@ -28,6 +28,7 @@ class LoginController extends Controller
 		$email = $request->email;
     	$loginType = $request ->get('loginType');
     	$data = $request -> only(['email','password']);
+        $data['status'] = '2';  //要求状态为启用的用户
 
     	//如果为企业登录
     	if($loginType == 'company'){
@@ -42,7 +43,7 @@ class LoginController extends Controller
 	    		}else{
 	    			//登录失败，跳转回登录页面
 	    			return redirect('/home/login/index')->withErrors([
-	    				'loginError'	=>		'邮箱或密码错误'
+	    				'loginError'	=>		'邮箱或密码错误或账号状态有误'
 	    			]);
 	    		}
     		}else{

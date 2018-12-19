@@ -50,7 +50,23 @@ Route::group(['prefix' => 'admin','middleware'=>'auth:admin'],function(){
 
 	//企业管理模块
 	Route::get('company/index', 'Admin\CompanyController@index');//企业列表
+	Route::any('company/add', 'Admin\CompanyController@add');//添加企业
+	Route::post('company/stop', 'Admin\CompanyController@stop');//停用企业
+	Route::post('company/start', 'Admin\CompanyController@start');//启用企业
 	Route::get('company/del', 'Admin\CompanyController@del');//删除企业
+
+	//动态管理模块
+	Route::get('article/index', 'Admin\ArticleController@index');//普通动态列表
+	Route::post('article/del_art', 'Admin\ArticleController@del_art');//删除普通动态
+	Route::get('article/recruit', 'Admin\ArticleController@recruit');//招聘动态列表
+	Route::post('article/del_rec', 'Admin\ArticleController@del_rec');//删除招聘动态
+
+	//职能类别管理模块
+	Route::get('category/index', 'Admin\CategoryController@index');//职能类别列表
+	Route::any('category/add', 'Admin\CategoryController@add');//添加职能类别
+	Route::post('category/del', 'Admin\CategoryController@del');//删除职能类别
+
+
 
 });
 
