@@ -441,7 +441,6 @@
 
 </div>
 
-
 </body>
 <script>
 $(window).scroll(function(){
@@ -482,11 +481,6 @@ function selectFile(){
 }
 
 
-
-
-
-
-
 $(function(){
 	//点赞.取消赞
 	$('.zan').click(function(){
@@ -511,8 +505,6 @@ $(function(){
 		}
 
 	});
-
-
 
 	// ajax发动态
 	$('#addArticle').click(function(){
@@ -540,6 +532,7 @@ $(function(){
 	});
 
 });
+
 
 </script>
 </html>

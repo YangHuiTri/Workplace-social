@@ -46,4 +46,11 @@ class PublicController extends Controller
     	return redirect('/admin/public/login');
 
     }
+
+    //折线图（测试一下）
+    public function charts(){
+        //展示视图
+        return view('admin.public.charts');
+    }
+
 }

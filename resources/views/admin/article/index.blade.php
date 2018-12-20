@@ -61,7 +61,7 @@
 				<td><input type="checkbox" value="{{$val->id}}" name=""></td>
 				<td>{{$val->id}}</td>
 				<td>{!!$val->content!!}</td>
-				<td><img width="150" src="{{$val->img}}"></td>
+				<td><img width="150" src="{{$val->img}}" style="max-height: 200px;"></td>
 				<td>{{$val->author_name}}</td>
 				<td><img width="60" src="{{$val->author_avatar}}" class="image"></td>
 				<td>{{$val->zan_count}}</td>

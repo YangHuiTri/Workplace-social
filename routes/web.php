@@ -66,6 +66,17 @@ Route::group(['prefix' => 'admin','middleware'=>'auth:admin'],function(){
 	Route::any('category/add', 'Admin\CategoryController@add');//添加职能类别
 	Route::post('category/del', 'Admin\CategoryController@del');//删除职能类别
 
+	//评论管理模块
+	Route::get('comment/index', 'Admin\CommentController@index');//评论列表
+	Route::post('comment/del', 'Admin\CommentController@del');//删除评论
+
+	//履历管理模块
+	Route::get('resume/index', 'Admin\ResumeController@index');//履历列表
+	Route::post('resume/del', 'Admin\ResumeController@del');//删除履历
+
+	//折线图
+	Route::get('public/charts', 'Admin\PublicController@charts');
+
 
 
 });

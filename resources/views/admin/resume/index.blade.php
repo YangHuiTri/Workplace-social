@@ -19,27 +19,33 @@
 <script type="text/javascript" src="/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>会员管理</title>
+<title>履历管理</title>
+<style type="text/css">
+	.image{
+		width:60px;
+		height: 60px;
+		border-radius: 50%;
+	}
+</style>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 会员管理 <span class="c-gray en">&gt;</span> 已删除会员 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 履历管理 <span class="c-gray en">&gt;</span> 履历列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
-	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="member_add('添加用户','/admin/member/add','','510')" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加用户</a></span> <span class="r">共有数据：<strong>{{$count}}</strong> 条</span> </div>
 	<div class="mt-20">
 	<table class="table table-border table-bordered table-hover table-bg table-sort">
 		<thead>
 			<tr class="text-c">
 				<th width="25"><input type="checkbox" name="" value=""></th>
 				<th width="40">ID</th>
-				<th width="100">用户名</th>
-				<th width="100">头像</th>
-				<th>年龄</th>
-				<th width="40">性别</th>
-				<th width="90">手机</th>
-				<th width="150">邮箱</th>
-				<th width="130">加入时间</th>
-				<th width="70">状态</th>
-				<th width="100">操作</th>
+				<th width="80">作者</th>
+				<th width="80">类别</th>
+				<th width="80">名称</th>
+				<th width="70">开始时间</th>
+				<th width="70">结束时间</th>
+				<th width="60">职责</th>
+				<th width="190">内容</th>
+				<th width="120">创建时间</th>
+				<th width="30">操作</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -47,26 +53,28 @@
 			<tr class="text-c">
 				<td><input type="checkbox" value="{{$val->id}}" name=""></td>
 				<td>{{$val->id}}</td>
-				<td>{{$val->username}}</td>
-				<td><img width="60" src="{{$val->avatar}}"></td>
-				<td>{{$val->age}}</td>
+				<td>{{$val->author_name}}</td>
 				<td>
-					@if($val->gender == '1')
-						男
-					@elseif($val->gender == '2')
-						女
-					@else
-						保密
+					@if($val->type == 'education')
+						教育背景
+					@elseif($val->type == 'work')
+						工作经验
+					@elseif($val->type == 'project')
+						项目经验
+					@elseif($val->type == 'skill')
+						专业技能
+					@elseif($val->type == 'certificate')
+						相关证书
 					@endif
 				</td>
-				<td>{{$val->mobile}}</td>
-				<td>{{$val->email}}</td>
-
+				<td>{{$val->title}}</td>
+				<td>{{$val->start_time}}</td>
+				<td>{{$val->end_time}}</td>
+				<td>{{$val->duty}}</td>
+				<td>{!!$val->content!!}</td>
 				<td>{{$val->created_at}}</td>
-				<td class="td-status"><span class="label label-danger radius">已删除</span></td>
 				<td class="td-manage">
-					<a style="text-decoration:none" href="javascript:;" onClick="revoke(this,'<?php echo $val->id; ?>')" title="还原"><i class="Hui-iconfont">&#xe66b;</i></a> 
-					<a title="彻底删除" href="javascript:;" onclick="removed(this,'<?php echo $val->id; ?>')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					<a title="删除" href="javascript:;" onclick="resume_del(this,'<?php echo $val->id; ?>')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
 				</td>
 			</tr>
 			@endforeach
@@ -91,38 +99,18 @@ $(function(){
 		"bStateSave": true,//状态保存
 		"aoColumnDefs": [
 		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-		  {"orderable":false,"aTargets":[0,8,9]}// 制定列不参与排序
+		  {"orderable":false,"aTargets":[0,2,3,4,7,8,10]}// 制定列不参与排序
 		]
 	});
 	
 });
 
-/*用户-还原*/
-function revoke(obj,id){
-	layer.confirm('确认要还原吗？',function(index){
+/*评论-删除*/
+function resume_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
 		$.ajax({
 			type: 'POST',
-			url: '/admin/member/revoke',
-			data:{'id':id,'_token':'{{csrf_token()}}'},
-			dataType: 'json',
-			success: function(data){
-				$(obj).parents("tr").remove();
-				layer.msg('已还原!',{icon: 6,time:1000});
-			},
-			error:function(data) {
-				console.log(data.msg);
-			},
-		});
-		// $(obj).remove();
-		// layer.msg('已还原!',{icon: 6,time:1000});
-	});
-}
-/*用户-删除*/
-function removed(obj,id){
-	layer.confirm('确认要彻底删除吗？',function(index){
-		$.ajax({
-			type: 'POST',
-			url: '/admin/member/removed',
+			url: '/admin/resume/del',
 			data:{'id':id,'_token':'{{csrf_token()}}'},
 			dataType: 'json',
 			success: function(data){
