@@ -41,26 +41,32 @@
 	<h4 style="margin-bottom: 20px;"><b>根据您的职业档案和求职偏好为您推荐</b></h4>
 
 	<div class="row">
-		@foreach($data2 as $val)
-	    <div class="col-sm-4 col-md-3">
-	    	<a href="/home/article/{{$val->article_type}}/{{$val->id}}" style="text-decoration: none;">
-		        <div class="thumbnail">
-		        	<div class="caption" style="height: 160px;">
-		          		<h4><b>{{$val->recruit_title}}</b></h4>
-		          		<p>{{$val->author_name}}</p>
-		        	</div>
-			        <div style="margin-left: 5px;" class="row">
-			        	<span style="color: green;" class="glyphicon glyphicon-time col-lg-5"><font style="color: gray;">抢先申请</font></span>
-			        	<span class="glyphicon glyphicon-map-marker col-lg-7"><font style="color: gray;">{{$val->work_province}}▪{{$val->work_city}}</font></span>
+		@if(!empty($data2))
+			@foreach($data2 as $val)
+		    <div class="col-sm-4 col-md-3">
+		    	<a href="/home/article/{{$val->article_type}}/{{$val->id}}" style="text-decoration: none;">
+			        <div class="thumbnail">
+			        	<div class="caption" style="height: 160px;">
+			          		<h4><b>{{$val->recruit_title}}</b></h4>
+			          		<p>{{$val->author_name}}</p>
+			        	</div>
+				        <div style="margin-left: 5px;" class="row">
+				        	<span style="color: green;" class="glyphicon glyphicon-time col-lg-5"><font style="color: gray;">抢先申请</font></span>
+				        	<span class="glyphicon glyphicon-map-marker col-lg-7"><font style="color: gray;">{{$val->work_province}}▪{{$val->work_city}}</font></span>
+				        </div>
+		            	<div style="border:1px solid gray;width: 250px;margin: 10px 0px;"></div>
+		            	<p style="color: gray;">{{$val->created_at}}</p>
 			        </div>
-	            	<div style="border:1px solid gray;width: 250px;margin: 10px 0px;"></div>
-	            	<p style="color: gray;">{{$val->created_at}}</p>
-		        </div>
-		    </a>
-	    </div>
-	    @endforeach
+			    </a>
+		    </div>
+		    @endforeach
+	    @else
+	    	<hr>
+			<center><h2>暂无推荐，尝试先更新个人求职信息</h2></center>
+	    	<center><img src="/home/images/collection.png"></center>
+    	@endif
 
-	    @for($i=1;$i<=6;$i++)
+	    <!-- @for($i=1;$i<=6;$i++)
 	    <div class="col-sm-4 col-md-3">
 	    	<a href="#" style="text-decoration: none;">
 		        <div class="thumbnail">
@@ -77,7 +83,7 @@
 		        </div>
 		    </a>
 	    </div>
-	    @endfor
+	    @endfor -->
 
 	</div>
 

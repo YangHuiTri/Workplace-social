@@ -269,6 +269,29 @@ class HomepageController extends Controller
         
     }
 
+    //公司员工分布图
+    public function fenbu(Request $request){
+        //接收公司id
+        $id = $request -> id;
+        // dd($id);
+        //查询数据
+        $data = DB::table('member as t1')->select('t2.area as name',DB::Raw('count(*) as value'))->leftJoin('area as t2', 't1.province_id', '=', 't2.id')->where('t1.com_id','=',$id)->groupBy('t2.area')->get();
+        $data2 = json_decode($data,true);
+        $str = '[';
+        //循环遍历字符串
+        foreach ($data2 as $key => $value) {
+            // $str .= "{'" . $value['name'] . "'.':'." . $value['value'] . "],";
+            $str .= '{"name":"' . $value['name'] . '","value":' . $value['value'] . "},"; 
+        }
+        //去除最后的逗号
+        $str = rtrim($str,',') . ']';
+        // dd($str);
+
+        
+        //展示视图
+        return view('home.homepage.fenbu', compact('str'));
+    }
+
 
 
 

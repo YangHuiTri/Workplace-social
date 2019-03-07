@@ -397,6 +397,7 @@ class ArticleController extends Controller
     	$data = DB::table('article')->where('id','=',$id)->get();
     	//发布者id
     	$author_id = $data['0']->author_id;
+        // dd($author_id);
     	
     	$data2 = DB::table('company')->where('id', '=', $author_id)->get();
     	//发布者简介
@@ -459,7 +460,7 @@ class ArticleController extends Controller
             //申请的职位id集合
             $application_id = DB::table('member')->where('id','=',$uid)->value('application_id');
             //将id结合拆分成数组
-            $applicationArr = explode(',', rtrim($collection_id,','));
+            $applicationArr = explode(',', rtrim($application_id,','));
         }
     	//展示视图
     	return view('home.article.recruit', compact('data', 'data3', 'data4','collectionArr','applicationArr'));
@@ -483,13 +484,17 @@ class ArticleController extends Controller
             $recruit_people = $user_id.'@'.date('Y-m-d H:i:s').','.$people;
             //将用户信息添加到该招聘信息数据库中
             $result = DB::table('article')->where('id','=',$id)->update(['recruit_people'=>$recruit_people]);
-            //公司信息数
-            $count = DB::table('company')->where('id','=',$com_id)->value('message_count');
-            // dd($count);
-            //未读信息数加1
-            $message_count = $count + 1;
-            DB::table('company')->where('id','=',$com_id)->update(['message_count'=>$message_count]);
-
+            //查询该公司是否接收求职信息，接收的话则让该公司未读信息数加1，不接收则不加
+            $is_receive = DB::table('company')->where('id','=',$com_id)->value('is_receive');
+            // dd($is_receive);
+            if($is_receive == '2'){
+                //公司信息数
+                $count = DB::table('company')->where('id','=',$com_id)->value('message_count');
+                // dd($count);
+                //未读信息数加1
+                $message_count = $count + 1;
+                DB::table('company')->where('id','=',$com_id)->update(['message_count'=>$message_count]);
+            }
             //更新用户的申请职位字段（将该文章id添加到集合中）
             $application = DB::table('member')->where('id','=',$user_id)->value('application_id');
             $application_id = $id.','.$application;
@@ -515,12 +520,16 @@ class ArticleController extends Controller
             
             //将用户信息从该招聘信息数据库中删除
             $result = DB::table('article')->where('id','=',$id)->update(['recruit_people'=>$recruit_people]);
-            //公司信息数
-            $count = DB::table('company')->where('id','=',$com_id)->value('message_count');
-            //未读信息数减1
-            $message_count = $count - 1;
-            DB::table('company')->where('id','=',$com_id)->update(['message_count'=>$message_count]);
-
+            //查询该公司是否接收求职信息，接收的话则让该公司未读信息数减1，不接收则不减
+            $is_receive = DB::table('company')->where('id','=',$com_id)->value('is_receive');
+            if($is_receive == '2'){
+                //公司信息数
+                $count = DB::table('company')->where('id','=',$com_id)->value('message_count');
+                //未读信息数减1
+                $message_count = $count - 1;
+                DB::table('company')->where('id','=',$com_id)->update(['message_count'=>$message_count]);
+            }
+            
             //更新用户的申请职位字段(将该文章id从集合中删除)
             $application = DB::table('member')->where('id','=',$user_id)->value('application_id');
             $applicationArr = explode(',', rtrim($application,','));

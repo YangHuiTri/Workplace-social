@@ -39,6 +39,7 @@ class RegisterController extends Controller
             $mobile = request('mobile');
             //将数据存入$data数组中
             $data = [
+                'com_name' => $email,
                 'email' =>  $email,
                 'password'  =>  $password,
                 'mobile'    =>  $mobile,
@@ -78,6 +79,7 @@ class RegisterController extends Controller
             $mobile = request('mobile');
             //将数据存入$data数组中
             $data = [
+                'username'  =>  $email,
                 'email' =>  $email,
                 'password'  =>  $password,
                 'mobile'    =>  $mobile,

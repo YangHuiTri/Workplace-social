@@ -155,6 +155,8 @@ Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 	Route::post('setting/expect', 'Home\SettingController@expect');
 	//打开/关闭是否被推荐
 	Route::get('setting/tuijian', 'Home\SettingController@tuijian');
+	//打开/关闭是否接收求职信息
+	Route::get('setting/jieshou', 'Home\SettingController@jieshou');
 
 	//职位推荐
 	Route::get('recommend/index', 'Home\RecommendController@index');
@@ -166,6 +168,11 @@ Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 	Route::get('collection/add', 'Home\CollectionController@add');
 	//取消收藏
 	Route::get('collection/less', 'Home\CollectionController@less');
+
+
+
+	//公司员工分布
+	Route::get('homepage/fenbu/{id}', 'Home\HomepageController@fenbu');
 
 	
 

@@ -16,13 +16,17 @@ class SettingController extends Controller
 		$province = DB::table('area')->where('pid','1')->get();
 		$category = DB::table('category')->get();
 		if(Session::get('loginType') == 'member'){
+            //查询用户是否被推荐信息
 			$id = Auth::guard('member')->user()->id;
 			$is_recommend = DB::table('member')->where('id','=',$id)->value('is_recommend');
 			//展示视图
     		return view('home.setting.index', compact('province', 'category', 'is_recommend'));
 		}elseif(Session::get('loginType') == 'company'){
+            //查询公司是否接收求职信息
+            $id = Auth::guard('company')->user()->id;
+            $is_receive = DB::table('company')->where('id','=',$id)->value('is_receive');
 			//展示视图
-	    	return view('home.setting.index', compact('province', 'category'));
+	    	return view('home.setting.index', compact('province', 'category', 'is_receive'));
 		}
     	
     }
@@ -86,8 +90,22 @@ class SettingController extends Controller
     	// dd($result);
     	//返回输出
     	return $result ? '1' : '0';
+    }
 
-
+    //打开/关闭是否接收求职信息
+    public function jieshou(Request $request){
+        //接收命令（打开或关闭）
+        $command = $request->command;
+        $id = Auth::guard('company')->user()->id;
+        if($command == 'on'){
+            //打开接收
+            $result = DB::table('company')->where('id','=',$id)->update(['is_receive' => '2']);
+        }elseif($command == 'off'){
+            //关闭接收
+            $result = DB::table('company')->where('id','=',$id)->update(['is_receive'=>'1']);
+        }
+        //返回输出
+        return $result ? '1' : '0';
     }
 
 

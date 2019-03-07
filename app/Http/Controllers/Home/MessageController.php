@@ -25,6 +25,8 @@ class MessageController extends Controller
     		for($i = 0;$i < $length; $i++){
     			$data[] = $this->member_name($arr[$i]);
     		}
+            //是否接收求职信息
+            $is_receive = DB::table('company')->where('id','=',$id)->value('is_receive');
 
     		//（二）处理公司的动态消息
     		//点赞信息部分
@@ -122,7 +124,7 @@ class MessageController extends Controller
             // dd($recruit_cont);
             // dd($arr6);
     		//展示视图
-    		return view('home.message.index',compact('data','type','id','arr2','arr4','arr6','recruit_cont'));
+    		return view('home.message.index',compact('data','type','id','arr2','arr4','arr6','recruit_cont','is_receive'));
     	}elseif($type == 'member'){
     		//处理用户的动态消息
     		//点赞部分

@@ -47,20 +47,21 @@
 			<div style="width: 1140px; border:1px solid gray;margin: 40px 0;"></div>
 		@endif
 
-		
-		@if($type == 'company' && !empty($arr6['0']['0']))
-		<div id="message2">
-			<font style="font-size: 25px;color: #428BCA;margin-bottom: 20px;">申请信息</font><button id="qingchu" class="btn btn-primary" style="float: right;">全部清除</button><br>
-			@foreach($arr6 as $val)
-			<div class="alert alert-info" role="alert">
-				<strong>• New Message</strong>&nbsp;&nbsp;&nbsp;&nbsp;
-			    <a href="/home/homepage/index/member/{{$val['0']}}" class="alert-link">{{$val['2']}}</a>&nbsp;&nbsp;申请&nbsp;&nbsp;<a href="/home/article/recruit/{{$val['4']}}" class="alert-link">{{$val['3']}}</a>&nbsp;&nbsp;一职&nbsp;&nbsp;&nbsp;&nbsp;
-			    {{$val['1']}}
-			    <a href="/home/homepage/resume/{{$val['0']}}" style="float: right;margin-right: 10px;color: #245269;">查看履历</a>
+		@if($is_receive == '2')
+			@if($type == 'company' && !empty($arr6['0']['0']))
+			<div id="message2">
+				<font style="font-size: 25px;color: #428BCA;margin-bottom: 20px;">申请信息</font><button id="qingchu" class="btn btn-primary" style="float: right;">全部清除</button><br>
+				@foreach($arr6 as $val)
+				<div class="alert alert-info" role="alert">
+					<strong>• New Message</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+				    <a href="/home/homepage/index/member/{{$val['0']}}" class="alert-link">{{$val['2']}}</a>&nbsp;&nbsp;申请&nbsp;&nbsp;<a href="/home/article/recruit/{{$val['4']}}" class="alert-link">{{$val['3']}}</a>&nbsp;&nbsp;一职&nbsp;&nbsp;&nbsp;&nbsp;
+				    {{$val['1']}}
+				    <a href="/home/homepage/resume/{{$val['0']}}" style="float: right;margin-right: 10px;color: #245269;">查看履历</a>
+				</div>
+				@endforeach
+				<div style="width: 1140px; border:1px solid gray;margin: 40px 0;"></div>
 			</div>
-			@endforeach
-			<div style="width: 1140px; border:1px solid gray;margin: 40px 0;"></div>
-		</div>
+			@endif
 		@endif
 		
 	

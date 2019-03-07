@@ -99,7 +99,7 @@
 				<td width="341px">企业名：{{$res['0']->com_name}}</td>
 				<td width="341px">邮箱：{{$res['0']->email}}</td>
 				<td width="341px">联系电话：{{$res['0']->mobile}}</td>
-				<td width="341px">员工数：{{$res['0']->emp_count}}</td>
+				<td width="341px"><a href ='javascript:;' class="show" data="{{$res['0']->id}}" data-title="{{$res['0']->com_name}}" title="查看职员地区分布图" style="text-decoration: none;">员工数：{{$res['0']->emp_count}}</a></td>
 			</tr>
 			<tr align="center">
 				<td colspan="4">地址：{{$data['country']}}-{{$data['province']}}-{{$data['city']}}-{{$data['county']}}</td>
@@ -260,7 +260,27 @@
 <script type='text/javascript' src='/home/statics/js/script.js'></script>
 <script type='text/javascript' src='/home/statics/js/particles.js'></script>
 <script type='text/javascript' src='/home/statics/js/aos.js'></script>
-
+<script type="text/javascript" src="/home/layer/layer.js"></script>
+<script>
+//jquery代码
+$(function(){
+	//给查看按钮绑定点击事件
+	$('.show').on('click',function(){
+		//获取id
+		var id = $(this).attr('data');
+		//获取公文标题
+        var title = $(this).attr('data-title');
+        layer.open({
+            type: 2,
+            title: title,
+            shadeClose: true,
+            shade: 0,   //背景透明
+            area: ['850px', '90%'],
+            content: '/home/homepage/fenbu/'+id, //iframe的url
+        });
+	});
+});
+</script>
 </body>
 
 </html>

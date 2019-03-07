@@ -171,10 +171,20 @@
 			          			</span>
 			          	<span class="caret"></span></a>
 			          	<ul class="dropdown-menu">
-				            <li><a target="_blank" href="/home/homepage/index/{{Session::get('loginType')}}/{{Auth::guard('company')->user()->id}}"><span class="glyphicon glyphicon-home"> 主页</span></a></li>
-				            <li><a href="/home/setting/index" target="_blank"><span class="glyphicon glyphicon-cog"> 设置</span></a></li>
+				            <li>
+				            	<a target="_blank" href="/home/homepage/index/{{Session::get('loginType')}}/{{Auth::guard('company')->user()->id}}"><span class="glyphicon glyphicon-home"> 主页</span></a>
+				            </li>
+			            	<li>
+			            		<a href="/home/setting/index" target="_blank">
+			            			<span class="glyphicon glyphicon-cog"> 设置</span>
+			            		</a>
+			            	</li>
 				            <li role="separator" class="divider"></li>
-				            <li><a href="/home/login/logout"><span class="glyphicon glyphicon-off"> 退出登录</span></a></li>
+				            <li>
+				            	<a href="/home/login/logout">
+				            		<span class="glyphicon glyphicon-off"> 退出登录</span>
+				            	</a>
+				            </li>
 			          	</ul>
 
 	          		@elseif(Session::get('loginType') == 'member')
