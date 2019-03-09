@@ -191,21 +191,29 @@ class ArticleController extends Controller
                 'message_zan'=> $message_zan
     		]);
 
-            //文章作者的消息数减1
-            //先判断作者是company还是member
-            $author_type = $data['0']->author_type;//作者类型
-            $author_id = $data['0']->author_id;//作者id
-            if($author_type == 'company'){
-                $count = DB::table('company')->where('id','=',$author_id)->value('message_count');//查询原信息数量
-                $message_count = $count - 1;//信息数加1
-                //更新作者数据库
-                DB::table('company')->where('id','=',$author_id)->update(['message_count'=>$message_count]);
-            }elseif($author_type == 'member'){
-                $count = DB::table('member')->where('id','=',$author_id)->value('message_count');//查询原信息数量
-                $message_count = $count - 1;//信息数加1
-                //更新作者数据库
-                DB::table('member')->where('id','=',$author_id)->update(['message_count'=>$message_count]);
-            }
+            // //文章作者的消息数减1
+            // //先判断作者是company还是member
+            // $author_type = $data['0']->author_type;//作者类型
+            // $author_id = $data['0']->author_id;//作者id
+            // if($author_type == 'company'){
+            //     $count = DB::table('company')->where('id','=',$author_id)->value('message_count');//查询原信息数量
+            //     if($count < 1){
+            //         $message_count = 0;
+            //     }else{
+            //         $message_count = $count - 1;//信息数减1
+            //     }
+            //     //更新作者数据库
+            //     DB::table('company')->where('id','=',$author_id)->update(['message_count'=>$message_count]);
+            // }elseif($author_type == 'member'){
+            //     $count = DB::table('member')->where('id','=',$author_id)->value('message_count');//查询原信息数量
+            //     if($count < 1){
+            //         $message_count = 0;
+            //     }else{
+            //         $message_count = $count - 1;//信息数减1
+            //     }
+            //     //更新作者数据库
+            //     DB::table('member')->where('id','=',$author_id)->update(['message_count'=>$message_count]);
+            // }
     		//返回输出
 			return $result ? '1' : '0';
     	}
@@ -525,8 +533,12 @@ class ArticleController extends Controller
             if($is_receive == '2'){
                 //公司信息数
                 $count = DB::table('company')->where('id','=',$com_id)->value('message_count');
-                //未读信息数减1
-                $message_count = $count - 1;
+                if($count < 1){
+                    $message_count = 0;
+                }else{
+                    //未读信息数减1
+                    $message_count = $count - 1;
+                }
                 DB::table('company')->where('id','=',$com_id)->update(['message_count'=>$message_count]);
             }
             

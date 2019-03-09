@@ -490,8 +490,20 @@ function selectFile(){
     console.log(form.get('file'));
 }
 
+function getMsgCount(){
+	//发送ajax请求
+    $.get("/home/message/getCount",function(data){
+      //相应的处理代码
+      $('.badge').html(data);
+    });
+}
+
 
 $(function(){
+
+	//定时器，实时获取未读消息数
+	setInterval('getMsgCount()', 5000);
+
 	//点赞.取消赞
 	$('.zan').click(function(){
 		var id = $(this).attr('id');

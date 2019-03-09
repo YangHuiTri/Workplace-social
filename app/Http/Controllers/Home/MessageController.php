@@ -202,6 +202,26 @@ class MessageController extends Controller
     	
     }
 
+    //实时获取未读消息数
+    public function getCount(){
+        if(Session::get('loginType')=='company'){
+            //企业登录
+            //企业id
+            $id = Auth::guard('company')->user()->id;
+            //查询该用户消息数
+            $count = DB::table('company')->where('id', '=', $id)->value('message_count');
+            echo empty($count) ? '0' : $count;
+        }elseif(Session::get('loginType') == 'member'){
+            //普通用户登录
+            //用户id
+            $id = Auth::guard('member')->user()->id;
+            //查询该用户的消息数
+            $count = DB::table('member')->where('id', '=', $id)->value('message_count');
+            echo empty($count) ? '0' : $count;
+        }
+    }
+
+
     //查询用户信息(用于index方法中学校认证信息)
     public function member_name($id){
     	$data = DB::table('member')->where('id','=',$id)->get();

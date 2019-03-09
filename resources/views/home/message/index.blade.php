@@ -47,7 +47,7 @@
 			<div style="width: 1140px; border:1px solid gray;margin: 40px 0;"></div>
 		@endif
 
-		@if($is_receive == '2')
+		@if($type == 'company' && $is_receive == '2')
 			@if($type == 'company' && !empty($arr6['0']['0']))
 			<div id="message2">
 				<font style="font-size: 25px;color: #428BCA;margin-bottom: 20px;">申请信息</font><button id="qingchu" class="btn btn-primary" style="float: right;">全部清除</button><br>

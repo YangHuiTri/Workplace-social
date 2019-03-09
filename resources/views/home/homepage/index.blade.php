@@ -275,7 +275,7 @@ $(function(){
             title: title,
             shadeClose: true,
             shade: 0,   //背景透明
-            area: ['850px', '90%'],
+            area: ['850px', '98%'],
             content: '/home/homepage/fenbu/'+id, //iframe的url
         });
 	});

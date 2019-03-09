@@ -142,6 +142,8 @@ Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 
 	//个人信息
 	Route::get('message/index/{type}/{id}', 'Home\MessageController@index');
+	//实时获取未读消息数
+	Route::get('message/getCount', 'Home\MessageController@getCount');
 	//学校认证
 	Route::get('message/renzheng', 'Home\MessageController@renzheng');
 	//一键已读点赞和评论消息
