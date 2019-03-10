@@ -252,7 +252,7 @@
 
 
 	<div style="border: 1px solid #CFCFCF;position: fixed;left: 925px; background-color: #FFFFFF;float: right;width: 310px;margin-top: 5px;">
-		<div style="height: 280px;border-bottom: 1px solid #D9D9D9;"></div>
+		<div style="height: 280px;border-bottom: 1px solid #D9D9D9;"><br><center><img src="/home/images/work.png"></center></div>
 		<div style="height: 155px;border-bottom: 1px solid #D9D9D9;">
 			<div style="margin: 20px;line-height: 30px;color: #4F6878">&nbsp;&nbsp;&nbsp;&nbsp;关于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;帮助中心&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;隐私政策和条款﹀<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;广告发布&nbsp;&nbsp;&nbsp;&nbsp;商业服务﹀&nbsp;&nbsp;&nbsp;&nbsp;更多
 			</div>
