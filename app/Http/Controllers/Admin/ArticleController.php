@@ -24,6 +24,8 @@ class ArticleController extends Controller
     	$id = $request->id;
     	//从数据库中删除该文章
     	$result = DB::table('article')->where('id','=',$id)->where('article_type','=','article')->delete();
+        //删除该篇文章的评论信息
+        DB::table('comment')->where('article_id','=',$id)->delete();
     	//返回输出
     	return $result ? '1' : '0';
     }
