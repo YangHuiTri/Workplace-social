@@ -239,7 +239,7 @@
 		</li>
 		<li class="wechat">
 			<a class="socialicon"><i class="iconfont">&#xe609;</i></a>
-			<div class="wechatimg"><img src="/home/statics/images/49D3746D-7519-B709-83E4-65BD1927C4E7.jpg"></div>
+			<div class="wechatimg"><img src="/home/statics/images/wechat.jpg"></div>
 		</li>
 		<li>
 			<a title="QQ" class="socialicon" href="" target="_blank"><i class="iconfont" aria-hidden="true">&#xe616;</i></a>
