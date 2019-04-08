@@ -490,6 +490,7 @@ function selectFile(){
     console.log(form.get('file'));
 }
 
+//实时获取当前用户未读信息数
 function getMsgCount(){
 	//发送ajax请求
     $.get("/home/message/getCount",function(data){

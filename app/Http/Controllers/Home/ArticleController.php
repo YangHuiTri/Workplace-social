@@ -394,7 +394,7 @@ class ArticleController extends Controller
         //查询数据（省份的数据）
         $province = DB::table('area')->where('pid','1')->get();
     	//展示视图
-    	return view('home.article.addrecruit', compact('category','province'));
+    	return view('home.article.addRecruit', compact('category','province'));
     }
 
     //招聘动态详情

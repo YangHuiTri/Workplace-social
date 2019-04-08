@@ -50,11 +50,11 @@
 								<input class="form-control" type="password" name="password" id="">
 							</div>
 							<div class="radio">
-							   <label>
-							      <input type="radio" name="loginType" id="optionsRadios1" value="company" checked> 企业
+								<label>
+							      <input type="radio" name="loginType" id="optionsRadios1" value="member" checked> 用户
 							   </label>
 							   <label>
-							      <input type="radio" name="loginType" id="optionsRadios1" value="member" > 用户
+							      <input type="radio" name="loginType" id="optionsRadios1" value="company"> 企业
 							   </label>
 							</div>
 							<div class="form-group">

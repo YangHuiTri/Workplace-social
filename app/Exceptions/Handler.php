@@ -44,6 +44,9 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        // if ($exception) {
+        //     return response()->view('error.'.$exception->getStatusCode(), [],$exception->getStatusCode());
+        // }//此段代码用于自定义404等错误页面，在resource/views/error目录下创建{errorCode}.blade.php文件即自定义的页面，文件名如400.blade.php、403.blade.php
         return parent::render($request, $exception);
     }
 

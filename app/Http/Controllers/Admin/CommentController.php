@@ -11,7 +11,7 @@ class CommentController extends Controller
     //评论列表
     public function index(){
     	//查询数据
-    	$data = DB::table('comment')->orderBy('article_id','asc')->get();
+    	$data = DB::table('comment')->orderBy('article_id','asc')->get()->toArray();
     	//评论总数量
     	$tot = count($data);
     	//查询更多数据

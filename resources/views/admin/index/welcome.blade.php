@@ -100,7 +100,7 @@
 			</tr>
 			<tr>
 				<td>服务器域名</td>
-				<td>www.h-ui.net</td>
+				<td>www.workplace.com</td>
 			</tr>
 			<tr>
 				<td>服务器端口 </td>
