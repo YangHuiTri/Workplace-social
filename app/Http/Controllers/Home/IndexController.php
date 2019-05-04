@@ -26,7 +26,7 @@ class IndexController extends Controller
     	$tot = DB::table('article')->where('author_id','=',$author_id)->count();
     	//查询数据
     	// $data = DB::table('article')->orderBy('created_at','desc')->get();
-    	$data = DB::table('article')->orderBy('created_at','desc')->take(10)->get();
+    	$data = DB::table('article')->orderBy('created_at','desc')->take(50)->get();
         // $data = DB::table('article')->orderBy('created_at','desc')->paginate(10);
     	//展示首页视图
     	return view('home.index.index', compact('data','tot','zan_people'));

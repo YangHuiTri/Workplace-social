@@ -15,6 +15,7 @@
 <link rel="stylesheet" type="text/css" href="/admin/lib/Hui-iconfont/1.0.8/iconfont.css" />
 <link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/skin/default/skin.css" id="skin" />
 <link rel="stylesheet" type="text/css" href="/admin/static/h-ui.admin/css/style.css" />
+
 <!--/meta 作为公共模版分离出去-->
 
 <title>发布招聘信息</title>
@@ -119,7 +120,8 @@
 		<div class="row cl">
 			<label for="content" class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>职位描述：</label>
 			<div class="formControls col-xs-8 col-sm-9">
-				<textarea style="height: 240px;width: 500px;" name="content" class="form-control" id="content" wrap="physical"></textarea>
+				<!-- <textarea style="height: 240px;width: 500px;" name="content" class="form-control" id="content" wrap="physical"></textarea> -->
+				<script id="editor" type="text/plain" name="content" style="width:85%;height:300px;"></script>
 			</div>
 		</div>
 		{{ csrf_field() }}
@@ -133,6 +135,8 @@
 
 <!--_footer 作为公共模版分离出去-->
 <script type="text/javascript" src="/admin/lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="/home/baidu/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="/home/baidu/ueditor.all.min.js"> </script>
 <script src="/home/js/bootstrap.min.js"></script> 
 <script type="text/javascript" src="/admin/lib/layer/2.4/layer.js"></script>
 <script type="text/javascript" src="/admin/static/h-ui/js/H-ui.min.js"></script> 
@@ -145,6 +149,11 @@
 <script type="text/javascript" src="/admin/lib/jquery.validation/1.14.0/messages_zh.js"></script>
 <script type="text/javascript">
 $(function(){
+	//百度编辑器调用
+	var ue = UE.getEditor('editor',{toolbars: [
+	    ['undo','redo','bold','forecolor','justifyleft','justifyright','justifycenter','justifyjustify','fontsize','simpleupload','insertimage','emotion','map','insertunorderedlist','formatmatch','removeformat','link','unlink','fullscreen','autotypeset','touppercase','tolowercase','inserttable']
+	]});
+	
 	//在选择省份/州之后列出城市的数据
 	$('select[name=province_id]').change(function(){
 		//获取当前省份/州id

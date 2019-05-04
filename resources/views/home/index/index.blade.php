@@ -274,7 +274,11 @@
 		<div class="out" style="border: 1px solid #CFCFCF;position: relative;max-width: 550px;margin: 5px auto 10px;">
 			<a href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
 				<div style="height: 70px;position: relative;max-width: 550px;margin: 0 auto 0;background-color: #FFFFFF;">
-					<b><span class="glyphicon glyphicon-edit" style="color: #696C6F;margin: 25px;font-size: 17px;"><font size="4px" style="font-weight: bold;">发动态</font></span></b>
+					<b>
+						<span class="glyphicon glyphicon-edit" style="color: #696C6F;margin: 25px;font-size: 17px;">
+							<font size="4px" style="font-weight: bold;">发动态</font>
+						</span>
+					</b>
 				</div>
 			</a>
 			<div style="height: 40px;position: relative;max-width: 550px;margin: 0 auto 0;background-color: #F3F6F8;padding: 10px 15px;">

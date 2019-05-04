@@ -33,10 +33,10 @@
 				<th width="20">ID</th>
 				<th width="100">招聘职位</th>
 				<th width="80">职位描述</th>
-				<th width="45">职能性质</th>
+				<th width="40">职能性质</th>
 				<th width="70">职能类别</th>
 				<th width="70">工作地点</th>
-				<th width="45">工作经验</th>
+				<th width="40">工作经验</th>
 				<th width="45">学历要求</th>
 				<th width="100">发布人</th>
 				<th width="100">发布时间</th>
@@ -49,7 +49,17 @@
 				<td><input type="checkbox" value="{{$val->id}}" name=""></td>
 				<td>{{$val->id}}</td>
 				<td>{{$val->recruit_title}}</td>
-				<td><?php echo substr("$val->content",0,19).'...';?></td>
+				<td>
+					<?php
+						$str = strstr($val->content, "<img");
+						if($str){
+							$content = str_replace($str, '', $val->content);
+							echo substr("$content",0,19).'...';
+						}else{
+							echo substr("$val->content",0,19).'...';
+						}
+					?>
+				</td>
 				<td>
 					@if($val->recruit_type == '1')
 						全职

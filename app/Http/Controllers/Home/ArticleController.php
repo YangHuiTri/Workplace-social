@@ -358,9 +358,10 @@ class ArticleController extends Controller
             $city_id = $request->city_id;
     		//职能描述
     		//替换空格和换行
-			$pattern = array('/ /','/　/','/\r\n/','/\n/');
-			$replace = array('&nbsp;','&nbsp;','<br/>','<br/>');
-			$content = preg_replace($pattern, $replace, $request->content);
+			// $pattern = array('/ /','/　/','/\r\n/','/\n/');
+			// $replace = array('&nbsp;','&nbsp;','<br/>','<br/>');
+			// $content = preg_replace($pattern, $replace, $request->content);
+            $content = $request->content;
     		//招聘人id
     		$author_id = Auth::guard('company')->user()->id;
     		//招聘人名称
