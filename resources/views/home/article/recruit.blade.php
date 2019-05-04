@@ -33,7 +33,7 @@
 			-webkit-line-clamp:3; */
 		}
 		.thumbnail{
-			height: 260px;
+			height: 240px;
 		}
 
 	    .thumbnail:hover{
@@ -169,15 +169,15 @@
 
 		@if(Session::get('loginType') == 'company')
 			@if(Auth::guard('company')->user()->id == $data['0']->author_id)
-			<div style="background-color: white;margin: 20px auto 0;border-radius: 6px;">
+			<div style="background-color: white;margin: 20px auto 0;border-radius: 6px;max-width: 790px;">
 				<span style="font-size: 23px;margin: 10px;position: absolute;">为您推荐：</span><br><br><br>
 				<div class="row" style="margin: 0px 5px;">
 
 					@foreach($data4 as $val)
 					    <div class="col-sm-4 col-md-3" style="text-align: center;">
 					        <div class="thumbnail">
-					        	<div class="caption" style="height: 160px;">
-					        		<img src="{{$val['0']->avatar}}" style="width: 100px;height: 100px;border-radius: 50%;">
+					        	<div class="caption" style="height: 130px;">
+					        		<img src="{{$val['0']->avatar}}" style="width: 80px;height: 80px;border-radius: 50%;">
 					        		<h4><b>{{$val['0']->username}}</b></h4>
 					        	</div>
 					        	<span style="color: #616263;" class="glyphicon glyphicon-home">{{$val['0']->school}}</span><br><br>

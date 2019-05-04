@@ -33,7 +33,7 @@ class LoginController extends Controller
         $data['status'] = '2';  //要求状态为启用的用户
 
         //设置该账号已登录信息，准备放入数据库
-        Session::put('loginEmail',$email);
+        // Session::put('loginEmail',$email);
 
     	//如果为企业登录
     	if($loginType == 'company'){
@@ -42,12 +42,12 @@ class LoginController extends Controller
     		$count = DB::table('company')->where('email',$email)->count();
     		if($count > 0){
                 //判断该用户是否已经在别的地方登陆
-                $is_login = DB::table('company')->where('email', $email)->value('is_login');
-                if(!empty($is_login)){
-                    return redirect('/home/login/index')->withErrors([
-                            'loginError'    =>      '该账号已在其他地方登陆...'
-                        ]);
-                }
+                // $is_login = DB::table('company')->where('email', $email)->value('is_login');
+                // if(!empty($is_login)){
+                //     return redirect('/home/login/index')->withErrors([
+                //             'loginError'    =>      '该账号已在其他地方登陆...'
+                //         ]);
+                // }
                 //更新数据库，将session信息放入数据库中
                 $res = DB::table('company')->where('email', $email)->update(['is_login' => Session::get('loginEmail')]);
 
@@ -74,12 +74,12 @@ class LoginController extends Controller
     		$count = DB::table('member')->where('email',$email)->count();
     		if($count > 0){
                 //判断该用户是否已经在别的地方登陆
-                $is_login = DB::table('member')->where('email', $email)->value('is_login');
-                if(!empty($is_login)){
-                    return redirect('/home/login/index')->withErrors([
-                            'loginError'    =>      '该账号已在其他地方登陆...'
-                        ]);
-                }
+                // $is_login = DB::table('member')->where('email', $email)->value('is_login');
+                // if(!empty($is_login)){
+                //     return redirect('/home/login/index')->withErrors([
+                //             'loginError'    =>      '该账号已在其他地方登陆...'
+                //         ]);
+                // }
                 //更新数据库，将session信息放入数据库中
                 $res = DB::table('member')->where('email', $email)->update(['is_login' => Session::get('loginEmail')]);
 

@@ -141,18 +141,18 @@
 		    </ul>
 		    <form class="navbar-form navbar-left" action="/home/index/search" method="post">
 		        <div class="form-group">
-	          		<input type="text" name="search_text" class="form-control" placeholder="Search">
+	          		<input type="text" name="search_text" class="form-control" placeholder="">
 		        </div>
 		        {{csrf_field()}}
-		        <button type="submit" class="btn btn-default">Submit</button>
+		        <button type="submit" class="btn btn-default">搜索</button>
 		    </form>
 		    <ul class="nav navbar-nav navbar-right">
 		    	<li role="presentation">
 	    			@if(Session::get('loginType')=='company')
-		    			<a href="/home/message/index/company/{{Auth::guard('company')->user()->id}}" target="_blank"  style="color: white;">Messages <span class="badge">{{Auth::guard('company')->user()->message_count}}</span>
+		    			<a href="/home/message/index/company/{{Auth::guard('company')->user()->id}}" target="_blank"  style="color: white;">消息 <span class="badge">{{Auth::guard('company')->user()->message_count}}</span>
 		    			</a>
 		    		@elseif(Session::get('loginType') == 'member')
-		    			<a href="/home/message/index/member/{{Auth::guard('member')->user()->id}}" target="_blank"  style="color: white;">Messages <span class="badge">{{Auth::guard('member')->user()->message_count}}</span>
+		    			<a href="/home/message/index/member/{{Auth::guard('member')->user()->id}}" target="_blank"  style="color: white;">消息 <span class="badge">{{Auth::guard('member')->user()->message_count}}</span>
 		    			</a>
 		    		@endif
 		    	</li>
@@ -244,18 +244,18 @@
 			<center><font color="#666666">动态</font></center>
 		</div>
 
-		<div style="height: 70px;padding-top: 10px;background-color: #F5F5F5;">
+		<!-- <div style="height: 70px;padding-top: 10px;background-color: #F5F5F5;">
 			<center><font color="#666666" size="4px">9</font></center>
 			<center><font color="#666666">获取独家工具</font></center>
-		</div>
+		</div> -->
 	</div>
 
 
 	<div style="border: 1px solid #CFCFCF;position: fixed;left: 925px; background-color: #FFFFFF;float: right;width: 310px;margin-top: 5px;">
 		<div style="height: 280px;border-bottom: 1px solid #D9D9D9;"><br><center><img src="/home/images/work.png"></center></div>
-		<div style="height: 155px;border-bottom: 1px solid #D9D9D9;">
-			<div style="margin: 20px;line-height: 30px;color: #4F6878">&nbsp;&nbsp;&nbsp;&nbsp;关于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;帮助中心&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;隐私政策和条款﹀<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;广告发布&nbsp;&nbsp;&nbsp;&nbsp;商业服务﹀&nbsp;&nbsp;&nbsp;&nbsp;更多
-			</div>
+		<div style="height: 95px;border-bottom: 1px solid #D9D9D9;">
+			<!-- <div style="margin: 20px;line-height: 30px;color: #4F6878">&nbsp;&nbsp;&nbsp;&nbsp;关于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;帮助中心&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;隐私政策和条款﹀<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;广告发布&nbsp;&nbsp;&nbsp;&nbsp;商业服务﹀&nbsp;&nbsp;&nbsp;&nbsp;更多
+			</div> -->
 			<div style="padding: 0 20px;">
 				<center>
 					<font color="#666666"><img width="20px" src="/home/images/02.png">&nbsp;Workplace Corporation © 2018 年沪 ICP 备 17589602 号</font>
@@ -325,39 +325,6 @@
 		<!-- 模态框-结束 -->
 		<div style="width: 550px;border: 1px solid #D0D0D0;margin-left: 340px;margin-top: 15px;margin-bottom: 15px;"></div>
 		
-		<!-- 动态 -->
-<!-- 		<div class="post-album">
-			<div class="content">
-				<div class="content-info row">
-					<div id="avatar" class="col-lg-2" style="margin-right: -5px;">
-						<img width="50px" style="height: 50px;" src="/home/images/logo.png">
-					</div>
-					<div class="col-lg-10" style="height: 20px;margin-left:-15px;padding-top: 5px;">
-						<b style="font-size: 20px">Username</b>
-						<div class="row">
-							<div class="col-lg-12" style="height: 20px;padding-top: 10px;">
-								<font color="#676767">2018-11-22 10:20:35</font>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="content-text"><a style="text-decoration: none;color: #676767;" href="/home/article/index/33" target="_blank">相隔上一次的更新我掰手指数一数，下意识的双腿一软，给各位小哥哥小姐姐们跪下了。自从有了对象后，周末几乎落下了主题的进度（邪魅的笑）。一边开发新的主题，一边收集您们给我反馈回来的"臭虫"，还有新的主题后台看见了一些大神在</a></div>
-			</div>
-			<div style="background-color: #F3F6F8;width: 550px;margin-left: -15px;">
-				<div class="img"><a href="/home/article/index/33" target="_blank"><img height="320px" style="max-width: 550px;" src="/home/images/bg.jpg" /></a>
-				</div>
-			</div>
-			<div style="height: 25px;margin-left: 15px;" class="sanzi">
-				<font color="#666666">赞 (<span id="zan_count">3435</span>)&nbsp;▪&nbsp;评论 (298)</font>
-			</div>
-			<div style="width: 520px;border: 1px solid #E6E9EC;"></div>
-			<div style="height: 40px;">
-				<a id="zan" style="text-decoration: none;color: #333333;">
-					<span style="height: 30px;width: 30px;margin-left: 20px;padding-top: 10px;" class="glyphicon glyphicon-heart-empty"></span>
-				</a>
-				<span style="height: 30px;width: 30px;margin-left: 10px;padding-top: 10px;margin-right: 15px;" class="glyphicon glyphicon-pencil"></span>
-			</div>
-		</div> -->
 
 		@foreach($data as $value)
 		@if($value->article_type == 'recruit')
@@ -545,10 +512,10 @@ $(function(){
             contentType:false,  //一些文件上传http协议的关系，自行百度，如果上传的有文件，那么只能设置为false
             success: function(data){  //请求成功后的回调函数
             	if(data){
-            		alert('发送成功');
+            		layer.msg('发布成功!', { icon: 1, time: 2000 });
             		parent.window.location = parent.window.location;
             	}else{
-            		alert('发送失败');
+            		layer.alert('发布失败');
             	}
             }
         });

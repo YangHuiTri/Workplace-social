@@ -30,11 +30,11 @@ Route::group(['prefix' => 'admin','middleware'=>'auth:admin'],function(){
 	Route::get('index/index', 'Admin\IndexController@index');
 	Route::get('index/welcome', 'Admin\IndexController@welcome');
 
-	//管理员管理模块
-	Route::get('manager/index', 'Admin\ManagerController@index');//管理员列表
-	Route::get('manager/stop', 'Admin\ManagerController@stop');//停用管理员
-	Route::get('manager/start', 'Admin\ManagerController@start');//启用管理员
-	Route::get('manager/del', 'Admin\ManagerController@del');//删除管理员
+	// //管理员管理模块
+	// Route::get('manager/index', 'Admin\ManagerController@index');//管理员列表
+	// Route::get('manager/stop', 'Admin\ManagerController@stop');//停用管理员
+	// Route::get('manager/start', 'Admin\ManagerController@start');//启用管理员
+	// Route::get('manager/del', 'Admin\ManagerController@del');//删除管理员
 
 	//会员管理模块
 	Route::get('member/index', 'Admin\MemberController@index');//会员列表
@@ -75,7 +75,10 @@ Route::group(['prefix' => 'admin','middleware'=>'auth:admin'],function(){
 	Route::post('resume/del', 'Admin\ResumeController@del');//删除履历
 
 	//折线图
-	Route::get('public/charts', 'Admin\PublicController@charts');
+	Route::get('public/charts', 'Admin\PublicController@charts');//注册统计图
+	Route::get('public/charts2', 'Admin\PublicController@charts2');//职位统计图
+	Route::get('public/charts3', 'Admin\PublicController@charts3');//动态统计图
+
 
 
 

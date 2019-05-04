@@ -19,10 +19,10 @@
 <script type="text/javascript" src="/admin/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>注册统计图</title>
+<title>职位统计图</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统统计 <span class="c-gray en">&gt;</span> 注册统计图 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统统计 <span class="c-gray en">&gt;</span> 职位统计图 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="page-container">
 	<div id="container" style="min-width:700px;height:400px"></div>
 </div>
@@ -40,48 +40,47 @@ $(function () {
     var data = {!!$data2!!};
     var cont = {!!$cont2!!};
     var time = {!!$time2!!};
-    var data3 = {!!$data4!!};
-    var cont3 = {!!$cont4!!};
-    var time3 = {!!$time4!!};
+    console.log(time);
     Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: '最近十天新增职位数'
+    },
+    subtitle: {
+        text: ''
+    },
+    xAxis: {
+        categories: time,
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
         title: {
-            text: '月均注册量',
-            x: -20 //center
-        },
-        subtitle: {
-            text: '范围: 所有用户',
-            x: -20
-        },
-        xAxis: {
-            categories: time
-        },
-        yAxis: {
-            title: {
-                text: '人/次'
-            },
-            plotLines: [{
-                value: 0,
-                width: 1,
-                color: '#808080'
-            }]
-        },
-        tooltip: {
-            valueSuffix: '次'
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
+            text: '数量（个）'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y:.1f} 个</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
             borderWidth: 0
-        },
-        series: [{
-            name: '普通用户',
-            data: cont
-        },{
-            name:'企业用户',
-            data: cont3
-        } ]
-    });
+        }
+    },
+    series: [{
+        name: '数量',
+        data: cont
+
+    }, ]
+});
 });
 </script>
 </body>

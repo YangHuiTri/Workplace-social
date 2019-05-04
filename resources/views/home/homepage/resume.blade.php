@@ -404,7 +404,7 @@ $(function(){
 		//下载前将新增按钮和下载按钮隐藏
 		$('.add-project').hide();
 		$('#download').hide();
-		if(confirm("您确认下载该PDF文件吗?")){
+		if(layer.confirm("您确认下载该用户简历吗?")){
 	        var pdf = new jsPDF('p','pt','a4');
 	    	// 设置打印比例 越大打印越小
 	        pdf.internal.scaleFactor = 2;
