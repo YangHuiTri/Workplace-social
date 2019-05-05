@@ -54,20 +54,21 @@
 		@if(!isset($res['0']->com_name))
 			<a href="/home/homepage/resume/{{$res['0']->id}}" target="_blank" title="查看简历">
 				<figure>
-					<img style="width: 90px;height: 90px;" class="custom-logo avatar" src="{{$res['0']->avatar}}" />
+					<img style="width: 100px;height: 100px;" class="custom-logo avatar" src="{{$res['0']->avatar}}" />
 				</figure>
 			</a>
 		@else
 			<figure>
-				<img style="width: 90px;height: 90px;" class="custom-logo avatar" src="{{$res['0']->avatar}}"/>
+				<img style="width: 100px;height: 100px;" class="custom-logo avatar" src="{{$res['0']->avatar}}"/>
 			</figure>
 		@endif
+		<br>
 		<h3 class="blog-description"><p>
 			@if($data['type'] == 'company')
 				@if($res['0']->com_name)
-					{{$res['0']->com_name}}
+					{{$res['0']->com_name}}&nbsp;
 					@if($data['id'] == $data['login_id'])
-						<a href="/home/edit/index/{{$data['type']}}/{{$res['0']->id}}" title="编辑基本信息"><span class="glyphicon glyphicon-pencil"></span></a>
+						<a href="/home/edit/index/{{$data['type']}}/{{$res['0']->id}}" title="编辑基本信息"><span class="glyphicon glyphicon-pencil" style="color: #CDCDCD;"></span></a>
 					@endif
 				@else
 					企业名
@@ -76,7 +77,7 @@
 					@endif
 				@endif
 			@elseif($data['type'] == 'member')
-				@if($res['0']->username)
+				@if($res['0']->username)&nbsp;
 					{{$res['0']->username}}
 					@if($data['id'] == $data['login_id'])
 						<a href="/home/edit/index/{{$data['type']}}/{{$res['0']->id}}" title="编辑基本信息"><span class="glyphicon glyphicon-pencil"></span></a>
@@ -92,7 +93,7 @@
 		</h3>
 	</div>
 	
-	<div style="margin-top: 32px">
+	<!-- <div style="margin-top: 32px">
 	<table style="height: 110px;font-size: 15px" border="0" cellpadding="0" cellspacing="0">
 		@if($data['type'] == 'company')
 			<tr align="center">
@@ -152,7 +153,9 @@
 		@endif
 
 	</table>
-	</div>
+	</div> -->
+
+
 	<!-- .site-branding -->
 	<div class="decor-part">
 		<div id="particles-js"></div>
@@ -163,6 +166,74 @@
 	<div class="container">
 		<article itemscope="itemscope">
 			<div class="posts-list js-posts">
+
+
+				<div class="container" style="width: 1000px;">
+				<table style="height: 110px;font-size: 15px;margin-top: -5%;" border="0" cellpadding="0" cellspacing="0">
+					@if($data['type'] == 'company')
+						<tr align="center">
+							<td width="341px">企业名：{{$res['0']->com_name}}</td>
+							<td width="341px">邮箱：{{$res['0']->email}}</td>
+							<td width="341px">联系电话：{{$res['0']->mobile}}</td>
+							<td width="341px">
+								<a href ='javascript:;' class="show" data="{{$res['0']->id}}" data-title="{{$res['0']->com_name}}" title="查看职员地区分布图" style="text-decoration: none;color: orange;">员工数：{{$res['0']->emp_count}}</a>
+							</td>
+						</tr>
+						<tr align="center">
+							<td width="341px">地址：{{$data['country']}}-{{$data['province']}}-{{$data['city']}}-{{$data['county']}}</td>
+							<td colspan="3"></td>
+						</tr>
+					@elseif($data['type'] == 'member')
+						<tr align="center">
+							<td>用户名：{{$res['0']->username}}</td>
+							<td>性别：
+								@if($res['0']->gender == '1')
+									男
+								@elseif($res['0']->gender == '2')
+									女
+								@else
+									保密
+								@endif
+							</td>
+							<td>年龄：{{$res['0']->age}}</td>
+							<td>邮箱：{{$res['0']->email}}</td>
+						</tr>
+						<tr align="center">
+							<td>联系电话：{{$res['0']->mobile}}</td>
+							<td>学历：
+								@if($res['0']->education == '1')
+									高中
+								@elseif($res['0']->education == '2')
+									大专
+								@elseif($res['0']->education == '3')
+									本科
+								@elseif($res['0']->education == '4')
+									硕士
+								@elseif($res['0']->education == '5')
+									博士
+								@else
+									其他
+								@endif
+							</td>
+							<td>毕业院校：
+								@if(isset($data['school']))
+									<span class="glyphicon glyphicon-home"></span>&nbsp;<a style="text-decoration: none;" href="/home/homepage/index/company/{{$data['school_id']}}">{{$data['school']}}</a>&nbsp;
+									@if($res['0']->school_validate == '1')
+										<button type="button" disabled style="height: 20px;line-height:5px;width: 60px;padding-left: 5px" class="btn btn-default">未认证</button>
+									@elseif($res['0']->school_validate == '2')
+										<button type="button" disabled style="height: 20px;line-height:5px;width: 70px;padding-left: 5px" class="btn btn-warning">✔已认证</button>
+									@endif
+								@endif
+							</td>
+							<td>地址：{{$data['country']}}-{{$data['province']}}-{{$data['city']}}-{{$data['county']}}
+							</td>
+						</tr>
+					@endif
+
+				</table>
+			</div>
+
+
 
 				<div class="post post-layout-list" data-aos="fade-up">
 					<div class="status_list_item icon_kyubo">
@@ -180,6 +251,7 @@
 						</div>
 					</div>
 				</div>
+
 				<h1 style="margin-left: 170px;color: #0066CC">动态</h1>
 				<hr style="height:1px;border:none;border-top:1px dashed #0066CC;" /><br>
 				
@@ -228,6 +300,7 @@
 
 
 			</div>
+		</article>
 	</div>
 </div>
 

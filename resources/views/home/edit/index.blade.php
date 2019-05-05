@@ -189,7 +189,7 @@
 		</div>
 
 			<div class="row cl">
-				<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>就业公司：</label>
+				<label class="form-label col-xs-4 col-sm-3">就业公司：</label>
 				<div class="formControls col-xs-8 col-sm-9">
 					<span class="select-box" style="width:230px;">
 						<select class="select" name="com_id" size="1">
