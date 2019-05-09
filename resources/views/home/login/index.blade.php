@@ -41,12 +41,12 @@
 							{{csrf_field()}}
 							<div class="form-group">
 								<span class="glyphicon glyphicon-envelope"></span>
-								<label for="">EMAIL</label>
+								<label for="">邮箱</label>
 								<input class="form-control" type="text" name="email" id="">
 							</div>
 							<div class="form-group">
 								<span class="glyphicon glyphicon-lock"></span>
-								<label for="">PASSWORD</label>
+								<label for="">密码</label>
 								<input class="form-control" type="password" name="password" id="">
 							</div>
 							<div class="radio">
