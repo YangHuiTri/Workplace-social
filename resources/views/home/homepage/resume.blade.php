@@ -43,7 +43,7 @@
 	<div class="container" style="background-color: white;width: 850px;margin-top: 20px;" id="pdf">
 
 		<div class="page-header">
-		  <h1>Personal Resume <small>Take a minute to look</small></h1>
+		  <h1>{{$res['0']->username}} <small>个人简历</small></h1>
 		</div>
 
 		
