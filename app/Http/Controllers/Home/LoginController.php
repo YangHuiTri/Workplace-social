@@ -49,7 +49,9 @@ class LoginController extends Controller
                 //         ]);
                 // }
                 //更新数据库，将session信息放入数据库中
+
                 // $res = DB::table('company')->where('email', $email)->update(['is_login' => Session::get('loginEmail')]);
+
 
     			$result = Auth::guard('company')->attempt($data);
 	    		if($result){
@@ -81,7 +83,9 @@ class LoginController extends Controller
                 //         ]);
                 // }
                 //更新数据库，将session信息放入数据库中
+
                 // $res = DB::table('member')->where('email', $email)->update(['is_login' => Session::get('loginEmail')]);
+
 
     			$result = Auth::guard('member')->attempt($data);
 	    		if($result){
@@ -109,6 +113,7 @@ class LoginController extends Controller
     	if(Session::get('loginType') == 'company'){
             //先清空数据库中已登录信息
             // DB::table('company')->where('email', Session::get('loginEmail'))->update(['is_login' => '']);
+
     		//退出登录
     		Auth::guard('company')->logout();
     		//清除session
