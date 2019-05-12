@@ -242,6 +242,9 @@ class MessageController extends Controller
     	//3、将公司未读信息数减1
     	$count = $data['0']->message_count;
     	$message_count = $count - 1;
+        if($message_count <= 0){
+            $message_count = 0;
+        }
     	//4、更新该公司的数据库
     	$result = DB::table('company')->where('id','=',$com_id)->update([
     		'need_validate'=>$need_validate,
