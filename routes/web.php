@@ -110,6 +110,8 @@ Route::group(['prefix' => 'home'], function(){
 Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 	//首页搜索
 	Route::post('index/search', 'Home\IndexController@search');
+	//点击加载更多ajax
+	Route::get('index/clickMore', 'Home\IndexController@clickMore');
 	//个人主页
 	Route::get('homepage/index/{type}/{id}', 'Home\HomepageController@index');
 	//个人履历
@@ -138,6 +140,8 @@ Route::group(['prefix'=>'home','middleware'=>['LoginCheck']],function(){
 	Route::any('article/addRecruit', 'Home\ArticleController@addRecruit');
 	//招聘信息详情
 	Route::get('article/recruit/{id}', 'Home\ArticleController@recruit');
+	//点击换一批推荐者
+	Route::post('article/getOther', 'Home\ArticleController@getOther');
 	//申请职位
 	Route::get('article/shenqing', 'Home\ArticleController@shenqing');
 	//申请记录

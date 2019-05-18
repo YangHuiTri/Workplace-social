@@ -315,9 +315,6 @@ class MessageController extends Controller
         //公司信息未读数减$cont
         $count = DB::table('company')->where('id','=',$id)->value('message_count');
         $message_count = $count - $cont;
-        if($message_count <= 0){
-		$message_count = 0;
-	}
         DB::table('company')->where('id','=',$id)->update(['message_count'=>$message_count]);
         //返回输出
         return $result ? '1' : '0';

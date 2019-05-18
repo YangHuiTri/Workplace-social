@@ -170,11 +170,12 @@
 		@if(Session::get('loginType') == 'company')
 			@if(Auth::guard('company')->user()->id == $data['0']->author_id)
 			<div style="background-color: white;margin: 20px auto 0;border-radius: 6px;max-width: 790px;">
-				<span style="font-size: 23px;margin: 10px;position: absolute;">为您推荐：</span><br><br><br>
-				<div class="row" style="margin: 0px 5px;">
+				<span style="font-size: 23px;margin: 10px;position: absolute;">为您推荐：</span><button id="getOther" class="btn btn-default glyphicon glyphicon-refresh" style="float: right;margin: 10px;" title="换一批"></button><br><br><br>
+				<div class="row tuijian" style="margin: 0px 5px;">
+					<span class="target"></span>
 
 					@foreach($data4 as $val)
-					    <div class="col-sm-4 col-md-3" style="text-align: center;">
+					    <div class="col-sm-4 col-md-3 more" style="text-align: center;">
 					        <div class="thumbnail">
 					        	<div class="caption" style="height: 130px;">
 					        		<img src="{{$val['0']->avatar}}" style="width: 80px;height: 80px;border-radius: 50%;">
@@ -234,6 +235,18 @@ $(function(){
 			});
 		}
 		
+	});
+
+	$('#getOther').on('click',function(){
+		var id = {{$data['0']->id}};//文章id
+		$.post('/home/article/getOther',{'id':id, '_token':'{{csrf_token()}}'},function(data){
+			if(data){
+				$('.more').html('');
+				for(i=0;i<data.length;i++){
+					$('.target').after('<div class="col-sm-4 col-md-3 more" style="text-align: center;"><div class="thumbnail"><div class="caption" style="height: 130px;"><img src="'+data[i].avatar+'" style="width: 80px;height: 80px;border-radius: 50%;"><h4><b>'+data[i].username+'</b></h4></div><span style="color: #616263;" class="glyphicon glyphicon-home">'+data[i].school+'</span><br><br><a href="/home/homepage/resume/'+data[i].id+'" class="btn btn-default" style="border:1px solid #0073B1; color: #0073B1">点击查看</a></div></div>');
+				}
+			}
+		});
 	});
 
 

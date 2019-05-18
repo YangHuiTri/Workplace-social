@@ -449,7 +449,7 @@ class ArticleController extends Controller
         //工作省份
         $province_id = $data['0']->province_id;
         //符合要求的用户
-        $users = DB::table('expectation')->where('category_id','=',$category_id)->where('status','<','3')->get();
+        $users = DB::table('expectation')->where('category_id','=',$category_id)->where('status','<','3')->take(4)->get();
         $length = count($users);
         //查询符合要求的用户的信息
         for ($i=0; $i < $length; $i++) { 
@@ -473,6 +473,34 @@ class ArticleController extends Controller
         }
     	//展示视图
     	return view('home.article.recruit', compact('data', 'data3', 'data4','collectionArr','applicationArr'));
+    }
+
+    //ajax更换推荐者
+    public function getOther(Request $request){
+        //接收文章id
+        $id = $request->id;
+        //查询数据
+        $data = DB::table('article')->where('id','=',$id)->get();
+        //职能类别
+        $category_id = $data['0']->category_id;
+        //符合要求的用户
+        $users = DB::table('expectation')->where('category_id','=',$category_id)->where('status','<','3')->get();
+        $users = json_decode($users, true);
+        // dd($users);
+        $k = array_rand($users, 4);
+        // dd($k);
+
+        foreach($k as $key=>$value){
+            $data[$key] = DB::table('member')->where('id','=',$users[$value]['user_id'])->get();
+            // dd($data);
+            $data[$key]['0']->school = DB::table('company')->where('id','=',$data[$key]['0']->school_id)->value('com_name');
+            $data[$key] = $data[$key][0];
+        }
+            
+
+        
+        // dd($data);
+        return response()->json($data);
     }
 
     //申请、取消申请职位
